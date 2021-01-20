@@ -292,9 +292,9 @@ COUNT(CustomerID)	Country
 											- let's replace 1s with 11s and 0s with 10s:
 <!-- start -->
 <pre>
-update tblTest set Nmbr = case
- when Nmbr = 0 then 10
- else 11 end;
+UPDATE tblTest SET Nmbr = case
+ WHEN Nmbr = 0 THEN 10
+ ELSE 11 END;
 </pre>
 <!-- end -->
 										</li>
