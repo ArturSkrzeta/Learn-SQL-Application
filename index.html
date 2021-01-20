@@ -46,47 +46,579 @@
 							<section id="one">
 								<div class="container">
 									<header class="major">
-										<h2>My In Depth SQL Comprehension</h2>
-
+										<h2>My In Depth Python Comprehension</h2>
 										<h3>Intro</h3>
+										<p style="text-align: justify;">In this section, I describe all my knowledge on Python I have managed to gather so far. It contains Python pure architecture, concepts and language-specific properties.</p>
 
-										<p style="text-align: justify;">SQL is the declarative lanuguage which we use to say what we want to get and computer needs to figure out the computation tasks to provide quieried result.
-											In this post I put my notes and examples that helps me to understand different aspects of SQL, enjoy :) .</p>
-
-										<h5>In this section I describe following concepts:</h5>
-										<ul>
-											<a href="#join"><li>JOIN</li></a>
-											<a href="#union"><li>UNION</li></a>
-											<a href="#except"><li>EXCEPT</li></a>
+										<h5>You can navigate to following concepts here:</h5>
+										<ul class="navi">
+											<a href="#python"><li>Python general info</li></a>
+											<a href="#first_class_object"><li>First class object</li></a>
+											<a href="#decorators"><li>Decorators</li></a>
+											<a href="#namespace"><li>Namespace</li></a>
+											<a href="#oop"><li>Object-oriented programming</li></a>
+											<a href="#methods"><li>Regular, class and static methods</li></a>
+											<a href="#getters_and_settters"><li>Getters and setters</li></a>
+											<a href="#eafp"><li>Easier to Ask Forgiveness than Permission (EAFP)</li></a>
+											<a href="#variables"><li>Varaiables name objects in the memory</li></a>
+											<a href="#immutability"><li>Immutability</li></a>
+											<a href="#mutability"><li>Mutability</li></a>
+											<a href="#passing_parameters"><li>Passing by value vs by reference</li></a>
 										</ul>
 
-										<h5>Terminology</h5>
+										<p id="python" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Python</b></p>
+
 										<ul>
-											<li><b>Primary key</b> - a field or fields combination that idetifies a specific row uniquely. It implicits NOT NULL constraint and hast to be UNIQUE.</li>
-											<li><b>Foreign key</b> - it references primary key of another table bulding relationship between tables. It can be repeated in one to many relationship.
+											<li>Pyhon is the interpreted programming language and its interpreter runs code from top to bottom, from right to left linearly.
+												Almost everything is executable during run-time of code.
+												This is in opostion to Java or C where entire code is complied by the compiler to the machine's bucekt of bits before it runs.
+											</li>
+											<li>For example Python's class is simply executable code during runtime:
+												<br>
+<!-- start -->
+<pre>
+for _ in range(10)
+  class Base:
+    pass
+</pre>
+<!-- end -->
+												- The code above defines <code>class Base</code> 10 times as the for loop goes.
+											</li>
+											<li>Everything in Python is an object:
+												<br>
+<!-- start -->
+<pre>
+def add(x,y):
+  return x + y
+
+add
+# &ltfunction add at 0x002F6850&gt
+</pre>
+<!-- end -->
+												- Python interpreter can tell us where the function as the object is located in the memeory (output above).
+											</li>
+											<li>Python supports both Object-oriented Programming (OOP) and Functional Programming (FP):
 												<br><br>
 												<table>
-												<tr style="background-color: #223639; color: #ffff;">
-													<td>
-													customers<br>
-													- <u>customer_id: <span style="color:#00ffea;">pk</span> integer</u><br>
-													- phone: string<br>
-													- email: string
-													</td>
-													<td>
-													orders<br>
-													- order_id: integer<br>
-													- status: string<br>
-													- <u>customer_id: <span style="color:#00ffea;">fk</span> integer</u>
-													</td>
-												</tr>
+													<thead>
+														<tr>
+															<th>OOP</th>
+															<th>FP</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Object creation and manipulation with specific methods.</td>
+															<td>Function can be used as <b>first class object</b>.</td>
+														</tr>
+														<tr>
+															<td>Object-oriented featured like inheritance, encapsultaion, polymorphism.</td>
+															<td>Supports lambda function characteristic for functional paradigm.</td>
+														</tr>
+													</tbody>
 												</table>
-												- In above example pk stands for primary key and fk stands for foreign key.<br>
-												- In one to many relationship: one customer can have many orders, so we can find one customer multiple times in the orders table.<br>
-												- As per one to many relationship, one order cannot have multiple customers.
 											</li>
-											<li>Normalization - aiming for minimizing redundancy and dependency within tables.</li>
+											<li id="first_class_object">First class object:
+													<br>
+													- function can be treated like an object,<br>
+													- function can be passed as an argument to another function.<br>
+<!-- start -->
+<pre>
+def <span style="color:#00ffea;">square(</span>x<span style="color:#00ffea;">)</span>:
+  return x*x
+
+def <span style="color:#ff6fcb;">my_map(</span>func, lst<span style="color:#ff6fcb;">)</span>
+  result = []
+  for i in lst:
+    result.append(func(i))
+  return result
+
+squares = <span style="color:#ff6fcb;">my_map(</span><span style="color:#00ffea;">square</span>, [1,2,3,4,5]<span style="color:#ff6fcb;">)</span>
+
+squares
+# [1,4,9,16,25]
+</pre>
+<!-- end -->
+													✔ <code>square</code> function has been passed to the <code>my_map</code> unexecuted (without brackets).<br>
+													✔ It's being executed later in <code>my_map</code>'s body for every item in the passed list.<br>
+													<br>
+													- function can be assigned to a variable:
+<!-- start -->
+<pre>
+sream = print
+
+scream("Hello!")
+# Hello!
+</pre>
+<br>
+<!-- end -->
+													- function can be returned by another function:<br>
+<!-- start -->
+<pre>
+def <span style="color:#00ffea;">outer_func()</span>
+  message = "Hello!"
+
+  def <span style="color:#ff6fcb;">inner_func()</span>:
+    print(message)
+
+  return <span style="color:#ff6fcb;">inner_func</span>
+
+welcome_func = <span style="color:#00ffea;">outer_func()</span>
+welcome_func()
+
+-------------
+# output
+# Hello!
+</pre>
+<!-- end -->
+												✔ <code>outer_func</code> being executed returns <code>inner_func</code> that waits for its execution.<br>
+												✔ <code>inner_func</code> is assigned to variable <code>welcome_func</code> which can be executed as the same as every function.<br>
+												✔ <code>inner_func</code> is also so-called <b><u>closure</u></b> which is every inner function in the body of outer function.
+														Closure remembers and has access to variables in the local scope it was created.
+														Closure has an access to that variable even after the outer function has finished executing.
+														In this case, <code>inner_func</code> can access <code>member</code> variable in the local scope of <code>outer_fun</code>.
+											</li>
+											<br>
+											<li id="decorators">Decorators:
+												<br>
+												- Decorator is a function that takes another functions as an argument, extends its functionality and returns another function without altering the original function's code that was passed in.<br>
+<!-- start -->
+<pre>
+def <span style="color:#00ffea;">decorator_fun(</span>original_fun<span style="color:#00ffea;">)</span>:
+    def <span style="color:#ff6fcb;">wrapper_fun(</span>*args,**kwargs<span style="color:#ff6fcb;">)</span>:
+        print(f'Wrapper executed this before {original_fun.__name__} runs.')
+        return original_fun(*args,**kwargs)
+    return <span style="color:#ff6fcb;">wrapper_fun</span>
+
+def <span style="color:#ffbf00;">display_info()</span>:
+    print('Displaying basic info')
+
+decorated_display_info = <span style="color:#00ffea;">decorator_fun(</span><span style="color:#ffbf00;">display_info</span><span style="color:#00ffea;">)</span>
+decorated_display_info()
+
+--------------
+# output
+# Wrapper executed this before display_info runs.
+# Displaying basic info
+</pre>
+<!-- end -->
+												✔ <code>wrapper_fun</code> is a closure that remembers passed argument to <code>decorator_fun</code> even though <code>decorator_fun</code> finishes execution first.<br>
+												✔ Inside the <code>wrapper_fun</code> we append additional functionality before running original function.<br>
+												✔ <code>decorator_fun(display_info)</code> returns <code>wrapper_fun</code> that is waiting to be executed and remembers <code>display_info</code> function as a passed argument to the decorator.<br>
+												✔ Executing <code>decorated_display_info()</code> executes <code>wrapper_fun</code> returining <code>original_fun</code> being executed as well.
+											</li>
+
+											<li>Pythonic way to use decorator:
+<!-- start -->
+<pre>
+@decorator_fun
+def <span style="color:#ffbf00;">display_info()</span>:
+    print('Displaying basic info')
+
+<span style="color:#ffbf00;">display_info()</span>
+
+-------------
+# output
+# Wrapper executed this before display_info runs.
+# Displaying basic info
+</pre>
+<!-- end -->
+												✔ <code>@decorator_fun</code> means decorator applied that extend basic <code>display_info</code> function.
+											</li>
 										</ul>
+
+
+										<p id="namespace" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Namespace</b></p>
+
+										<ul>
+											<li>There is a variable scope hierarchy:
+												<br>
+												1. Local scope (within a function).<br>
+												2. Enclosing scope (local scope of outer (enclosing) function).<br>
+												3. Global scope (top level of a module).<br>
+												4. Built-in.
+											</li>
+											<li>Local scope within a function saves us from using and, most important, from overwriting global variables.</li>
+											<li>Working with namesapces:
+<!-- start -->
+<pre>
+sream = print
+scream("Hello!")
+</pre>
+<!-- end -->
+												- Above code defines <code>scream</code> as alias for the exisiting python's <code>print</code> function.<br>
+												- Assignment of <code>scream = print</code> introduces the identifier <code>scream</code> into the current namespace with the value being the object that represents built-in function.<br>
+												- When assignment of an identifier (variable) to a value (object) happens, the definition in being made in the current namespace.<br>
+												- Python implements namespaces with ist own dictionary that maps each identifier to associated object.<br>
+												- When top-level assignment - we assign variable to an object in <b>the global scope</b>.<br>
+												- When assignment within a function  - we assign variable to an object in <b>the local scope</b>.<br>
+												- Example: assignment <code>x = 5</code> within a function has no effect on the identifier <code>x</code> outside.
+											</li>
+											<li>Namespace resolution:
+												<br>
+												- Python searches three scopes for a called name:<br>
+												1. the local (L),<br>
+												2. then the global (G),<br>
+												3. the built-in (B)<br>
+												and stops at the first place the name is found.<br>
+												- In practice, when we want to access atribute using dot operator syntax, the Python interpreter runs a name resolution process that looks up for a called name, checking:<br>
+												1. local instance scope,<br>
+												2. class scope,<br>
+												3. supercalss within inheritance hierarchy,<br>
+												4. it keeps seraching, otherwise it raises <b>AttributeError</b> when not found.
+											</li>
+										</ul>
+
+										<p id="oop" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Object-oriented programming</b></p>
+
+										<ul>
+											<li>Object is an entity encapsulating data with methods for manipulating the data.</li>
+											<li>Object implementation goes with:
+												<br>
+												- <u>instance dictionary</u>: holds state (data) and points to its class,<br>
+												- <u>class dictionary</u>: holds functions (methods) for manipulating the data.<br>
+											</li>
+											<li>Special method <b>__init__</b>:
+												<br>
+												- Calling the class during instatiation creates instance that is being referred by the class with a key-word <b>self</b>.<br>
+												- In fact, <b>__init__</b> is not a constructor, it is an initializer that takes an instance <b>self</b> and populates it with attributes (data) that <b>__init__</b> receives.
+											</li>
+											<li>
+<!-- start -->
+<pre>
+class <span style="color:#00ffea;">User</span>:
+
+  def __init__(self, name, surname):
+    self.name = name
+    self.surname = surname
+    self.email = name + '.' + surname + '@myshop.com'
+
+</pre>
+<!-- stop	-->
+												- The goal of instance variable <b>self</b> is to take unique data for the specific instance.<br>
+												- The goal of <b>__init__</b> is to populate the instance with that data.
+											</li>
+											<li>Inheritance:
+												<br>
+												- ...
+											</li>
+											<li>Subclass:
+												<br>
+												- A class that delegates work to another class (parentclass).<br>
+												- A subclass and its parent-class are just two different dictionaries that contain functions to manipulate the data.<br>
+												- A sublcass points to ist parent due to flow: instance dictionary - > subclass dictionary -> parent-class dictionary.<br>
+												- Using subclasses can be used as a techique for code re-use.<br>
+												- In fact, a sublcass is in charge. It decides what work gets delegated.
+											</li>
+										</ul>
+
+										<p id="methods" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Regular methods, class methods, static methods</b></p>
+
+										<ul>
+											<li>Mehtods:
+												<br>
+												✔ <b>Regular methods</b> within a class take <b>self</b> as the first parameter. Regular methods manipulates object's data.<br>
+												✔ <b>Class methods</b> take <b>cls</b> as the first parameter. Class methods manipulates class's data. It can also play a role of alternatice constructor (more below).<br>
+												✔ <b>Static methods</b> takes nor <b>self</b> neither <b>cls</b> parameter. Static methods behaves like a regular function but they are included in a class body becasue of its logical connection to that class.<br>
+											</li>
+											<li>Class methods:
+<!-- start -->
+<pre>
+class <span style="color:#00ffea;">User</span>:
+
+    def __init__(self, first, last, gold):
+        self.first = first
+        self.last = last
+        self.<span style="background-color:#ad5353;">email = f'{first.lower()}.{last.lower()}@company.com'</span>
+
+    <span style="color:#ff6fcb;">@classmethod</span>
+    def <span style="color:#6fff75;">create_user_from_string(</span><span style="color:#ffbf00;">cls</span>, str<span style="color:#6fff75;">)</span>:
+        first, last, gold = str.split("-")
+        return <span style="color:#ffbf00;">cls(</span>first, last, int(gold)<span style="color:#ffbf00;">)</span>
+
+user_1 = <span style="color:#00ffea;">User(</span>'Artur', 'Skrzeta', 1000<span style="color:#00ffea;">)</span>
+user_2 = <span style="color:#00ffea;">User</span>.<span style="color:#6fff75;">create_user_from_string(</span>'Jan-Nowak-2000'<span style="color:#6fff75;">)</span>
+
+user_1.email
+# <span style="background-color:#ad5353;">artur.skrzeta@company.com</span>
+
+user_2.email
+# <span style="background-color:#ad5353;">jan.nowak@company.com</span>
+</pre>
+<!-- stop -->
+												- object <code>user_1</code> is created using <code>__init__</code> method that populates object's attributes wiht passed arguments.<br>
+												- object <code>user_2</code> is created using <code>create_user_from_string</code> classmethod which is an alternative constructor that can instantiate a class object with proper attributes.
+											</li>
+											<li>Static methods:
+<!-- start -->
+<pre>
+from datetime import date
+
+class <span style="color:#00ffea;">User</span>:
+
+    def __init__(self, first, last, gold):
+        self.first = first
+        self.last = last
+        self.gold = gold
+        self.email = f'{first.lower()}.{last.lower()}@game.com'
+
+    <span style="color:#6fff75;">@staticmethod</span>
+    def <span style="color:#ffbf00;">is_workday(</span>day<span style="color:#ffbf00;">)</span>:
+        if day.weekday() == 5 or day.weekday() == 6:
+            return False
+        return True
+
+    <span style="color:#6fff75;">@property</span>
+    def gold(self):
+        if <span style="color:#00ffea;">User</span>.<span style="color:#ffbf00;">is_workday(</span>date.today()<span style="color:#ffbf00;">)</span>:
+            return self.<span style="color:#ff6fcb;">gold_with_bonus</span> - 100
+        else:
+            return self.<span style="color:#ff6fcb;">gold_with_bonus</span> - 1000
+
+    <span style="color:#6fff75;">@gold.setter</span>
+    def gold(self, gold):
+        if <span style="color:#00ffea;">User</span>.<span style="color:#ffbf00;">is_workday(</span>date.today()<span style="color:#ffbf00;">)</span>:
+            self.<span style="color:#ff6fcb;">gold_with_bonus</span> = gold + 100
+        else:
+            self.<span style="color:#ff6fcb;">gold_with_bonus</span> = gold + 1000
+
+user_1 = <span style="color:#00ffea;">User(</span>'Artur', 'Skrzeta', 2000<span style="color:#00ffea;">)</span>
+
+user_1.gold
+# 2000
+
+user_1.<span style="color:#ff6fcb;">gold_with_bonus</span>
+# 3000
+</pre>
+<!-- stop -->
+												- Static method connects to the class logic of assigning the bonuses to the user's account.<br>
+												- When account created on sunday or saturday, it gets 1000 of additional gold.<br>
+												- When account created on working day, it gets 100 of additional gold.<br>
+												- The instance's variable of <code>gold</code> stays with 2000 as it was initialized with such value.<br>
+												- However, the instance was created on the weeknd so the variable <code>gold_with_bonus</code> gets 3000.
+											</li>
+										</ul>
+
+
+
+										<p id="getters_and_settters" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Getters and setters</b></p>
+
+										<ul>
+											<li><b>Getters ('accessors')</b> and <b>setters ('mutators')</b> are used in OOP for aplying the encapsulation principle.
+													Encapsulation means bundling attributes (data within a class) with the methods that operate on them.
+													According to encapsulation principle, the attributes of a class have to be set as private to hide and protect them from the external code.
+											</li>
+											<li>Getters an setters simply dictate the way of accessing the class's private data.
+													In short, the getter is used for retrieving the data and the setter for changing the data within a class.
+											</li>
+											<li>In Python the encapsulation matterw is solved as following:
+												<br>
+												- <u>getter</u>: the method which is used for getting a value is decorated with <u>@property</u>,<br>
+												- <u>setter</u>: the method which has to function as the setter is decorated with <u>@x.setter</u>.
+											</li>
+											<li>Code:
+
+<!-- start -->
+<pre>
+class <span style="color:#00ffea;">Circle()</span>:
+
+    def __init__(self, radius):
+        self.<span style="color:#f7e37e;">radius</span> = radius
+
+    <span style="color:#ff6fcb;">@property</span>
+    def radius(self):
+        return self.<span style="color:#f7e37e;">diameter</span> / 2
+
+    <span style="color:#ff6fcb;">@radius.setter</span>
+    def radius(self, radius):
+        self.<span style="color:#f7e37e;">diameter</span> = radius * 2
+
+
+def main():
+
+    c = <span style="color:#00ffea">Circle(</span>2<span style="color:#00ffea">)</span>
+    <span style="background-color:#ad5353;">print(c.<span style="color:#f7e37e;">diameter</span>)</span>
+    <span style="background-color:#ad5353;">print(c.<span style="color:#f7e37e;">radius</span>)</span>
+
+    c.diameter = 6
+    <span style="background-color:#3976b3;">print(c.<span style="color:#f7e37e;">diameter</span>)</span>
+    <span style="background-color:#3976b3;">print(c.<span style="color:#f7e37e;">radius</span>)</span>
+
+
+if __name__ == "__main__":
+    main()
+
+---------------------
+# output
+# <span style="background-color:#ad5353;">4</span>
+# <span style="background-color:#ad5353;">2</span>
+# <span style="background-color:#3976b3;">6</span>
+# <span style="background-color:#3976b3;">3</span>
+
+</pre>
+<!-- stop	-->
+												- <code>@radius.setter</code> sets <code>self.diameter</code> with value <code>radius * 2</code> while object creation.<br>
+												- To prove setter's work, I can acccess <code>diameter</code> attribute right away.<br>
+												- With <code>@property</code> I access <code>diameter</code> attribute but only the way <code>radius</code> method allows.<br>
+												- However, I don't have access to <code>self.radius</code> directly as it's taken over by <code>@property</code> getter.<br>
+												- <code>self.radius</code> is accepted only during initialization but <code>diameter</code> is being stored within a class or instances.<br>
+												- <code>@property</code> and <code>@radius.setter</code> encapsulates <code>self.radius</code> and makes <code>diameter</code> attribute accessible for external code.
+											</li>
+											<li>Going with decorators and getting rid of getters and setters traditional methods makes a class shorter and running faster.
+													This is perfect solution for dynamic languages, however not allowed in a compiled language.</li>
+											<li>Here comes another example that with <code>@property</code> decorator we can access method as an attribute:
+<!-- start -->
+<pre>
+class <span style="color:#00ffea;">Employee</span>:
+
+  def __init__(self, first, last):
+    self.first = first
+    self.last = last
+
+  @property
+  def <span style="color:#ff6fcb;">company_email(</span>self<span style="color:#ff6fcb;">)</span>:
+    <span style="background-color:#ad5353;">return f'{self.first.lower()}.{self.last.lower()}@company.com'</span>
+
+  @property
+  def <span style="color:#ffbf00;">full_name(</span>self<span style="color:#ffbf00;">)</span>:
+    <span style="background-color:#3976b3;">return f'{self.first} {self.last}'</span>
+
+  @full_name.setter
+  def <span style="color:#ffbf00;">full_name(</span>self, name<span style="color:#ffbf00;">)</span>:
+    first, last = name.split(' ')
+    self.first = first
+    self.last = last
+
+
+e = <span style="color:#00ffea;">Employee(</span>'John', 'Smith'<span style="color:#00ffea;">)</span>
+e.<span style="color:#ffbf00;">full_name</span>
+# <span style="background-color:#ad5353;">John Smith</span>
+
+e.<span style="color:#ffbf00;">company_email</span>
+# <span style="background-color:#3976b3;">john.smith@company.com</span>
+
+e.<span style="color:#ffbf00;">full_name</span> = 'Johnny Smith'
+e.first
+# Johnny
+
+e.<span style="color:#ff6fcb;">company_email</span>
+# <span style="background-color:#3976b3;">johnny.smith@company.com</span>
+</pre>
+<!-- end -->
+												- Function <code>company_email</code> decorated with <code>@property</code> adds a special line of code to return a string in a proper form.<br>
+												- We can access returned value of <code>company_email</code> just like every instance's attributes.<br>
+												- With this line of code: <code>e.full_name = 'Johnny Smith'</code> we make use of the setter that establish <code>self.first</code> and <code>self.last</code> due to the logic it includes.<br>
+												- When we set <code>full_name</code> with setter, this variable cannot be put in the <code>__init__</code> as <code>self.full_name = ""</code> or <code>self.full_name = f'{first} {last}'</code>.
+											</li>
+										</ul>
+
+										<p id="eafp" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Easier to Ask Forgiveness than Permission (EAFP)</b></p>
+
+										<ul>
+											<li>When you ask for a permission then you have to access object multiple tims as opposed to asking for forgiveness where you access object once.</li>
+											<li>Let's take two classes on which we will be asking first for permission and then for forgiveness:
+<!-- start -->
+<pre>
+class <span style="color:#ff6fcb;">Robot</span>:
+
+  def <span style="color:#f7e37e;">talks(</span>self<span style="color:#f7e37e;">)</span>:
+    print("I'm talking.")
+
+  def <span style="color:#f7e37e;">walk(</span>self<span style="color:#f7e37e;">)</span>:
+    print("I'm walking.")
+
+
+class <span style="color:#ff6fcb;">Duck</span>:
+
+  def <span style="color:#f7e37e;">quack(</span>self<span style="color:#f7e37e;">)</span>:
+    print("Quack, quack!")
+
+  def <span style="color:#f7e37e;">fly(</span>self<span style="color:#f7e37e;">)</span>:
+    print("Flap, flap!")
+
+</pre>
+<!-- stop -->
+											</li>
+											<li>At first we will be asking for permission with if statements. We call it <B>'Look Before You Leap (LBYL)'</b>:
+<!-- start -->
+<pre>
+def <span style="color:#00ffea">quack_and_fly(</span>thing<span style="color:#00ffea">)</span>:
+
+  if isinstance(thing,Duck):
+    thing.<span style="color:#f7e37e;">quack()</span>
+    thing.<span style="color:#f7e37e;">fly()</span>
+  else:
+    print("This has to be a duck.")
+
+d = <span style="color:#ff6fcb;">Duck()</span>
+<span style="color:#00ffea">quack_and_fly(</span>d<span style="color:#00ffea">)</span>
+
+r = <span style="color:#ff6fcb;">Robot()</span>
+<span style="color:#00ffea">quack_and_fly(</span>r<span style="color:#00ffea">)</span>
+
+----------
+# output
+# Quack, quack!
+# Flap, flap!
+# This has to be a duck.
+</pre>
+<!-- stop -->
+												✔ We can see that object <code>d</code> is an insatnce of <code>Duck</code> type so we get the permission to execute Duck's methods on the objet.<br>
+												✔ We can see that object <code>r</code> is not an instance of <code>Duck</code> type so we don't get the permission to execute Duck's methods on it.<br>
+												✔ Notice that we have to access an object each time to check its type, and once we get the permission then we access the same object one more time.
+											</li>
+											<li>Let's try to ask for forgiveness with <b>try except block</b>:
+<!-- start -->
+<pre>
+def <span style="color:#00ffea">quack_and_fly(</span>thing<span style="color:#00ffea">)</span>:
+  try:
+    thing.<span style="color:#f7e37e;">quack()</span>
+    thing.<span style="color:#f7e37e;">fly()</span>
+    thing.<span style="color:#f7e37e;">walk()</span>
+    thing.<span style="color:#f7e37e;">bark()</span>
+  except AttributeError as e:
+    print(e)
+
+d = <span style="color:#ff6fcb;">Duck()</span>
+<span style="color:#00ffea">quack_and_fly(</span>d<span style="color:#00ffea">)</span>
+
+r = <span style="color:#ff6fcb;">Robot()</span>
+<span style="color:#00ffea">quack_and_fly(</span>r<span style="color:#00ffea">)</span>
+
+------------
+# output
+# Quack, quack!
+# Flap, flap!
+#'Duck' object has no attribute 'walk'
+# 'Robot' object has no attribute 'quack'
+</pre>
+<!-- stop -->
+												✔ The main assumption of EAFP is trying to execute the code to see what happens: if it works - great, if not, then raise an error.<br>
+												✔ This way we accessing object only once, when trying to retieve attribute on this.
+											</li>
+											<li>One more comparison EAFP vs LBYL:
+<!-- start -->
+<pre>
+
+<span style="color:#00ffea;">person</span> = {'name':'Json', 'age':23, 'job':'Software Developer'}
+
+# LBYL
+if 'name' in <span style="color:#00ffea;">person</span> and 'age' in <span style="color:#00ffea;">person</span> and 'job' in <span style="color:#00ffea;">person</span>:
+  print(f"I'm {<span style="color:#00ffea;">person</span>['name']}, I'm {<span style="color:#00ffea;">person</span>['age']} and I work as {<span style="color:#00ffea;">person</span>['job']}")
+else:
+  print("Missing some data!")
+
+# EAFP
+try:
+  print(f"I'm {<span style="color:#00ffea;">person</span>['name']}, I'm {<span style="color:#00ffea;">person</span>['age']} and I work as {<span style="color:#00ffea;">person</span>['job']}")
+except KeyError as e:
+  print(f"Missing {e} key")
+
+</pre>
+<!-- stop -->
+											</li>
+										</ul>
+
 
 									</header>
 								</div>
@@ -98,7 +630,7 @@
 									<h3>Features</h3>
 									<p>App includes following features:</p>
 									<ul class="feature-icons">
-										<li class="icon solid fa-check">SQL</li>
+										<li class="icon solid fa-check">Python</li>
 									</ul>
 								</div>
 							</section>
@@ -108,104 +640,383 @@
 								<div class="container">
 									<h3>Demo</h3>
 
-									<h5 id="join">JOIN</h5>
-									<ul>
-										<li>Join is a keyword when quering more than one table based on the relationship between a specific columns of the joined tables.</li>
-										<li>When using JOINs, keys play a very important role as we reference them on what column of one table matches what column in the another table.</li>
-										<li>Inner join returns rows when there is at least one match of rows between the tables.</li>
-										<li>Full Join returns all the rows from the left hand side table and all the rows from the right hand side table.</li>
-										<li>Let's take two table schemas for an example:
-											<br><br>
-											<table>
-											<tr style="background-color: #223639; color: #ffff;">
-												<td>
-												tblVideo<br>
-												- video_id: pk integer<br>
-												- author_id: integer<br>
-												- video_duration: float
-												</td>
-												<td>
-												tblView<br>
-												- video_id: integer<br>
-												- viewer_id: integer<br>
-												- viewer_timewatch: float
-												</td>
-											</tr>
-											</table>
-										</li>
-										<li>Lets answer fllowing questions with SQL:
-											<br>
-											<i><b>How many publishers have at least one viewer?</b></i>
-<!-- start -->
-<pre>
-SELECT COUNT(DISTINCT vd.author_id)
-FROM tblVideo vd
-INNER JOIN tblView vw
-ON vd.video_id = vw.video_id
-</pre>
-<!-- end -->
-												- It doesn't count authors whose videos are not in the tblView.<br>
-												- If I want to count disctinct author's id, I wouldn't need any JOINs and do select only on tblVideo.
-										</li>
-										<li>LEFT JOIN:
-											<br>
-											- Here is the snippet of data schema:
-											<br>
-											<img src="images/sql_server.JPG" width="420"><span style="font-size:12px">source: toptal.com</span>
+									<p id="variables" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Varaiables name objects in the memory</b></p>
 
+									<h5>Naming different objects:</h5>
+									<ul>
+										<li>Naming lists:
 <!-- strat -->
 <pre>
-SELECT i.Id, i.BillingDate, c.Name, r.Name AS ReferredByName
-FROM Invoices i
- LEFT JOIN Customers c ON i.CustomerId = c.Id
- LEFT JOIN Customers r ON c.ReferredBy = r.Id
-ORDER BY i.BillingDate;
+list_1 = [1,2,3]
+list_2 = [1,2,3]
+
+id(list_1) == id(list_2)
+# False
 </pre>
-<!-- end -->
-											- With LEFT JOIN we make sure that all the invoices will be returned no matter what (in case of any NULLs within Customers table).<br>
-											- First LEFT JOIN joins customer id pk with customer id fk in the Invoices table.<br>
-											- Second LEFT JOIN joins customer id pk with cusotmer id  fk in the Customer table.<br>
-											- ORDER BY orders outcome by date.
+<!-- stop	-->
+											- <code>list_1</code> and <code>list_2</code> variables point to two different objects even though both list has the same values and they are in the same sizes.
+										</li>
+										<li>Naming strings:
+<!-- strat -->
+<pre>
+str_1 = "Artur"
+str_2 = "Artur"
+
+id(str_1) == id(str_2)
+# True
+</pre>
+<!-- stop	-->
+											- <code>str_1</code> and <code>str_2</code> variables point to the same object in the memory.<br>
+											- They are two different tags for the same object.
 										</li>
 									</ul>
 
-									<h5 id="union">UNION</h5>
+									<h5>is operator:</h5>
 									<ul>
-										<li>Merges the contents of two structurally-compatible tables into a single combined table removing duplicated records.</li>
-										<li>There is also UNION ALL that does the same things but keeps duplicated records.</li>
-										<li>Performance of UNION ALL is better than UNION, since UNION requires the server to do the additional work of removing any duplicate.</li>
+										<li>Returns TRUE if two variables point to the same object:
+<!-- strat -->
+<pre>
+a = 'Hello World'
+c = a
+
+type(a)
+# &ltclass 'str'&gt
+
+id(a) == id(c)
+# True
+
+a is c
+# True
+</pre>
+<!-- stop	-->
+										- <code>type()</code> returns type of the object that passed variable is pointing to.<br>
+										- <code>id()</code> returns unique id of the object that variable is pointing to.
+										</li>
 									</ul>
 
-									<h5 id="except">EXCEPT</h5>
+									<p id="immutability" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Immutability</b></p>
+
 									<ul>
-										<li>Allows to fetch values from one table that are not in another table.
+										<li>Immutability means with every change to variable, a new object is being created.</li>
+										<li>Integers are immutable:
+<!-- strat -->
+<pre>
+a = 10
+b = a
+
+id(a) == id(b)
+# True
+
+a = 20
+
+id(a) == id(b)
+# False
+</pre>
+<!-- stop	-->
+										- Variables are only tags for memory locations that holds an object.<br>
+										- At the beginning variable with the name of <code>a</code> tags object <code>10</code> but further in the code the same name of the variable is then shifted to object <code>20</code>.<br>
+										- When <code>b = a</code> then both variables points to the same object so <code>id(a) == id(b)</code> is <code>True</code>.<br>
+										- When <code>a = 20</code> then this line creates a new object such that <code>id(a) == id(b)</code> is <code>False</code>.<br>
+										- So, immutability means that there is no possibility to overwrite one memory location. With every try of overwriting there is a new memory location being reserved.
+										</li>
+										<li>Strings are immutable:
+<!-- strat -->
+<pre>
+srt1 = 'welcome'
+str2 = 'welcome'
+
+id(str1) == id(str2)
+# True
+
+str2 = str2 + ' to python'
+
+id(str1) == id(str2)
+# False
+</pre>
+<!-- stop	-->
+										- At the beggining where we initialize <code>str1</code> and <code>str2</code>, they point to the same object.<br>
+										- Once <code>str2</code> modified, then a new object is created in the new memory location.<br>
+										- So basically, <code>'welcome'</code> is one object in the memory but <code>'welcome to python'</code> is another object in defferent place in the memory.<br>
+										</li>
+										<li>Tuples are immutable:
+<!-- strat -->
+<pre>
+t1 = (1,2,3)
+t2 = t1
+t1 = (3,4,5)
+
+id(t1) == id(t2)
+# False
+</pre>
+<!-- stop	-->
+										- When <code>t2 = t1</code> then both variables tags the same object of <code>(1,2,3)</code>.<br>
+										- When <code>t1 = (3,4,5)</code> then it creates a totally new object in different memeory slot and tahs ith with <code>t1</code> name.
+										</li>
+									</ul>
+
+									<p id="mutability" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Mutability</b></p>
+
+									<ul>
+										<li>When mutating a mutable object, we work with the same object all the time (in the same place of memory).</li>
+										<li>List are mutable:
+<!-- strat -->
+<pre>
+list1 = [1,2,3,4]
+list2 = list1
+list1.append(10)
+
+list1
+# [1,2,3,4,10]
+
+list2
+# [1,2,3,4,10]
+
+id(list1) == id(list2)
+# True
+</pre>
+<!-- stop	-->
+										- variables: <code>list1</code> and <code>list2</code> points to the same obejct,<br>
+										- because of mutable nature of Python list, when appending, we still append to the same object no matter which variable we use to refer to it.
+										</li>
+										<li>Let see short comparison of mutability with immutability:
+											<br><br>
+											<table>
+												<thead>
+													<tr>
+														<th>Mutability</th>
+														<th>Immutability</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>List, Set, Dictionary</td>
+														<td>String, Number, Tuples</td>
+													</tr>
+													<tr>
+														<td>Updating one memory location when modifing variable.</td>
+														<td>Creating new memory location when modifing variable.</td>
+													</tr>
+													<tr>
+														<td>Modifing the same object.</td>
+														<td>Creating a new object.</td>
+													</tr>
+												</tbody>
+											</table>
+										</li>
+									</ul>
+
+
+									<h5>Mutable default arguments:</h5>
+									<ul>
+										<li>Passing empty list as a defualt argument
 <!-- start -->
 <pre>
-create table test_a(id numeric);
-insert into test_a(id) values (10);
-insert into test_a(id) values (20);
-insert into test_a(id) values (30);
-insert into test_a(id) values (40);
-insert into test_a(id) values (50);
+def <span style="color:#00ffea;">add_employee(</span>emp, emp_list=[]<span style="color:#00ffea;">)</span>:
+  emp_list.append(emp)
 
-create table test_b(id numeric);
-insert into test_b(id) values (10);
-insert into test_b(id) values (30);
-insert into test_b(id) values (50);
+<span style="color:#00ffea;">add_employee</span>.__defaults__
+# ([],)
 
-select * from test_a
-except
-select * from test_b;
+<span style="color:#00ffea;">add_employee(</span>'Artur'<span style="color:#00ffea;">)</span>
+<span style="color:#00ffea;">add_employee</span>.__defaults__
+# (['Artur'],)
 
-----------------------
-20, 40
+<span style="color:#00ffea;">add_employee(</span>'John'<span style="color:#00ffea;">)</span>
+<span style="color:#00ffea;">add_employee</span>.__defaults__
+# (['Artur', 'John'],)
+
 </pre>
 <!-- end -->
-											- 20 and 40 are the values that are not present in test_b table.
+											- Function creates empty list by default when we don't pass a list during the function's call.<br>
+											- Function <code>add_employee</code> creates empty list by default only once. As the list is a mutable object, it's being mutated by the function on every call.
+										</li>
+										<li>Setting default list as <b>None</b>:
+<!-- start -->
+<pre>
+def <span style="color:#00ffea;">add_employee(</span>emp, emp_list=None<span style="color:#00ffea;">)</span>:
+  if emp_list is None:
+    emp_list = []
+  emp_list.append(emp)
+  return emp_list
+
+<span style="color:#00ffea;">add_employee</span>.__defaults__
+# (None,)
+
+<span style="color:#00ffea;">add_employee(</span>'Artur'<span style="color:#00ffea;">)</span>
+<span style="color:#00ffea;">add_employee</span>.__defaults__
+# (None,)
+
+<span style="color:#00ffea;">add_employee(</span>'John'<span style="color:#00ffea;">)</span>
+<span style="color:#00ffea;">add_employee</span>.__defaults__
+# (None,)
+</pre>
+<!-- stop -->
+											- if condition in the <code>add_employee</code> function checks if a list passed to the function, if not then <code>emp_list is None</code> is <code>True</code> and it creates a new empty object list instead
 										</li>
 									</ul>
 
+									<p id="passing_parameters" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>Passing parameters to a function</b></p>
+									<table>
+										<thead>
+											<tr>
+												<th>Passing by Value</th>
+												<th>Passing by Reference</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Makes a copy of passed object.</td>
+												<td>Passes an address of actual object.</td>
+											</tr>
+											<tr>
+												<td>Original object doesn't get modified.</td>
+												<td>Original object changes.</td>
+											</tr>
+											<tr>
+												<td>Creating own memory location for a copied object.</td>
+												<td>Accessing original object via address.</td>
+											</tr>
+											<tr>
+												<td>When immutable object being passed like string, integer, tuple.</td>
+												<td>When mutable object being passed like a list.</td>
+											</tr>
+										</tbody>
+									</table>
 
+									<h5>Passing by Value:</h5>
+									<ul>
+										<li>Here is the example of passing string object:
+<!-- start -->
+<pre>
+def fun(s1):
+  s1 = <span style="background-color:#ad5353;">"abcd"</span>
+  <span style="background-color:#ad5353;">print(s1)</span>
+  <span style="background-color:#ad5353;">print(id(s1))</span>
+
+s1 = <span style="background-color:#3976b3;">"xxx"</span>
+<span style="background-color:#3976b3;">print(s1)</span>
+<span style="background-color:#3976b3;">print(id(s1))</span>
+
+fun(s1)
+
+<span style="background-color:#3976b3;">print(s1)</span>
+<span style="background-color:#3976b3;">print(id(s1))</span>
+----------------
+# <span style="background-color:#3976b3;">xxx</span>
+# <span style="background-color:#3976b3;">11111</span>
+
+# <span style="background-color:#ad5353;">abcd</span>
+# <span style="background-color:#ad5353;">22222</span>
+
+# <span style="background-color:#3976b3;">xxx</span>
+# <span style="background-color:#3976b3;">11111</span>
+</pre>
+<!-- end -->
+											- Variable <code>s1</code> within the function is in local scope.<br>
+											- Variable <code>s1</code> outside the function is in global scope.<br>
+ 											- Passing a string into <code>fun</code> makes a copy of the object and tags it with <code>s1</code> as a local variable.<br>
+											- As a string is immutabele, code <code>s1 = "abcd"</code> creates a new object in the memory location with <code>s1</code> tag name.<br>
+											- Doing change on a copy doesn't affect the original object tagged with global variable <code>s1</code>.<br>
+											- In the local scope <code>s1</code> taggs string object of "abcd".<br>
+											- In the global scope <code>s1</code> taggs string object of "xxx".
+										</li>
+										<li>Here is another example of passing by value:
+<!-- start -->
+<pre>
+def fun(s1):
+  <span style="background-color:#ad5353;">print(s1.upper())</span>
+  <span style="background-color:#ad5353;">print(id(s1.upper()))</span>
+  <span style="background-color:#3976b3;">print(s1)</span>
+  <span style="background-color:#3976b3;">print(id(s1))</span>
+
+s1 = <span style="background-color:#3976b3;">'Artur'</span>
+fun(s1)
+
+<span style="background-color:#3976b3;">print(s1)</span>
+<span style="background-color:#3976b3;">print(id(s1))</span>
+---------
+# output
+
+# <span style="background-color:#ad5353;">'ARUTR'</span>
+# <span style="background-color:#ad5353;">2222222</span>
+
+# <span style="background-color:#3976b3;">'Artur'</span>
+# <span style="background-color:#3976b3;">3333333</span>
+
+# <span style="background-color:#3976b3;">'Artur'</span>
+# <span style="background-color:#3976b3;">3333333</span>
+</pre>
+<!-- end -->
+											- <code>upper()</code> in <code>fun</code> doesn't change the original object but creates a copy instead.<br>
+											- Copied object in the local scope is unchanged by <code>upper()</code> as well as the original object in the global scope stays unchanged.
+										</li>
+									</ul>
+
+									<h5>Passing by Reference:</h5>
+									<ul>
+										<li>It means when a function modifies an object that passed parameter refers to, the change also reflects back outside:
+<!-- start -->
+<pre>
+def fun(my_list):
+  my_list[0] = <span style="background-color:#ad5353;">99</span>
+  <span style="background-color:#ad5353;">print(my_list)</span>
+  <span style="background-color:#ad5353;">print(id(my_list))</span>
+
+my_list = <span style="background-color:#3976b3;">[1, 2, 3, 4, 5]</span>
+
+fun(my_list)
+
+<span style="background-color:#3976b3;">print(my_list)</span>
+<span style="background-color:#3976b3;">print(id(my_list))</span>
+--------------
+# output
+# <span style="background-color:#ad5353;">[99, 2, 3, 4, 5]</span>
+# <span style="background-color:#ad5353;">43576936</span>
+
+# <span style="background-color:#3976b3;">[99, 2, 3, 4, 5]</span>
+# <span style="background-color:#3976b3;">43576936</span>
+</pre>
+<!-- end -->
+											- Above function gets parameter <code>my_list</code> as a reference to the object in the memory.<br>
+											- Modifying first element of it affects object outside the function.<br>
+											- We can see that ids of the object inside and ouside the function are the same.
+										</li>
+										<li>Here is the example where argument is passed by reference and the <u>reference itself</u> is being overwritten inside the called function:
+<!-- start -->
+<pre>
+def fun(my_list):
+  my_list = <span style="background-color:#ad5353;">[10, 11, 12, 13, 14]</span>
+  <span style="background-color:#ad5353;">print(my_list)</span>
+  <span style="background-color:#ad5353;">print(id(my_list))</span>
+
+my_list = <span style="background-color:#3976b3;">[1, 2, 3, 4, 5]</span>
+
+fun(my_list)
+
+<span style="background-color:#3976b3;">print(my_list)</span>
+<span style="background-color:#3976b3;">print(id(my_list))</span>
+--------------
+# output
+# <span style="background-color:#ad5353;">[10, 11, 12, 13, 14]</span>
+# <span style="background-color:#ad5353;">43522222</span>
+
+# <span style="background-color:#3976b3;">[1, 2, 3, 4, 5]</span>
+# <span style="background-color:#3976b3;">43522123</span>
+</pre>
+<!-- end -->
+											- Variable <code>my_list</code> is in the local scope in the <code>fun</code>.<br>
+											- Variable <code>my_list</code> is in the global scope outside the <code>fun</code>.<br>
+											- By <code>my_list = [10, 11, 12, 13, 14]</code> we create the local list object in the memory.<br>
+											- However, the object outside the function stays untouched.<br>
+											- In the local scope of the function, <code>my_list</code> tags object: <code>[10, 11, 12, 13, 14]</code>.<br>
+											- In the global scope outside the function, <code>my_list</code> tags object: <code>[1, 2, 3, 4, 5]</code>.
+										</li>
+									</ul>
+
+									<!-- <h5>...</h5>
+									<ul>
+										<li>...</li>
+									</ul> -->
 
 								</div>
 							</section>
