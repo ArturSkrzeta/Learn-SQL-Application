@@ -56,6 +56,7 @@
 										<h5>In this section I describe following concepts:</h5>
 										<ul>
 											<a href="#join"><li>JOIN</li></a>
+											<a href="#join"><li>JOIN</li></a>
 											<a href="#union"><li>UNION</li></a>
 											<a href="#except"><li>EXCEPT</li></a>
 											<a href="#order_by"><li>ORDER BY</li></a>
@@ -64,6 +65,7 @@
 											<a href="#case"><li>CASE</li></a>
 											<a href="#group_by"><li>GROUP BY</li></a>
 											<a href="#having"><li>HAVING</li></a>
+											<a href="#in"><li>IN</li></a>
 										</ul>
 
 										<h5>Terminology</h5>
@@ -115,6 +117,18 @@
 									<h3>Demo</h3>
 
 									<p id="namespace" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>SELECT</b></p>
+
+									<h5 id="distinct">DISTINCT</h5>
+									<ul>
+										<li>Using when we wan to get unique values from a given column.
+<!-- start -->
+<pre>
+SELECT DISTINCT name
+FROM students
+</pre>
+<!-- end -->
+										</li>
+									</ul>
 
 									<h5 id="join">JOIN</h5>
 									<ul>
@@ -189,21 +203,21 @@ ORDER BY i.BillingDate ASC;
 										<li>Allows to fetch values from one table that are not in another table.
 <!-- start -->
 <pre>
-create table test_a(id numeric);
-insert into test_a(id) values (10);
-insert into test_a(id) values (20);
-insert into test_a(id) values (30);
-insert into test_a(id) values (40);
-insert into test_a(id) values (50);
+CREATE TABLE test_a(id INTEGER);
+INSERT INTO test_a(id) VALUES (10);
+INSERT INTO test_a(id) VALUES (20);
+INSERT INTO test_a(id) VALUES (30);
+INSERT INTO test_a(id) VALUES (40);
+INSERT INTO test_a(id) VALUES (50);
 
-create table test_b(id numeric);
-insert into test_b(id) values (10);
-insert into test_b(id) values (30);
-insert into test_b(id) values (50);
+CREATE TABLE test_b(id INTEGER);
+INSERT INTO test_b(id) VALUES (10);
+INSERT INTO test_b(id) VALUES (30);
+INSERT INTO test_b(id) VALUES (50);
 
-select * from test_a
-except
-select * from test_b;
+SELECT * FROM test_a
+EXCEPT
+SELECT * FROM test_b;
 
 ----------------------
 20, 40
@@ -226,7 +240,8 @@ FROM (
 LIMIT 10;
 </pre>
 <!-- end -->
-											- We fetch 10 highest salaries in employees tabel.
+											- We fetch 10 highest salaries in employees tabel.<br>
+											- We use subquery meaning we emebd one select into another.
 										</li>
 									</ul>
 
@@ -259,6 +274,7 @@ HAVING COUNT(CustomerID) > 3;
 </pre>
 <!-- end -->
 											- We count all customers for a specific country but we display countires where count is bigger than 3.<br>
+											- We use GROUP BY when some aggregating function in select line like COUNT, SUM, AVERAGE.<br>
 											- <span id="having">HAVING simply puts filter on COUNT(CustomerID) outcome column.</span>
 <!-- start -->
 <pre>
@@ -281,6 +297,116 @@ COUNT(CustomerID)	Country
 										</li>
 									</ul>
 
+
+									<h5>Referencing to the same table more than once:</h5>
+									<ul>
+										<li>Below we can see Employee table, select query and result:
+											<br><br>
+											<table style="font-size:16px;">
+												<thead>
+													<tr>
+														<th>Emp_Id</th>
+														<th>Emp_name</th>
+														<th>Salary</th>
+														<th>Manager_Id</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>10</td>
+														<td>Anil</td>
+														<td>50000</td>
+														<td>18</td>
+													</tr>
+													<tr>
+														<td>11</td>
+														<td>Vikas</td>
+														<td>75000</td>
+														<td>16</td>
+													</tr>
+													<tr>
+														<td>12</td>
+														<td>Nisha</td>
+														<td>40000</td>
+														<td>18</td>
+													</tr>
+													<tr>
+														<td>13</td>
+														<td>Nidhi</td>
+														<td>60000</td>
+														<td>17</td>
+													</tr>
+													<tr>
+														<td>14</td>
+														<td>Priya</td>
+														<td>80000</td>
+														<td>18</td>
+													</tr>
+													<tr>
+														<td>15</td>
+														<td>Mohit</td>
+														<td>45000</td>
+														<td>18</td>
+													</tr>
+													<tr>
+														<td>16</td>
+														<td>Rajesh</td>
+														<td>90000</td>
+														<td>Null</td>
+													</tr>
+													<tr>
+														<td>17</td>
+														<td>Raman</td>
+														<td>55000</td>
+														<td>16</td>
+													</tr>
+													<tr>
+														<td>18</td>
+														<td>Santosh</td>
+														<td>65000</td>
+														<td>17</td>
+													</tr>
+												</tbody>
+											</table>
+<!-- start -->
+<pre>
+SELECT b.emp_id AS "Manager_Id", b.emp_name AS "Manager", AVG(a.salary) AS "Avg_Salary_Under_Manager"
+FROM Employee a, Employee b
+WHERE a.manager_id = b.emp_id
+GROUP BY b.emp_id, b.emp_name
+ORDER BY b.emp_id;
+</pre>
+<!-- end -->
+											<br>
+											<table style="font-size:16px;">
+											  <thead>
+											    <tr>
+											      <th>Manager_Id</th>
+											      <th>Manager</th>
+											      <th>Average_Salary_Under_Manager</th>
+											    </tr>
+											  </thead>
+											  <tbody>
+											    <tr>
+											      <td>16</td>
+											      <td>Rajesh</td>
+											      <td>65000</td>
+											    </tr>
+											    <tr>
+											      <td>17</td>
+											      <td>Raman</td>
+											      <td>62500</td>
+											    </tr>
+											    <tr>
+											      <td>18</td>
+											      <td>Santosh</td>
+											      <td>53750</td>
+											    </tr>
+											  </tbody>
+											</table>
+										</li>
+									</ul>
+
 									<p id="update" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>UPDATE</b></p>
 
 									<h5 id="case">CASE</h5>
@@ -300,9 +426,49 @@ UPDATE tblTest SET Nmbr = case
 										</li>
 									</ul>
 
-
+									<h5 id="in">IN</h5>
+									<ul>
+										<li>The IN operator allows to specify multiple values in a WHERE clause.</li>
+										<li>If taken value 'Apple' is in one of given caolumns then we take rows into results.</li><br>
+											<table style="font-size:16px;">
+												<tr>
+													<td>Id</td>
+													<td>Col1</td>
+													<td>Col2</td>
+													<td>Col3</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Apple</td>
+													<td>Null</td>
+													<td>Orange</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Orange</td>
+													<td>Apple</td>
+													<td>Strawberry</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>Strawberry</td>
+													<td>Apple</td>
+													<td>Orange</td>
+												</tr>
+											</table>
+<!-- start -->
+<pre>
+SELECT * FROM table
+WHERE 'Apple' IN (Col1, Col2 Col3)
+</pre>
+<!-- end -->
+										</li>
+									</ul>
 
 								</div>
+
+
+
 							</section>
 
 						<!-- Four -->
