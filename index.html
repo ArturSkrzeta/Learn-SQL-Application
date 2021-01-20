@@ -1,0 +1,252 @@
+	<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Portfolio Artur Skrzeta</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<span class="image avatar"><a href="https://arturskrzeta.github.io/"><img src="images/avatar.png" alt="" style="margin-bottom:0px;"/></a></span>
+					<h1 id="logo"><a href="https://arturskrzeta.github.io/">Artur Skrzeta</a></h1>
+					<p>Data Analyst<br />
+					+4 years experience</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#one" class="active">Intro</a></li>
+						<li><a href="#two">Features</a></li>
+						<li><a href="#three">Demo</a></li>
+						<li><a href="#four">Setup</a></li>
+						<li><a href="#five">Source Code</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/artur-skrz%C4%99ta-010b23187/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://www.instagram.com/arturskrrr/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="https://github.com/ArturSkrzeta" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="mailto: arturskrzeta@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li
+					</ul>
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="container">
+									<header class="major">
+										<h2>My In Depth SQL Comprehension</h2>
+
+										<h3>Intro</h3>
+
+										<p style="text-align: justify;">SQL is the declarative lanuguage which we use to say what we want to get and computer needs to figure out the computation tasks to provide quieried result.
+											In this post I put my notes and examples that helps me to understand different aspects of SQL, enjoy :) .</p>
+
+										<h5>In this section I describe following concepts:</h5>
+										<ul>
+											<a href="#join"><li>JOIN</li></a>
+											<a href="#union"><li>UNION</li></a>
+											<a href="#except"><li>EXCEPT</li></a>
+										</ul>
+
+										<h5>Terminology</h5>
+										<ul>
+											<li><b>Primary key</b> - a field or fields combination that idetifies a specific row uniquely. It implicits NOT NULL constraint and hast to be UNIQUE.</li>
+											<li><b>Foreign key</b> - it references primary key of another table bulding relationship between tables. It can be repeated in one to many relationship.
+												<br><br>
+												<table>
+												<tr style="background-color: #223639; color: #ffff;">
+													<td>
+													customers<br>
+													- <u>customer_id: <span style="color:#00ffea;">pk</span> integer</u><br>
+													- phone: string<br>
+													- email: string
+													</td>
+													<td>
+													orders<br>
+													- order_id: integer<br>
+													- status: string<br>
+													- <u>customer_id: <span style="color:#00ffea;">fk</span> integer</u>
+													</td>
+												</tr>
+												</table>
+												- In above example pk stands for primary key and fk stands for foreign key.<br>
+												- In one to many relationship: one customer can have many orders, so we can find one customer multiple times in the orders table.<br>
+												- As per one to many relationship, one order cannot have multiple customers.
+											</li>
+											<li>Normalization - aiming for minimizing redundancy and dependency within tables.</li>
+										</ul>
+
+									</header>
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="container">
+									<h3>Features</h3>
+									<p>App includes following features:</p>
+									<ul class="feature-icons">
+										<li class="icon solid fa-check">SQL</li>
+									</ul>
+								</div>
+							</section>
+
+						<!-- Three -->
+							<section id="three">
+								<div class="container">
+									<h3>Demo</h3>
+
+									<h5 id="join">JOIN</h5>
+									<ul>
+										<li>Join is a keyword when quering more than one table based on the relationship between a specific columns of the joined tables.</li>
+										<li>When using JOINs, keys play a very important role as we reference them on what column of one table matches what column in the another table.</li>
+										<li>Inner join returns rows when there is at least one match of rows between the tables.</li>
+										<li>Full Join returns all the rows from the left hand side table and all the rows from the right hand side table.</li>
+										<li>Let's take two table schemas for an example:
+											<br><br>
+											<table>
+											<tr style="background-color: #223639; color: #ffff;">
+												<td>
+												tblVideo<br>
+												- video_id: pk integer<br>
+												- author_id: integer<br>
+												- video_duration: float
+												</td>
+												<td>
+												tblView<br>
+												- video_id: integer<br>
+												- viewer_id: integer<br>
+												- viewer_timewatch: float
+												</td>
+											</tr>
+											</table>
+										</li>
+										<li>Lets answer fllowing questions with SQL:
+											<br>
+											<i><b>How many publishers have at least one viewer?</b></i>
+<!-- start -->
+<pre>
+SELECT COUNT(DISTINCT vd.author_id)
+FROM tblVideo vd
+INNER JOIN tblView vw
+ON vd.video_id = vw.video_id
+</pre>
+<!-- end -->
+												- It doesn't count authors whose videos are not in the tblView.<br>
+												- If I want to count disctinct author's id, I wouldn't need any JOINs and do select only on tblVideo.
+										</li>
+										<li>LEFT JOIN:
+											<br>
+											- Here is the snippet of data schema:
+											<br>
+											<img src="images/sql_server.JPG" width="420"><span style="font-size:12px">source: toptal.com</span>
+
+<!-- strat -->
+<pre>
+SELECT i.Id, i.BillingDate, c.Name, r.Name AS ReferredByName
+FROM Invoices i
+ LEFT JOIN Customers c ON i.CustomerId = c.Id
+ LEFT JOIN Customers r ON c.ReferredBy = r.Id
+ORDER BY i.BillingDate;
+</pre>
+<!-- end -->
+											- With LEFT JOIN we make sure that all the invoices will be returned no matter what (in case of any NULLs within Customers table).<br>
+											- First LEFT JOIN joins customer id pk with customer id fk in the Invoices table.<br>
+											- Second LEFT JOIN joins customer id pk with cusotmer id  fk in the Customer table.<br>
+											- ORDER BY orders outcome by date.
+										</li>
+									</ul>
+
+									<h5 id="union">UNION</h5>
+									<ul>
+										<li>Merges the contents of two structurally-compatible tables into a single combined table removing duplicated records.</li>
+										<li>There is also UNION ALL that does the same things but keeps duplicated records.</li>
+										<li>Performance of UNION ALL is better than UNION, since UNION requires the server to do the additional work of removing any duplicate.</li>
+									</ul>
+
+									<h5 id="except">EXCEPT</h5>
+									<ul>
+										<li>Allows to fetch values from one table that are not in another table.
+<!-- start -->
+<pre>
+create table test_a(id numeric);
+insert into test_a(id) values (10);
+insert into test_a(id) values (20);
+insert into test_a(id) values (30);
+insert into test_a(id) values (40);
+insert into test_a(id) values (50);
+
+create table test_b(id numeric);
+insert into test_b(id) values (10);
+insert into test_b(id) values (30);
+insert into test_b(id) values (50);
+
+select * from test_a
+except
+select * from test_b;
+
+----------------------
+20, 40
+</pre>
+<!-- end -->
+											- 20 and 40 are the values that are not present in test_b table.
+										</li>
+									</ul>
+
+
+
+								</div>
+							</section>
+
+						<!-- Four -->
+							<section id="four">
+								<div class="container">
+									<h3>Setup</h3>
+									<p>No specific installation required.</p>
+								</div>
+							</section>
+
+							<section id="five">
+								<div class="container">
+									<h3>Source Code</h3>
+									<p>You can view the source code: <a href="#">HERE</a></p>
+									<p>&nbsp</p>
+								</div>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<a href="https://arturskrzeta.github.io/" style="padding-bottom:10px;">Back to Portfolio</a>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script src="assets/js/scrolla.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
