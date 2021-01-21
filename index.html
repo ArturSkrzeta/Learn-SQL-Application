@@ -300,7 +300,7 @@ COUNT(CustomerID)	Country
 
 									<h5>Referencing to the same table more than once:</h5>
 									<ul>
-										<li>Below we can see Employee table, select query and result:
+										<li>Here is the employees table:
 											<br><br>
 											<table style="font-size:16px;">
 												<thead>
@@ -368,6 +368,102 @@ COUNT(CustomerID)	Country
 													</tr>
 												</tbody>
 											</table>
+										</li>
+										<li>Lets fetch all rows with WHERE clause a.manager_id = b.emp_id:
+<!-- start -->
+<pre>
+SELECT *
+FROM Employee a, Employee b
+WHERE a.manager_id = b.emp_id
+</pre>
+<!-- end -->
+											<table class="employees_query" style="font-size:16px;">
+												<tbody>
+													<tr>
+														<td>10</td>
+														<td>Anil</td>
+														<td>50000</td>
+														<td>18</td>
+														<td>18</td>
+														<td>Santosh</td>
+														<td>65000</td>
+														<td>17</td>
+													</tr>
+													<tr>
+														<td>11</td>
+														<td>Vikas</td>
+														<td>75000</td>
+														<td>16</td>
+														<td>16</td>
+														<td>Rajesh</td>
+														<td>90000</td>
+														<td>Null</td>
+													</tr>
+													<tr>
+														<td>12</td>
+														<td>Nisha</td>
+														<td>40000</td>
+														<td>18</td>
+														<td>18</td>
+														<td>Santosh</td>
+														<td>65000</td>
+														<td>17</td>
+													</tr>
+													<tr>
+														<td>13</td>
+														<td>Nidhi</td>
+														<td>60000</td>
+														<td>17</td>
+														<td>17</td>
+														<td>Raman</td>
+														<td>55000</td>
+														<td>16</td>
+													</tr>
+													<tr>
+														<td>14</td>
+														<td>Priya</td>
+														<td>80000</td>
+														<td>18</td>
+														<td>18</td>
+														<td>Santosh</td>
+														<td>65000</td>
+														<td>17</td>
+													</tr>
+													<tr>
+														<td>15</td>
+														<td>Mohit</td>
+														<td>45000</td>
+														<td>18</td>
+														<td>18</td>
+														<td>Santosh</td>
+														<td>65000</td>
+														<td>17</td>
+													</tr>
+													<tr>
+														<td>17</td>
+														<td>Raman</td>
+														<td>55000</td>
+														<td>16</td>
+														<td>16</td>
+														<td>Rajesh</td>
+														<td>90000</td>
+														<td>Null</td>
+													</tr>
+													<tr>
+														<td>18</td>
+														<td>Santosh</td>
+														<td>65000</td>
+														<td>17</td>
+														<td>17</td>
+														<td>Raman</td>
+														<td>55000</td>
+														<td>16</td>
+													</tr>
+												</tbody>
+											</table>
+											- Note there is no Rajesh in the outcome as he has no manager above him.
+										</li>
+										<li>Let's group managers counting average salary:
 <!-- start -->
 <pre>
 SELECT b.emp_id AS "Manager_Id", b.emp_name AS "Manager", AVG(a.salary) AS "Avg_Salary_Under_Manager"
@@ -377,16 +473,13 @@ GROUP BY b.emp_id, b.emp_name
 ORDER BY b.emp_id;
 </pre>
 <!-- end -->
-											<br>
 											<table style="font-size:16px;">
-											  <thead>
-											    <tr>
-											      <th>Manager_Id</th>
-											      <th>Manager</th>
-											      <th>Average_Salary_Under_Manager</th>
-											    </tr>
-											  </thead>
 											  <tbody>
+													<tr>
+														<th>Manager_Id</th>
+														<th>Manager</th>
+														<th>Average_Salary_Under_Manager</th>
+													</tr>
 											    <tr>
 											      <td>16</td>
 											      <td>Rajesh</td>
