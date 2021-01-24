@@ -103,12 +103,12 @@
 										<h5 id="distinct">DISTINCT</h5>
 										<ul>
 											<li>Using when we wan to get unique values from a given column.
-	<!-- start -->
-	<pre>
-	SELECT DISTINCT name
-	FROM students
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT DISTINCT name
+FROM students
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
@@ -140,14 +140,14 @@
 											<li>Lets answer fllowing questions with SQL:
 												<br>
 												<i><b>How many publishers have at least one viewer?</b></i>
-	<!-- start -->
-	<pre>
-	SELECT COUNT(DISTINCT vd.author_id)
-	FROM tblVideo vd
-	INNER JOIN tblView vw
-	ON vd.video_id = vw.video_id
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT COUNT(DISTINCT vd.author_id)
+FROM tblVideo vd
+INNER JOIN tblView vw
+ON vd.video_id = vw.video_id
+</pre>
+<!-- end -->
 													- It doesn't count authors whose videos are not in the tblView.<br>
 													- If I want to count disctinct author's id, I wouldn't need any JOINs and do select only on tblVideo.
 											</li>
@@ -156,30 +156,29 @@
 												- Here is the snippet of data schema:
 												<br>
 												<img src="images/sql_server.JPG" width="420"><span style="font-size:12px">source: toptal.com</span>
-
-	<!-- strat -->
-	<pre>
-	SELECT i.Id, i.BillingDate, c.Name, r.Name AS ReferredByName
-	FROM Invoices i
-	 LEFT JOIN Customers c ON i.CustomerId = c.Id
-	 LEFT JOIN Customers r ON c.ReferredBy = r.Id
-	ORDER BY i.BillingDate ASC;
-	</pre>
-	<!-- end -->
+<!-- strat -->
+<pre>
+SELECT i.Id, i.BillingDate, c.Name, r.Name AS ReferredByName
+FROM Invoices i
+ LEFT JOIN Customers c ON i.CustomerId = c.Id
+ LEFT JOIN Customers r ON c.ReferredBy = r.Id
+ORDER BY i.BillingDate ASC;
+</pre>
+<!-- end -->
 												- With LEFT JOIN we make sure that all the invoices will be returned no matter what (in case of any NULLs within Customers table).<br>
 												- First LEFT JOIN joins customer id pk with customer id fk in the Invoices table.<br>
 												- Second LEFT JOIN joins customer id pk with cusotmer id  fk in the Customer table.<br>
 												- ORDER BY orders outcome by date. We can append ASC/DESC if ascending or descending ordering.
 											</li>
 											<li>We can join multiple tables:
-	<!-- start -->
-	<pre>
-	SELECT column1, column2
-	FROM TableA
-	JOIN TableB ON TableA.Column3 = TableB.Column3
-	JOIN TableC ON TableA.Column4 = TableC.Column4
-	</pre>
-	<!-- stop -->
+<!-- start -->
+<pre>
+SELECT column1, column2
+FROM TableA
+JOIN TableB ON TableA.Column3 = TableB.Column3
+JOIN TableC ON TableA.Column4 = TableC.Column4
+</pre>
+<!-- stop -->
 											</li>
 										</ul>
 
@@ -193,28 +192,28 @@
 										<h5 id="except">EXCEPT</h5>
 										<ul>
 											<li>Allows to fetch values from one table that are not in another table.
-	<!-- start -->
-	<pre>
-	CREATE TABLE test_a(id INTEGER);
-	INSERT INTO test_a(id) VALUES (10);
-	INSERT INTO test_a(id) VALUES (20);
-	INSERT INTO test_a(id) VALUES (30);
-	INSERT INTO test_a(id) VALUES (40);
-	INSERT INTO test_a(id) VALUES (50);
+<!-- start -->
+<pre>
+CREATE TABLE test_a(id INTEGER);
+INSERT INTO test_a(id) VALUES (10);
+INSERT INTO test_a(id) VALUES (20);
+INSERT INTO test_a(id) VALUES (30);
+INSERT INTO test_a(id) VALUES (40);
+INSERT INTO test_a(id) VALUES (50);
 
-	CREATE TABLE test_b(id INTEGER);
-	INSERT INTO test_b(id) VALUES (10);
-	INSERT INTO test_b(id) VALUES (30);
-	INSERT INTO test_b(id) VALUES (50);
+CREATE TABLE test_b(id INTEGER);
+INSERT INTO test_b(id) VALUES (10);
+INSERT INTO test_b(id) VALUES (30);
+INSERT INTO test_b(id) VALUES (50);
 
-	SELECT * FROM test_a
-	EXCEPT
-	SELECT * FROM test_b;
+SELECT * FROM test_a
+EXCEPT
+SELECT * FROM test_b;
 
-	----------------------
-	20, 40
-	</pre>
-	<!-- end -->
+----------------------
+20, 40
+</pre>
+<!-- end -->
 												- 20 and 40 are the values that are not present in test_b table.
 											</li>
 										</ul>
@@ -222,29 +221,29 @@
 										<h5 id="intersect">INTERSECT</h5>
 										<ul>
 											<li>Fetchs common records between two tables:
-	<!-- start -->
-	<pre>
-	SELECT * FROM EmployeeSalary
-	INTERSECT
-	SELECT * FROM ManagerSalary;
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT * FROM EmployeeSalary
+INTERSECT
+SELECT * FROM ManagerSalary;
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
 										<h5 id="limit">LIMIT</h5>
 										<ul>
 											<li>Limiting select query results to specific numbers of records:
-	<!-- start -->
-	<pre>
+<!-- start -->
+<pre>
+SELECT *
+FROM (
 	SELECT *
-	FROM (
-		SELECT *
-		FROM employees
-		ORDER BY salary DESC )
-	LIMIT 10;
-	</pre>
-	<!-- end -->
+	FROM employees
+	ORDER BY salary DESC )
+LIMIT 10;
+</pre>
+<!-- end -->
 												- We fetch 10 highest salaries in employees tabel.<br>
 												- We use subquery meaning we emebd one select into another.
 											</li>
@@ -257,61 +256,60 @@
 												- let's assume we have customers table and the fields customer_id,<br>
 												- let's fetch first 100 odd cutomer_id values,<br>
 												- <span id="where">there, we use WHERE clause to filter fetch rows, this clause allows AND as well as OR operators,</span>
-
-	<!-- start -->
-	<pre>
-	SELECT TOP 100 customer_id
-	FROM customers
-	WHERE customer_id % 2 = 1
-	ORDER BY user_id
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT TOP 100 customer_id
+FROM customers
+WHERE customer_id % 2 = 1
+ORDER BY user_id
+</pre>
+<!-- end -->
 												- Clause Were can also have BETWEEM operator:
-	<!-- start -->
-	<pre>
-	SELECT *
-	FROM employees
-	WHERE date_of_joining BETWEEN '2020/01/01' AND '2020/12/31';
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT *
+FROM employees
+WHERE date_of_joining BETWEEN '2020/01/01' AND '2020/12/31';
+</pre>
+<!-- end -->
 												- When it comes to dates, we can extract what we want:
-	<!-- start -->
-	<pre>
-	SELECT *
-	FROM employees
-	WHERE YEAR(date_of_joining) = '2020'
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT *
+FROM employees
+WHERE YEAR(date_of_joining) = '2020'
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
 										<h5 id="group_by">GROUP BY</h5>
 										<ul>
 											<li>Groups rows when they have the same value in the field we indicate:
-	<!-- start -->
-	<pre>
-	SELECT COUNT(CustomerID), Country
-	FROM Customers
-	GROUP BY Country
-	HAVING COUNT(CustomerID) > 3;
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 3;
+</pre>
+<!-- end -->
 												- We count all customers for a specific country but we display countires where count is bigger than 3.<br>
 												- We use GROUP BY when some aggregating function in select line like COUNT, SUM, AVERAGE.<br>
 												- <span id="having">HAVING simply puts filter on COUNT(CustomerID) outcome column.</span>
-	<!-- start -->
-	<pre>
-	COUNT(CustomerID)	Country
-	9			Brazil
-	11			France
-	11			Germany
-	5			Mexico
-	5			Spain
-	7			UK
-	13			USA
-	4			Venezuela
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+COUNT(CustomerID)	Country
+9			Brazil
+11			France
+11			Germany
+5			Mexico
+5			Spain
+7			UK
+13			USA
+4			Venezuela
+</pre>
+<!-- end -->
 											</li>
 											<li>WHERE vs HAVING:
 												<br>
@@ -393,13 +391,13 @@
 												</table>
 											</li>
 											<li>Lets fetch all rows with WHERE clause on <b>a.manager_id = b.emp_id</b>:
-	<!-- start -->
-	<pre>
-	SELECT *
-	FROM Employee a, Employee b
-	WHERE a.manager_id = b.emp_id
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT *
+FROM Employee a, Employee b
+WHERE a.manager_id = b.emp_id
+</pre>
+<!-- end -->
 												<table class="employees_query" style="font-size:16px;">
 													<tbody>
 														<tr>
@@ -487,15 +485,15 @@
 												- Note there is no Rajesh in the outcome as he has no manager above him. Rajesh appears only as the manager for other employees.
 											</li>
 											<li>Let's group managers counting average salary:
-	<!-- start -->
-	<pre>
-	SELECT b.emp_id AS "Manager_Id", b.emp_name AS "Manager", AVG(b.salary) AS "Avg_Salary_Under_Manager"
-	FROM employees a, employees b
-	WHERE a.manager_id = b.emp_id
-	GROUP BY b.emp_id
-	ORDER BY b.emp_id;
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT b.emp_id AS "Manager_Id", b.emp_name AS "Manager", AVG(b.salary) AS "Avg_Salary_Under_Manager"
+FROM employees a, employees b
+WHERE a.manager_id = b.emp_id
+GROUP BY b.emp_id
+ORDER BY b.emp_id;
+</pre>
+<!-- end -->
 												<table style="font-size:16px;">
 													<tbody>
 														<tr>
@@ -532,13 +530,13 @@
 												- assuming we have tblTest table and Nmbr filed,<br>
 												- tblTest has 50 rows and Nmbr field contains 1s and 0s,<br>
 												- let's replace 1s with 11s and 0s with 10s:
-	<!-- start -->
-	<pre>
-	UPDATE tblTest SET Nmbr = case
-	 WHEN Nmbr = 0 THEN 10
-	 ELSE 11 END;
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+UPDATE tblTest SET Nmbr = case
+ WHEN Nmbr = 0 THEN 10
+ ELSE 11 END;
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
@@ -572,12 +570,12 @@
 														<td>Orange</td>
 													</tr>
 												</table>
-	<!-- start -->
-	<pre>
-	SELECT * FROM table
-	WHERE 'Apple' IN (Col1, Col2 Col3)
-	</pre>
-	<!-- end -->
+<!-- start -->
+<pre>
+SELECT * FROM table
+WHERE 'Apple' IN (Col1, Col2 Col3)
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
@@ -601,9 +599,10 @@
 								<div class="container">
 									<h3>Demo</h3>
 
-									<h5>Application</h5>
+									<h5>Application:</h5>
+									<br>
 									<img src="images/sql_learn.gif">
-									
+
 								</div>
 							</section>
 
