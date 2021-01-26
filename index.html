@@ -131,6 +131,27 @@ ON table_name (column_name);
 												- on columns that contain a large number of NULLs,<br>
 												- on columns that are frequently manipulated.<br>
 											</li>
+											<li>Here is how to use it:
+												<br>
+												- creating index:
+<!-- start -->
+<pre>
+CREATE INDEX employees_last_name_idx
+ON employees (<span style="background-color:#3976b3;">last_name</span>);
+</pre>
+<!-- end -->
+												- using indexed column in the select query:
+<!-- start -->
+<pre>
+SELECT *
+FROM employees
+WHERE salary > 10000 AND
+    <span style="background-color:#3976b3;">last_name</span> = "Smith"
+</pre>
+<!-- end -->
+												- we use <code>last_name</code> indexed column wihthin WHERE caluse along with <code>salary</code> which speeds up performing the query.<br>
+												- It simply works like an index in the book where a specific sections or chapters ar indexed with their headings.
+											</li>
 										</ul>
 
 										<p id="namespace" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>SELECT</b></p>
