@@ -125,8 +125,8 @@
 										<h5 id="index">INDEX:</h5>
 										<ul>
 											<li>An index is used to speed up searching in the database by reducing records amount to be scanned.</li>
-											<li>An index helps to speed up SELECT queries and WHERE clauses, but it slows down data input, with the UPDATE and the INSERT statements.</li>
-											<li>Creating an index involves the CREATE INDEX statement, which allows you to name the index, to specify the table and which column or columns to index:
+											<li>An index helps to speed up <code>SELECT</code> queries and <code>WHERE</code> clauses, but it slows down data input, with the <code>UPDATE</code> and the <code>INSERT</code> statements.</li>
+											<li>Creating an index involves the <code>CREATE INDEX</code> statement, which allows you to name the index, to specify the table and which column or columns to index:
 <!-- start -->
 <pre>
 CREATE INDEX index_name
@@ -165,6 +165,7 @@ WHERE salary > 10000 AND
 												- we use <code>last_name</code> indexed column wihthin WHERE caluse along with <code>salary</code> which speeds up performing the query.<br>
 												- It simply works like an index in the book where a specific sections or chapters ar indexed with their headings.
 											</li>
+											<li>We can also index multiple columns, however it takes very long to set it up for the db engine.</li>
 										</ul>
 
 										<p id="namespace" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>SELECT</b></p>
