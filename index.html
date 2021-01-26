@@ -56,6 +56,7 @@
 										<h5>In this section I describe following concepts:</h5>
 										<ul>
 											<a href="#index"><li>INDEX</li></a>
+											<a href="#views"><li>Views</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
 											<a href="#join"><li>JOIN</li></a>
 											<a href="#union"><li>UNION</li></a>
@@ -121,6 +122,58 @@
 												&nbsp&nbsp&nbsp&nbsp&nbsp- <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>.<br>
 											</li>
 										</ul>
+
+
+										<h5 id="views">Views:</h5>
+										<ul>
+											<li>It's a virtual table based on the result of any SQL statement.</li>
+											<li>A view contains all you need in every other table: rows and columns and fields can come from one or more real tables.</li>
+											<li>While creating views, we can apply <code>WHERE</code> or <code>JOIN</code> statements to keep the data as if it comes from one single table.</li>
+											<li>Here is the syntax for view creating:
+<!-- start -->
+<pre>
+CREATE VIEW <span style="background-color:#ad5353;">view_name</span> AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+</pre>
+<!-- end -->
+												- end here is how to query a view:
+<!-- start -->
+<pre>
+SELECT * FROM [<span style="background-color:#ad5353;">view_name</span>];
+</pre>
+<!-- end -->
+											</li>
+											<li>With views we can restric users from being able to check some confidential data.
+													In a view we just define what columns are visible. The columns we want to keep invisible, we don't include them into the view while creating.
+													For example, lets say we have the employees table data schema:<br>
+													&nbsp&nbsp&nbsp- id: numeric<br>
+													&nbsp&nbsp&nbsp- first_name: string<br>
+													&nbsp&nbsp&nbsp- last_name: string<br>
+													&nbsp&nbsp&nbsp- salary: numeric<br>
+													Let's assume that column salary is confidential and has to be restricted from viewing:
+<!-- start -->
+<pre>
+CREATE VIEW <span style="background-color:#ad5353;">emloyess_details</span> AS
+SELECT first_name, last_name,
+FROM employess
+WHERE last_name LIKE 'S%';
+</pre>
+<!-- end -->
+												- When we wat to check salary somehow:
+												<!-- start -->
+<pre>
+SELECT last_name, salary
+FROM <span style="background-color:#ad5353;">emloyess_details</span>
+WHERE last_name LIKE 'S%';
+</pre>
+<!-- end -->
+												- Querying the view <code>emloyess_details</code> for <code>salary</code> field raises an error.
+											</li>
+
+										</ul>
+
 
 										<h5 id="index">INDEX:</h5>
 										<ul>
@@ -257,6 +310,18 @@ JOIN TableC ON TableA.Column4 = TableC.Column4
 											<li>Merges the contents of two structurally-compatible tables into a single combined table removing duplicated records.</li>
 											<li>There is also UNION ALL that does the same things but keeps duplicated records.</li>
 											<li>Performance of UNION ALL is better than UNION, since UNION requires the server to do the additional work of removing any duplicate.</li>
+											<li>Here is how to use it:
+<!-- start -->
+<pre>
+SELECT employee_id, first_name, last_name, 'Employee' AS status
+FROM employees
+UNION
+SELECT visitor_id, first_name, last_name, 'Visitor' AS status
+FROM visitors
+</pre>
+<!-- stop -->
+												- note that 
+											</li>
 										</ul>
 
 										<h5 id="except">EXCEPT</h5>
