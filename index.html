@@ -51,10 +51,11 @@
 										<h3>Intro</h3>
 
 										<p style="text-align: justify;">SQL is the declarative lanuguage which we use to say what we want to get and computer needs to figure out the computation tasks to provide quieried result.
-											In this post I put my notes and examples that helps me to understand different aspects of SQL. There is also the application for learning SQL demonstrated in the Demo section and its source code linked below.</p>
+											In this post I put my notes and examples that helps me to understand different aspects of SQL. There is also the application for learning SQL demonstrated in the <a href="#three"><u>Demo</u></a> section and its source code linked below.</p>
 
 										<h5>In this section I describe following concepts:</h5>
 										<ul>
+											<a href="#index"><li>INDEX</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
 											<a href="#join"><li>JOIN</li></a>
 											<a href="#union"><li>UNION</li></a>
@@ -70,7 +71,7 @@
 											<a href="#in"><li>IN</li></a>
 										</ul>
 
-										<h5>Terminology</h5>
+										<h5>Terminology and general aspects:</h5>
 										<ul>
 											<li><b>Primary key</b> - a field or fields combination that idetifies a specific row uniquely. It implicits NOT NULL constraint and hast to be UNIQUE.</li>
 											<li><b>Foreign key</b> - it references primary key of another table bulding relationship between tables. It can be repeated in one to many relationship.
@@ -95,7 +96,41 @@
 												- In one to many relationship: one customer can have many orders, so we can find one customer multiple times in the orders table.<br>
 												- As per one to many relationship, one order cannot have multiple customers.
 											</li>
-											<li>Normalization - aiming for minimizing redundancy and dependency within tables.</li>
+											<li><b>Normalization</b> - aiming for minimizing redundancy and dependency within tables.</li>
+											<li><b>Denormaliaztion</b> - combining multiple tables into one for achieving fast data access.</li>
+											<li>Db engine executes query in the sequence as below:
+												<br>
+												1. FROM, JOIN - it determines data table(s).<br>
+												2. WHERE - records filtering.<br>
+												3. GROUP BY - records grouping.<br>
+												4. HAVING  - groups filtering.<br>
+												5. SELECT - columns filtering.<br>
+												6. ORDER BY - results sorting.<br>
+											</li>
+										</ul>
+
+										<h5 id="index">INDEX:</h5>
+										<ul>
+											<li>An index is used to speed up searching in the database by reducing records amount to be scanned.</li>
+											<li>An index helps to speed up SELECT queries and WHERE clauses, but it slows down data input, with the UPDATE and the INSERT statements.</li>
+											<li>Creating an index involves the CREATE INDEX statement, which allows you to name the index, to specify the table and which column or columns to index:
+<!-- start -->
+<pre>
+CREATE INDEX index_name
+ON table_name (column_name);
+</pre>
+<!-- end -->
+											</li>
+											<li>Updating a table with indexes takes more time than updating a table without (because the indexes also need an update).
+													So, only create indexes on columns that will be frequently searched against.
+											</li>
+											<li>When not to use indexes:
+												<br>
+												- on small tables,<br>
+												- on tables that have frequent, large updates or insert operations,<br>
+												- on columns that contain a large number of NULLs,<br>
+												- on columns that are frequently manipulated.<br>
+											</li>
 										</ul>
 
 										<p id="namespace" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>SELECT</b></p>
