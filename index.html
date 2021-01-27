@@ -56,7 +56,7 @@
 										<h5>In this section I describe following concepts:</h5>
 										<ul>
 											<a href="#index"><li>INDEX</li></a>
-											<a href="#views"><li>Views</li></a>
+											<a href="#view"><li>VIEW</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
 											<a href="#join"><li>JOIN</li></a>
 											<a href="#union"><li>UNION</li></a>
@@ -74,8 +74,8 @@
 
 										<h5>Terminology and general aspects:</h5>
 										<ul>
-											<li><b>Primary key</b> - a field or fields combination that idetifies a specific row uniquely. It implicits NOT NULL constraint and hast to be UNIQUE.</li>
-											<li><b>Foreign key</b> - it references primary key of another table bulding relationship between tables. It can be repeated in one to many relationship.
+											<li><b>Primary key</b> - a column or columns combination that idetifies a specific row uniquely. It implies NOT NULL constraint and hast to be UNIQUE.</li>
+											<li><b>Foreign key</b> - a column that contains a primary key of a record from another table. This way we build relationship between tables.
 												<br><br>
 												<table>
 												<tr style="background-color: #223639; color: #ffff;">
@@ -95,7 +95,39 @@
 												</table>
 												- In above example pk stands for primary key and fk stands for foreign key.<br>
 												- In one to many relationship: one customer can have many orders, so we can find one customer multiple times in the orders table.<br>
-												- As per one to many relationship, one order cannot have multiple customers.
+												- As per one to many relationship, one order cannot have multiple customers.<br>
+												<span style="font-size:14px;">orderd table</span>
+												<table style="font-size:16px;">
+													<thead>
+														<tr>
+															<th>order_id</th>
+															<th>status</th>
+															<th>customer_id</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>1</td>
+															<td>completed</td>
+															<td>1</td>
+														</tr>
+														<tr>
+															<td>2</td>
+															<td>completed</td>
+															<td>1</td>
+														</tr>
+														<tr>
+															<td>3</td>
+															<td>cancelled</td>
+															<td>3</td>
+														</tr>
+														<tr>
+															<td>4</td>
+															<td>pending</td>
+															<td>1</td>
+														</tr>
+													</tbody>
+												</table>
 											</li>
 											<li><b>Normalization</b> - aiming for minimizing redundancy and dependency within tables.</li>
 											<li><b>Denormaliaztion</b> - combining multiple tables into one for achieving fast data access.</li>
@@ -124,7 +156,7 @@
 										</ul>
 
 
-										<h5 id="views">Views:</h5>
+										<h5 id="view">VIEW:</h5>
 										<ul>
 											<li>It's a virtual table based on the result of any SQL statement.</li>
 											<li>A view contains all you need in every other table: rows and columns and fields can come from one or more real tables.</li>
