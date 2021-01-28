@@ -165,7 +165,41 @@
 											<li><b>Data integrity</b> - defines the accuracy as well as the consistency of the data stored in a database.
 													Once data integrity ensured then any addition or deletion of data from the table will not create any mismatch in the relationship of the tables.
 											</li>
-											<li><b>Denormaliaztion</b> - combining multiple tables into one for achieving fast data access.</li>
+											<li><b>Stored procedure</b> - saved SQL code so that it can be reused anytime with or without passed parameters:
+												<br>
+												- stored procedure syntax:
+<!-- start -->
+<pre>
+CREATE PROCEDURE procedure_name
+AS
+sql_statement
+GO;
+</pre>
+<!-- end -->
+												- executing stored procedure:
+<!-- start-->
+<pre>
+EXEC procedure_name
+</pre>
+<!-- end -->
+												- here how it looks like with parameters:
+<!-- start -->
+<pre>
+CREATE PROCEDURE SelectAllEmployees <span style="background-color:#3976b3;">@City nvarchar(30)</span>, <span style="background-color:#3976b3;">@PostalCode nvarchar(10)</span>
+AS
+SELECT * FROM employees WHERE City = <span style="background-color:#3976b3;">@City</span> AND PostalCode = <span style="background-color:#3976b3;">@PostalCode</span>
+GO;
+</pre>
+<!-- end -->
+												- calling it with parameters:
+<!-- start -->
+<pre>
+EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'</span>, <span style="background-color:#3976b3;">@PostalCode = '30-708'</span>;
+</pre>
+<!-- end -->
+												- They can be used as a modular programming which means creating once, storing and calling many times whenever it's required.<br>
+												- This supports faster overall query performance.
+											</li>
 										</ul>
 
 										<h5>Database Normalization:</h5>
@@ -340,6 +374,7 @@
 												- reduction of redundant and duplicate data.<br>
 												- ensuring data integrity.
 											</li>
+											<li><b>Denormaliaztion</b> - combining multiple tables into one for achieving fast data access.</li>
 										</ul>
 
 										<h5 id="view">VIEW</h5>
