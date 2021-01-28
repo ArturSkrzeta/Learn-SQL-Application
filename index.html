@@ -180,8 +180,7 @@
 												✓ Third normal form (3 NF)<br>
 												Where db is considered the third normal form if it meets the requirements of the first 3 normal forms.
 											</li>
-											<li>In <b>1 NF</b> wa aim to keep only atomic information.
-												<br>
+											<li>In <b>1 NF</b> wa aim to keep only atomic information. Here is the example which violates the 1NF as it contains more tan one value for the department column:
 												<table>
 													<tr>
 														<td>id</td>
@@ -190,19 +189,147 @@
 														<td>department</td>
 													</tr>
 													<tr>
-														<td>id</td>
-														<td>name</td>
-														<td>salary</td>
-														<td>department</td>
+														<td>1</td>
+														<td>Artur</td>
+														<td>3000</td>
+														<td>IT, DevOps</td>
 													</tr>
 													<tr>
-														<td>id</td>
-														<td>name</td>
-														<td>salary</td>
-														<td>department</td>
+														<td>2</td>
+														<td>John</td>
+														<td>10000</td>
+														<td>IT, DevOps, DataLab</td>
 													</tr>
 												</table>
+												- Definitely we should be avoiding creating new columns like department1, department2, department3 what we call repeating groups.<br>
+												- In order to reach 1 NF, we need to split the table into two tables:
+												<br><br>
+												<span>Department table and assignment table</span>
+												<table>
+													<tr>
 
+														<td>
+															<table style="width:20%;">
+																<tr>
+																	<td>dep_id</td>
+																	<td>dep_name</td>
+																</tr>
+																<tr>
+																	<td>1</td>
+																	<td>IT</td>
+																	<td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>DevOps</td>
+																</tr>
+																<tr>
+																	<td>3</td>
+																	<td>DataLab</td>
+																</tr>
+															</table>
+														</td>
+
+														<td>
+															<table>
+																<tr>
+																	<td>emp_id</td>
+																	<td>name</td>
+																	<td>salary</td>
+																	<td>dep_id</td>
+																</tr>
+																<tr>
+																	<td>1</td>
+																	<td>Artur</td>
+																	<td>3000</td>
+																	<td>1</td>
+																</tr>
+																<tr>
+																	<td>1</td>
+																	<td>Artur</td>
+																	<td>3000</td>
+																	<td>2</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>John</td>
+																	<td>10000</td>
+																	<td>1</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>John</td>
+																	<td>10000</td>
+																	<td>2</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>John</td>
+																	<td>10000</td>
+																	<td>3</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+												- With that solution what we get is many-to-many relationship where many employees can be assigned to one or more departments.
+											</li>
+											<li>....
+												<br><br>
+												<span>Employees table and assignment table</span>
+												<table>
+													<tr>
+
+														<td>
+															<table style="width:15%;">
+																<tr>
+																	<td>emp_id</td>
+																	<td>emp_name</td>
+																	<td>emp_salary</td>
+																</tr>
+																<tr>
+																	<td>1</td>
+																	<td>Artur</td>
+																	<td>3000</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>John</td>
+																	<td>10000</td>
+																</tr>
+															</table>
+														</td>
+
+														<td>
+															<table style="width:20%;">
+																<tr>
+																	<td>emp_id</td>
+																	<td>dep_id</td>
+																</tr>
+																<tr>
+																	<td>1</td>
+																	<td>1</td>
+																</tr>
+																<tr>
+																	<td>1</td>
+																	<td>2</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>1</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>2</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>3</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
 
 											</li>
 											<li>When we care about keeping table normalized we get a set of benefits:
