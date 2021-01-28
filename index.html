@@ -214,7 +214,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												✓ Third normal form (3 NF),<br>
 												where db is considered the third normal form if it meets the requirements of the first 3 normal forms.
 											</li>
-											<li>In <b>1 NF</b> wa aim to keep only atomic information. Here is the example which violates the 1NF as it contains more tan one value for the department column:
+											<li>In <b>1 NF</b> wa aim to keep only atomic information. Here is the example which violates the 1NF as it contains more than one value for the department column:
 												<table>
 													<tr>
 														<td>id</td>
@@ -235,8 +235,8 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 														<td>IT, DevOps, DataLab</td>
 													</tr>
 												</table>
-												- Definitely we should be avoiding creating new columns like department1, department2, department3 what we call repeating groups.<br>
-												- In order to reach 1 NF, we need to split the table into two tables:
+												- Definitely we should be avoiding creating new columns like department1, department2, department3 what we call <b>repeating groups</b>.<br>
+												- In order to reach 1 NF, we need to split the table into two tables so that each record can be unique and each cell contains an atomic value:
 												<br><br>
 												<span>Department table and assignment table</span>
 												<table>
@@ -306,10 +306,8 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 														</td>
 													</tr>
 												</table>
-												- With that solution what we get is many-to-many relationship where many employees can be assigned to one or more departments.
-											</li>
-											<li>....
-												<br><br>
+												- or even further:
+												<br>
 												<span>Employees table and assignment table</span>
 												<table>
 													<tr>
@@ -364,7 +362,8 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 														</td>
 													</tr>
 												</table>
-
+												- With that solution what we get is many-to-many relationship where many employees can be assigned to one or more departments.<br>
+												- Assignment table plays then a role of connector table that manages many-to-many relationship.<br><br>
 											</li>
 											<li>When we care about keeping table normalized we get a set of benefits:
 												<br>
@@ -469,7 +468,7 @@ WHERE salary > 10000 AND
 </pre>
 <!-- end -->
 												- we use <code>last_name</code> indexed column wihthin WHERE caluse along with <code>salary</code> which speeds up performing the query.<br>
-												- It simply works like an index in the book where a specific sections or chapters ar indexed with their headings.
+												- It simply works like an index in the book where a specific sections or chapters are indexed with their headings.
 											</li>
 											<li>We can also index multiple columns, however it takes very long to set it up for the db engine.</li>
 											<li>We can say that there are two types of indexes:
