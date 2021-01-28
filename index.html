@@ -472,7 +472,43 @@ WHERE salary > 10000 AND
 												- It simply works like an index in the book where a specific sections or chapters ar indexed with their headings.
 											</li>
 											<li>We can also index multiple columns, however it takes very long to set it up for the db engine.</li>
-
+											<li>We can say that there are two types of indexes:
+												<br>
+												<table>
+													<thead>
+														<tr>
+															<td>Clustered Index</td>
+															<td>Non-Clustered Index</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Defines the order of storing data in the table</td>
+															<td>Doesn't define the order of data inside the table</td>
+														</tr>
+														<tr>
+															<td>As data always can be stored in one way, there can be only one clustered index. When creating a table, the primary key constraint automatically creates index on that column.</td>
+															<td>In fact, non-clustered index is stored at different place than table data is stored. This allows for more than one non-clustered index per table.</td>
+														</tr>
+														<tr>
+															<td>Clustered indexes only sort tables. Therefore, they do not consume extra storage.</td>
+															<td>Non-clustered indexes are stored in a separate place from the actual table claiming more storage space.</td>
+														</tr>
+														<tr>
+															<td>Fast performance.</td>
+															<td>Slower performance as it requires additional lookup between index sotrage and acutal table.</td>
+														</tr>
+													</tbody>
+												</table>
+												- It is important to mention here that inside the table the data will be sorted by a clustered index.<br>
+												- However, inside the non-clustered index data is stored in the specified order.<br>
+												- The non-clustered index contains column values on which the index is created and the address of the corresponding records in the actual table.
+											</li>
+											<li>Here is how it works:
+													<br>
+													- When a query is run against indexed column, the database will first go to the index and look for the address of the corresponding row in the table.
+												 	It will then go to that row address in the table and fetch other column values.
+											</li>
 										</ul>
 
 										<p id="namespace" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>SELECT</b></p>
