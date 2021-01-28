@@ -129,8 +129,6 @@
 													</tbody>
 												</table>
 											</li>
-											<li><b>Normalization</b> - aiming for minimizing redundancy and dependency within tables.</li>
-											<li><b>Denormaliaztion</b> - combining multiple tables into one for achieving fast data access.</li>
 											<li>Db engine executes query in the sequence as below:
 												<br>
 												1. FROM, JOIN - it determines data table(s).<br>
@@ -153,8 +151,69 @@
 												5. <b>TCL</b> - Transaction Control Language:<br>
 												&nbsp&nbsp&nbsp&nbsp&nbsp- <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>.<br>
 											</li>
+											<li><b>Constraints</b> - we put the as the limits on the data types of the table. It can be specified while creating or altering the table statement.
+													Here they are:
+													<br>
+													- NOT NULL prevents from keeping nulls in the column.<br>
+													- CHECK limits the value range that can placed in the column for instance:<br>
+													 	&nbsp&nbsp&nbspAge INTEGER, CHECK (AGE>=18).<br>
+													- DEFAULT provides default value to all records unless other value specified.<br>
+													- UNIQUE prevents from storing duplicates within a column.<br>
+													- PRIMARY KEY sets pk on a column.<br>
+													- FOREIGN KEY sets fk indicating pk of a table in the relationship.<br>
+											</li>
+											<li><b>Data integrity</b> - defines the accuracy as well as the consistency of the data stored in a database.
+													Once data integrity ensured then any addition or deletion of data from the table will not create any mismatch in the relationship of the tables.
+											</li>
+											<li><b>Denormaliaztion</b> - combining multiple tables into one for achieving fast data access.</li>
 										</ul>
 
+										<h5>Database Normalization:</h5>
+										<ul>
+											<li><b>Normalization</b> is the db designing process where we aim for minimizing any data redundancy.
+												Redundancy of data means there are multiple copies of the same information spread over multiple locations in the same database.
+											</li>
+											<li>There are 3 forms of the normalizaton where each consecutive normal form depends on the previous one:
+												<br>
+												✓ First normal form (1 NF)<br>
+												✓ Second normal form (2 NF)<br>
+												✓ Third normal form (3 NF)<br>
+												Where db is considered the third normal form if it meets the requirements of the first 3 normal forms.
+											</li>
+											<li>In <b>1 NF</b> wa aim to keep only atomic information.
+												<br>
+												<table>
+													<tr>
+														<td>id</td>
+														<td>name</td>
+														<td>salary</td>
+														<td>department</td>
+													</tr>
+													<tr>
+														<td>id</td>
+														<td>name</td>
+														<td>salary</td>
+														<td>department</td>
+													</tr>
+													<tr>
+														<td>id</td>
+														<td>name</td>
+														<td>salary</td>
+														<td>department</td>
+													</tr>
+												</table>
+
+
+											</li>
+											<li>When we care about keeping table normalized we get a set of benefits:
+												<br>
+												- better db organization,<br>
+												- more tables with smaller rows,<br>
+												- easy modification,<br>
+												- reduction of redundant and duplicate data.<br>
+												- ensuring data integrity.
+											</li>
+										</ul>
 
 										<h5 id="view">VIEW:</h5>
 										<ul>
@@ -251,6 +310,7 @@ WHERE salary > 10000 AND
 												- It simply works like an index in the book where a specific sections or chapters ar indexed with their headings.
 											</li>
 											<li>We can also index multiple columns, however it takes very long to set it up for the db engine.</li>
+
 										</ul>
 
 										<p id="namespace" style="font-size:22px; border-bottom: 1px solid #cacaca; padding-bottom:10px; padding-top:50px;"><b>SELECT</b></p>
@@ -269,30 +329,36 @@ FROM students
 
 										<h5 id="join">JOIN</h5>
 										<ul>
-											<li>Join is a keyword when quering more than one table based on the relationship between a specific columns of the joined tables.</li>
-											<li>When using JOINs, keys play a very important role as we reference them on what column of one table matches what column in the another table.</li>
-											<li>Inner join returns rows when there is at least one match of rows between the tables.</li>
-											<li>Full Join returns all the rows from the left hand side table and all the rows from the right hand side table.</li>
+											<li>Join is the keyword needed when quering more than one table.</li>
+											<li>While joining, we need to define on what columns (of both tables) we will be keeping tables joined.</li>
+											<li>Usually, we use primary key of one table matching it with its corresponding foreign key in another table.</li>
+											<li>There are a few kind of joins:
+												<br>
+												- <b>Left join</b>: returns all the rows from the left table regardless if there is a match or a null from the right table.<br>
+												- <b>Right join</b>: returns all the rows from the right table regardless if there is a match or a null from the left table.<br>
+												- <b>Inner join</b>: returns rows when there is a match in rows between the tables.<br>
+												- <b>Full outer join</b>: returns all the rows from the left-hand side table and all the rows from the right-hand side table.<br>
+											</li>
 											<li>Let's take two table schemas for an example:
 												<br><br>
 												<table>
-												<tr style="background-color: #223639; color: #ffff;">
+												<tr style="background-color: #223639; color: #ffff; font-size:18px;">
 													<td>
 													tblVideo<br>
-													- video_id: pk integer<br>
+													- video_id: PRIMARY KEY integer<br>
 													- author_id: integer<br>
 													- video_duration: float
 													</td>
 													<td>
 													tblView<br>
-													- video_id: integer<br>
+													- video_id: FOREIGN KEY integer<br>
 													- viewer_id: integer<br>
 													- viewer_timewatch: float
 													</td>
 												</tr>
 												</table>
 											</li>
-											<li>Lets answer fllowing questions with SQL:
+											<li>Inner join example:
 												<br>
 												<i><b>How many publishers have at least one viewer?</b></i>
 <!-- start -->
@@ -306,7 +372,7 @@ ON vd.video_id = vw.video_id
 													- It doesn't count authors whose videos are not in the tblView.<br>
 													- If I want to count disctinct author's id, I wouldn't need any JOINs and do select only on tblVideo.
 											</li>
-											<li id="order_by">LEFT JOIN:
+											<li id="order_by">Left join example:
 												<br>
 												- Here is the snippet of data schema:
 												<br>
