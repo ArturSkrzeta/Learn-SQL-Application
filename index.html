@@ -72,7 +72,7 @@
 											<a href="#in"><li>IN</li></a>
 										</ul>
 
-										<h5>Terminology and general aspects:</h5>
+										<h5>Terminology and general aspects</h5>
 										<ul>
 											<li><b>Primary key</b> - a column or columns combination that idetifies a specific row uniquely. It implies NOT NULL constraint and hast to be UNIQUE.</li>
 											<li><b>Foreign key</b> - a column that contains a primary key of a record from another table. This way we build relationship between tables.
@@ -202,17 +202,17 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 											</li>
 										</ul>
 
-										<h5>Database Normalization:</h5>
+										<h5>Database Normalization</h5>
 										<ul>
 											<li><b>Normalization</b> is the db designing process where we aim for minimizing any data redundancy.
 												Redundancy of data means there are multiple copies of the same information spread over multiple locations in the same database.
 											</li>
 											<li>There are 3 forms of the normalizaton where each consecutive normal form depends on the previous one:
 												<br>
-												✓ First normal form (1 NF)<br>
-												✓ Second normal form (2 NF)<br>
-												✓ Third normal form (3 NF)<br>
-												Where db is considered the third normal form if it meets the requirements of the first 3 normal forms.
+												✓ First normal form (1 NF),<br>
+												✓ Second normal form (2 NF),<br>
+												✓ Third normal form (3 NF),<br>
+												where db is considered the third normal form if it meets the requirements of the first 3 normal forms.
 											</li>
 											<li>In <b>1 NF</b> wa aim to keep only atomic information. Here is the example which violates the 1NF as it contains more tan one value for the department column:
 												<table>
