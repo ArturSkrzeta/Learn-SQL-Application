@@ -215,35 +215,37 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												where db is considered the third normal form if it meets the requirements of the first 3 normal forms.
 											</li>
 											<li>In <b>1 NF</b> wa aim to keep only atomic information. Here is the example which violates the 1NF as it contains more than one value for the department column:
+												<br><br>
+												<span>Assignment table</span>
 												<table>
 													<tr>
 														<td>id</td>
 														<td>name</td>
-														<td>salary</td>
+														<td>age</td>
 														<td>department</td>
 													</tr>
 													<tr>
 														<td>1</td>
 														<td>Artur</td>
-														<td>3000</td>
+														<td>20</td>
 														<td>IT, DevOps</td>
 													</tr>
 													<tr>
 														<td>2</td>
 														<td>John</td>
-														<td>10000</td>
+														<td>40</td>
 														<td>IT, DevOps, DataLab</td>
 													</tr>
 												</table>
-												- Definitely we should be avoiding creating new columns like department1, department2, department3 what we call <b>repeating groups</b>.<br>
+												- Definitely we should be avoiding breaking down department column into a set of new columns like department1, department2, department3. This is what we call <b>repeating groups</b> and it's one of the biggest design error.<br>
 												- In order to reach 1 NF, we need to split the table into two tables so that each record can be unique and each cell contains an atomic value:
 												<br><br>
-												<span>Department table and assignment table</span>
+												<span>Departments table and assignment table</span>
 												<table>
 													<tr>
 
 														<td>
-															<table style="width:20%;">
+															<table style="width:15%;">
 																<tr>
 																	<td>dep_id</td>
 																	<td>dep_name</td>
@@ -269,45 +271,49 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 																<tr>
 																	<td>emp_id</td>
 																	<td>name</td>
-																	<td>salary</td>
+																	<td>age</td>
 																	<td>dep_id</td>
 																</tr>
 																<tr>
 																	<td>1</td>
 																	<td>Artur</td>
-																	<td>3000</td>
+																	<td>20</td>
 																	<td>1</td>
 																</tr>
 																<tr>
 																	<td>1</td>
 																	<td>Artur</td>
-																	<td>3000</td>
+																	<td>20</td>
 																	<td>2</td>
 																</tr>
 																<tr>
 																	<td>2</td>
 																	<td>John</td>
-																	<td>10000</td>
+																	<td>40</td>
 																	<td>1</td>
 																</tr>
 																<tr>
 																	<td>2</td>
 																	<td>John</td>
-																	<td>10000</td>
+																	<td>40</td>
 																	<td>2</td>
 																</tr>
 																<tr>
 																	<td>2</td>
 																	<td>John</td>
-																	<td>10000</td>
+																	<td>40</td>
 																	<td>3</td>
 																</tr>
 															</table>
 														</td>
 													</tr>
 												</table>
-												- or even further:
-												<br>
+
+												- We can move on and make the table in <b>2 NF</b> and <b>3 NF</b>.<br>
+												- In 2 NF we care about having single column primary key. In our examples both departments and employees tables has single-column primary key i.e. <b>dep_id</b> and <b>emp_id</b> respecitvely.<br>
+												- In 3 NF we get rid of any dependencies on non-key columns. Dependecy can exist only on primary key column.
+
+												<br><br>
 												<span>Employees table and assignment table</span>
 												<table>
 													<tr>
@@ -317,23 +323,23 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 																<tr>
 																	<td>emp_id</td>
 																	<td>emp_name</td>
-																	<td>emp_salary</td>
+																	<td>emp_age</td>
 																</tr>
 																<tr>
 																	<td>1</td>
 																	<td>Artur</td>
-																	<td>3000</td>
+																	<td>20</td>
 																</tr>
 																<tr>
 																	<td>2</td>
 																	<td>John</td>
-																	<td>10000</td>
+																	<td>40</td>
 																</tr>
 															</table>
 														</td>
 
 														<td>
-															<table style="width:20%;">
+															<table style="width:15%;">
 																<tr>
 																	<td>emp_id</td>
 																	<td>dep_id</td>
@@ -362,8 +368,10 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 														</td>
 													</tr>
 												</table>
-												- With that solution what we get is many-to-many relationship where many employees can be assigned to one or more departments.<br>
-												- Assignment table plays then a role of connector table that manages many-to-many relationship.<br><br>
+												- With that solution what we get is <b>many-to-many</b> relationship where many employees can be assigned to one or more departments.<br>
+												- Assignment table plays then a role of the connector table that manages many-to-many relationship.<br>
+												- Assignment table becomes denormalized table with references to normalized tables.<br>
+												- Denormaliaztion is basically combining multiple tables into one for achieving fast data access.
 											</li>
 											<li>When we care about keeping table normalized we get a set of benefits:
 												<br>
@@ -373,7 +381,6 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												- reduction of redundant and duplicate data.<br>
 												- ensuring data integrity.
 											</li>
-											<li><b>Denormaliaztion</b> - combining multiple tables into one for achieving fast data access.</li>
 										</ul>
 
 										<h5 id="view">VIEW</h5>
