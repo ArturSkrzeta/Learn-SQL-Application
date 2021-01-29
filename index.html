@@ -55,6 +55,16 @@
 
 										<h5>In this section I describe following concepts:</h5>
 										<ul>
+											<a href="#query_types"><li>Query types</li></a>
+											<a href="#constraints"><li>Constraints</li></a>
+											<a href="#stored_procedures"><li>Stored procedures</li></a>
+											<a href="#database_normalization"><li>Database normalization</li></a>
+											<a href="#one_to_many-many"><li>One-to-many</li></a>
+											<a href="#many_to_many"><li>Many-to-many</li></a>
+										</ul>
+
+										<h5>An here are SQL syntax elements:</h5>
+										<ul>
 											<a href="#index"><li>INDEX</li></a>
 											<a href="#view"><li>VIEW</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
@@ -138,7 +148,7 @@
 												5. SELECT - columns filtering.<br>
 												6. ORDER BY - results sorting.<br>
 											</li>
-											<li>There are different types of SQL queries:
+											<li id="query_types">There are different types of SQL queries:
 												<br>
 												1. <b>DQL</b> - Data Query Language</b>:<br>
 												&nbsp&nbsp&nbsp&nbsp&nbsp- <code>SELECT</code>.<br>
@@ -151,7 +161,7 @@
 												5. <b>TCL</b> - Transaction Control Language:<br>
 												&nbsp&nbsp&nbsp&nbsp&nbsp- <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>.<br>
 											</li>
-											<li><b>Constraints</b> - we put the as the limits on the data types of the table. It can be specified while creating or altering the table statement.
+											<li id="constraints"><b>Constraints</b> - we put the as the limits on the data types of the table. It can be specified while creating or altering the table statement.
 													Here they are:
 													<br>
 													- NOT NULL prevents from keeping nulls in the column.<br>
@@ -165,7 +175,7 @@
 											<li><b>Data integrity</b> - defines the accuracy as well as the consistency of the data stored in a database.
 													Once data integrity ensured then any addition or deletion of data from the table will not create any mismatch in the relationship of the tables.
 											</li>
-											<li><b>Stored procedure</b> - saved SQL code so that it can be reused anytime with or without passed parameters:
+											<li id="stored_procedures"><b>Stored procedure</b> - saved SQL code so that it can be reused anytime with or without passed parameters:
 												<br>
 												- stored procedure syntax:
 <!-- start -->
@@ -202,7 +212,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 											</li>
 										</ul>
 
-										<h5>Database Normalization</h5>
+										<h5 id="database_normalization">Database Normalization</h5>
 										<ul>
 											<li><b>Normalization</b> is the db designing process where we aim for minimizing any data redundancy.
 												Redundancy of data means there are multiple copies of the same information spread over multiple locations in the same database.
@@ -383,7 +393,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 											</li>
 										</ul>
 
-										<h5>One-to-many relationship</h5>
+										<h5 id="one_to_many">One-to-many relationship</h5>
 										<ul>
 											<li>When one record from table A can have multiple corresponding records in table B.</li>
 											<li>Lets take Products and Categories tables:
@@ -393,7 +403,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 											</li>
 										</ul>
 
-										<h5>Many-to-many relationship</h5>
+										<h5 id="many_to_many">Many-to-many relationship</h5>
 										<ul>
 											<li>This kind of relationship can be handled by connector table that breaks relationship into two relationships of one-to-many.
 													As the example, let's take order system, where each product can be ordered many times in different orders.</li>
