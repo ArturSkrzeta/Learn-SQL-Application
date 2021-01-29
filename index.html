@@ -383,11 +383,24 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 											</li>
 										</ul>
 
+										<h5>One-to-many relationship</h5>
+										<ul>
+											<li>When one record from table A can have multiple corresponding records in table B.</li>
+											<li>Lets take Products and Categories tables:
+												<br>
+												<img src="images/one_to_many.png" width="500"><span style="font-size:12px;">source: sqlpedia.pl</span><br>
+												- one category can be assigned to many products, however one product cannot be assigned to many categories.
+											</li>
+										</ul>
+
 										<h5>Many-to-many relationship</h5>
 										<ul>
-											<li>This kind of relationship can be handled by connector table that breaks relationship into two relationships of 1:N</li>
-											<li>As the example, let's take order system, where each product can be ordered many times in different orders.</li>
-
+											<li>This kind of relationship can be handled by connector table that breaks relationship into two relationships of one-to-many.
+													As the example, let's take order system, where each product can be ordered many times in different orders.</li>
+											<li>Here are Orders and Products tables connecter with one-to-many relationships with Order Details table.
+												<br>
+												<img src="images/many_to_many.png" width="600"><span style="font-size:12px;">source: sqlpedia.pl</span>
+											</li>
 										</ul>
 
 
