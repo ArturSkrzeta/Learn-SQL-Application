@@ -55,6 +55,7 @@
 
 										<h5>In this section I describe following concepts:</h5>
 										<ul>
+											<a href="#primary_and_foreign_key"><li>Primary and foreign key</li></a>
 											<a href="#query_types"><li>Query types</li></a>
 											<a href="#constraints"><li>Constraints</li></a>
 											<a href="#stored_procedures"><li>Stored procedures</li></a>
@@ -62,10 +63,13 @@
 											<a href="#one_to_many-many"><li>One-to-many</li></a>
 											<a href="#many_to_many"><li>Many-to-many</li></a>
 											<a href="#variables"><li>Variables</li></a>
+											<a href="#functions"><li>Functions</li></a>
+											<a href="#oltp_and_olap"><li>OLTP and OLAP</li></a>
 										</ul>
 
 										<h5>And is set of SQL syntax elements:</h5>
 										<ul>
+											<a href="#like"><li>LIKE</li></a>
 											<a href="#index"><li>INDEX</li></a>
 											<a href="#view"><li>VIEW</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
@@ -85,7 +89,7 @@
 
 										<h5>Terminology and general aspects</h5>
 										<ul>
-											<li><b>Primary key</b> - a column or columns combination that idetifies a specific row uniquely. It implies NOT NULL constraint and hast to be UNIQUE.</li>
+											<li id="primary_and_foreign_key"><b>Primary key</b> - a column or columns combination that idetifies a specific row uniquely. It implies NOT NULL constraint and hast to be UNIQUE.</li>
 											<li><b>Foreign key</b> - a column that contains a primary key of a record from another table. This way we build relationship between tables.
 												<br><br>
 												<table>
@@ -209,7 +213,8 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 </pre>
 <!-- end -->
 												- They can be used as a modular programming which means creating once, storing and calling many times whenever it's required.<br>
-												- This supports faster overall query performance.
+												- This supports faster overall query performance.<br>
+												- There is also such thing as <b>recursive stored procedure</b> which calls itself until it reaches some boundary condition. It allows to reuse the same code any number of times.
 											</li>
 										</ul>
 
@@ -475,6 +480,107 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 											</li>
 										</ul>
 
+										<h5 id="oltp_and_olap">OLTP and OLAP</h5>
+										<table>
+											<thead>
+												<tr>
+													<td>Online Transaction Processing (OLTP) </td>
+													<td>Online Analytical Processing (OLAP)</td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Online database modifying system.</td>
+													<td>Online database data retrieving system.</td>
+												</tr>
+												<tr>
+													<td>Uses traditional DBMS.</td>
+													<td>Uses the data warehouse.</td>
+												</tr>
+												<tr>
+													<td>Insert, Update, and Delete operations.</td>
+													<td>Mostly select operations.</td>
+												</tr>
+												<tr>
+													<td>Queries are standardized and simple.</td>
+													<td>Complex queries involving aggregations.</td>
+												</tr>
+												<tr>
+													<td>Tables in OLTP database are normalized.</td>
+													<td>Tables in OLAP database are not normalized.</td>
+												</tr>
+												<tr>
+													<td>Transactions are the sources of data.</td>
+													<td>Different OLTP databases become the source of data for OLAP.</td>
+												</tr>
+												<tr>
+													<td>Maintains data integrity constraint.</td>
+													<td>Doesn't get frequently modified. Hence, data integrity is not an issue</td>
+												</tr>
+												<tr>
+													<td>Designed for real time business operations.</td>
+													<td>Designed for analysis of business measures.</td>
+												</tr>
+											</tbody>
+										</table>
+
+										<h5 id="functions">Functions</h5>
+										<ul>
+											<li>SQL has many built-in functions that can be categorised in two categories:
+												<table>
+													<thead>
+														<tr>
+															<td>Aggregate functions</td>
+															<td>Scalar functions</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Perform calculations on a group of values and then return a single value.</td>
+															<td>Return a single value from the given input value.</td>
+														</tr>
+														<tr>
+															<td>
+																SUM()<br>
+																COUNT()<br>
+																AVG()<br>
+																MIN()<br>
+																MAX()<br>
+																FIRST()<br>
+																LAST()
+															</td>
+															<td>
+																LCASE()<br>
+																UCASE()<br>
+																LEN()<br>
+																MID()<br>
+																ROUND()<br>
+																NOW()<br>
+																FORMAT()
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+										</ul>
+
+										<h5 id="like">LIKE</h5>
+										<ul>
+											<li>LIKE operator is used for pattern matching.</li>
+											<li>It can be used with wildcards:
+												<br>
+												- "%"" - matches zero or more characters.<br>
+<!-- start -->
+<pre>
+SELECT *
+FROM employees
+WHERE emp_surname LIKE 'S%'
+</pre>
+<!-- end -->
+												- "_" - matches exactly one character.
+											</li>
+										</ul>
+
 										<h5 id="view">VIEW</h5>
 										<ul>
 											<li>It's a virtual table based on the result of any SQL statement.</li>
@@ -492,7 +598,7 @@ WHERE condition;
 												- end here is how to query a view:
 <!-- start -->
 <pre>
-SELECT * FROM [<span style="background-color:#ad5353;">view_name</span>];
+SELECT * FROM <span style="background-color:#ad5353;">view_name</span>
 </pre>
 <!-- end -->
 											</li>
