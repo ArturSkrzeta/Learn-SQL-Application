@@ -449,6 +449,30 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 											<li>Thus the lifecycle of variable <code>@TestVariable</code> determines with GO statement line.
 													In other words, the variable which is declared above the GO statement line can not be accessed under the GO statement.
 											</li>
+											<li>Variable scopes:
+												<table>
+													<thead>
+														<tr>
+															<td>Local Variable</td>
+															<td>Global Variable</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>A user declares the local variable.</td>
+															<td>The system maintains the global variable. A user cannot declare them.</td>
+														</tr>
+														<tr>
+															<td>By default, a local variable starts with @.</td>
+															<td>The global variable starts with @@.</td>
+														</tr>
+														<tr>
+															<td>Can be used or exist inside the function.</td>
+															<td>Can be used or exist throughout the program.</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
 										</ul>
 
 										<h5 id="view">VIEW</h5>
