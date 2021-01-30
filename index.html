@@ -65,6 +65,7 @@
 											<a href="#variables"><li>Variables</li></a>
 											<a href="#oltp_and_olap"><li>OLTP and OLAP</li></a>
 											<a href="#functions"><li>Functions</li></a>
+											<a href="#window_functions"><li>Window functions</li></a>
 										</ul>
 
 										<h5>And is set of SQL syntax elements:</h5>
@@ -85,6 +86,7 @@
 											<a href="#group_by"><li>GROUP BY</li></a>
 											<a href="#having"><li>HAVING</li></a>
 											<a href="#in"><li>IN</li></a>
+											<a href="#over"><li>OVER</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -1207,6 +1209,122 @@ SELECT * FROM table
 WHERE 'Apple' IN (Col1, Col2 Col3)
 </pre>
 <!-- end -->
+											</li>
+										</ul>
+
+										<h5 id="over">OVER</h5>
+										<ul>
+											<li>A <span id="window_functions"><b>window function</b></span> is an SQL function where the input values are taken from a "window" of one or more rows in the results set of a SELECT statement.
+													Window functions are distinguished from other SQL functions by the presence of an <b>OVER clause</b>.
+											</li>
+											<li>OVER clause has been added to SQL Server and can be used to determine which rows from the query are applied to the function.</li>
+											<li><b>PARTITION BY clause</b> is used to divide the result set from the query into data subsets, or partitions.
+													PARTITION BY clause is not used, the entire result set from the query is the partition that will be used.
+													The window function being used is applied to each partition separately, and the computation that the function performs is restarted for each partition.
+													Lets have a look at example without OVER and with OVER applied:
+<!-- start -->
+<pre>
+SELECT  object_id, index_id, COUNT(*) OVER ()
+FROM objects
+</pre>
+<!-- end -->						<br>
+												<table>
+													<tr>
+														<td>obj_id</td>
+														<td>index_id</td>
+														<td>no_col_name</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>1</td>
+														<td>500</td>
+													</tr>
+													<tr>
+														<td>5</td>
+														<td>1</td>
+														<td>500</td>
+													</tr>
+													<tr>
+														<td>6</td>
+														<td>1</td>
+														<td>500</td>
+													</tr>
+													<tr>
+														<td>7</td>
+														<td>1</td>
+														<td>500</td>
+													</tr>
+													<tr>
+														<td>7</td>
+														<td>2</td>
+														<td>500</td>
+													</tr>
+													<tr>
+														<td>8</td>
+														<td>0</td>
+														<td>500</td>
+													</tr>
+													<tr>
+														<td>...</td>
+														<td>...</td>
+														<td>...</td>
+													</tr>
+												</table>
+												<span style="font-size:12px;">source: sqlservercentral.com</span><br>
+												- This query returns the <b>object_id</b> and <b>index_id</b> for each record, and the total number of indexes in the result set.<br>
+												- Since a PARTITION BY clause was not used, the entire result set was treated as a single partition.<br>
+												- Let's apply PARTITION BY clause:
+<!-- start -->
+<pre>
+SELECT object_id, index_id, COUNT(*) OVER (PARTITION BY object_id)
+FROM objects
+</pre>
+<!-- end -->
+												<table>
+													<tr>
+														<td>obj_id</td>
+														<td>index_id</td>
+														<td>no_col_name</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>1</td>
+														<td>1</td>
+													</tr>
+													<tr>
+														<td>5</td>
+														<td>1</td>
+														<td>1</td>
+													</tr>
+													<tr>
+														<td>6</td>
+														<td>1</td>
+														<td>1</td>
+													</tr>
+													<tr>
+														<td>7</td>
+														<td>1</td>
+														<td>2</td>
+													</tr>
+													<tr>
+														<td>7</td>
+														<td>2</td>
+														<td>2</td>
+													</tr>
+													<tr>
+														<td>8</td>
+														<td>0</td>
+														<td>1</td>
+													</tr>
+													<tr>
+														<td>...</td>
+														<td>...</td>
+														<td>...</td>
+													</tr>
+												</table>
+												<span style="font-size:12px; margin-top: -20px;">source: sqlservercentral.com</span><br>
+												- Above query specifies a PARTITION BY clause of the object_id column, so the count function is returning the number of indexes on that particular object_id.
+													For example obj_id has been counted to 2 in no_col_name.
 											</li>
 										</ul>
 
