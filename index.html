@@ -75,6 +75,7 @@
 											<a href="#view"><li>VIEW</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
 											<a href="#join"><li>JOIN</li></a>
+											<a href="#join"><li>USING</li></a>
 											<a href="#union"><li>UNION</li></a>
 											<a href="#except"><li>EXCEPT</li></a>
 											<a href="#intersect"><li>INTERSECT</li></a>
@@ -87,6 +88,8 @@
 											<a href="#having"><li>HAVING</li></a>
 											<a href="#in"><li>IN</li></a>
 											<a href="#over"><li>OVER</li></a>
+											<a href="#offset"><li>OFFSET</li></a>
+											<a href="#fetch"><li>FETCH</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -805,6 +808,22 @@ JOIN TableC ON TableA.Column4 = TableC.Column4
 											</li>
 										</ul>
 
+										<h5 id="using">USING</h5>
+										<ul>
+											<li>USING clause comes in use while working with JOIN and can be used instead of ON clause.</li>
+											<li>When we use USING clause, that particular column name should be present in both tables, and the SELECT query will automatically join those tables using the given column name in USING clause.</li>
+											<li>Here comes the example:
+<!-- start -->
+<pre>
+SELECT e.emp_id, e.last_name, d.loc_id
+FROM emploees e JOIN departments d
+USING(dep_id);
+</pre>
+<!-- end -->
+												- in tables employees and departments, dep_id column is the mutual one.
+											</li>
+										</ul>
+
 										<h5 id="union">UNION</h5>
 										<ul>
 											<li>Merges the contents of two structurally-compatible tables into a single combined table removing duplicated records.</li>
@@ -1325,6 +1344,24 @@ FROM objects
 												<span style="font-size:12px; margin-top: -20px;">source: sqlservercentral.com</span><br>
 												- Above query specifies a PARTITION BY clause of the object_id column, so the count function is returning the number of indexes on that particular object_id.
 													For example obj_id has been counted to 2 in no_col_name.
+											</li>
+										</ul>
+
+										<h5 id="offset">OFFSET</h5>
+										<ul>
+											<li>The OFFSET clause specifies the number of rows to skip before starting to return rows from the query.
+													The <span id="fetch">FETCH</span> clause specifies the number of rows to return after the OFFSET clause has been processed.</li>
+											<li>We must use the OFFSET and FETCH clauses with the ORDER BY clause.</li>
+											<li>Skipping the first 10 products and selecting the next 10 products:
+<!-- start -->
+<pre>
+SELECT product, price
+FROM products
+ORDER BY price, product
+OFFSET 10 ROWS
+FETCH NEXT 10 ROWS ONLY;
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
