@@ -75,6 +75,7 @@
 											<a href="#view"><li>VIEW</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
 											<a href="#join"><li>JOIN</li></a>
+											<a href="#self_join"><li>SELF JOIN</li></a>
 											<a href="#using"><li>USING</li></a>
 											<a href="#union"><li>UNION</li></a>
 											<a href="#except"><li>EXCEPT</li></a>
@@ -811,6 +812,18 @@ JOIN TableB ON TableA.Column3 = TableB.Column3
 JOIN TableC ON TableA.Column4 = TableC.Column4
 </pre>
 <!-- stop -->
+											</li>
+											<li>We can also join a table with itself what we call <span id="self_join">self join</span>
+<!-- start -->
+<pre>
+	SELECT DISTINCT E.FullName
+	FROM EmployeeDetails E
+	INNER JOIN EmployeeDetails M
+	ON E.EmpID = M.ManagerID;
+</pre>
+<!-- stop -->
+												- We are using different aliases to differentiate tables on join.<br>
+												- This way we fetch those emps whose id are present in the ManagerID column.
 											</li>
 										</ul>
 
