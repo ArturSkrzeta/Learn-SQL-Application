@@ -90,6 +90,7 @@
 											<a href="#over"><li>OVER</li></a>
 											<a href="#offset"><li>OFFSET</li></a>
 											<a href="#fetch"><li>FETCH</li></a>
+											<a href="#exist"><li>EXISTS</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -511,8 +512,8 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 													<td>Complex queries involving aggregations.</td>
 												</tr>
 												<tr>
-													<td>Tables in OLTP database are normalized.</td>
-													<td>Tables in OLAP database are not normalized.</td>
+													<td>Tables are normalized.</td>
+													<td>Tables are <u>not</u> normalized.</td>
 												</tr>
 												<tr>
 													<td>Transactions are the sources of data.</td>
@@ -558,10 +559,15 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 																LCASE()<br>
 																UCASE()<br>
 																LEN()<br>
-																MID()<br>
+																MID() / SUBSTRING()<br>
+																LOCATE() / CHARINDEX()<br>
 																ROUND()<br>
 																NOW()<br>
-																FORMAT()
+																FORMAT()<br>
+																INSTR()<br>
+																CONCAT()<br>
+																REPLACE()<br>
+																YEAR()
 															</td>
 														</tr>
 													</tbody>
@@ -1363,6 +1369,23 @@ FETCH NEXT 10 ROWS ONLY;
 </pre>
 <!-- end -->
 											</li>
+										</ul>
+
+										<h5 id="exist">Exist</h5>
+										<ul>
+											<li>The EXISTS operator is used to test for the existence of any record in a subquery.</li>
+											<li>The EXISTS operator returns true if the subquery returns one or more records:
+<!-- start -->
+<pre>
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (
+  SELECT ProductName
+  FROM Products
+  WHERE Products.SupplierID = Suppliers.SupplierID AND Price < 20)
+</pre>
+<!-- end -->
+											- Above query returns TRUE and lists the suppliers with a product price less than 20:
 										</ul>
 
 									</header>
