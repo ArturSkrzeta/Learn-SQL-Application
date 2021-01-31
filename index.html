@@ -66,6 +66,7 @@
 											<a href="#oltp_and_olap"><li>OLTP and OLAP</li></a>
 											<a href="#functions"><li>Functions</li></a>
 											<a href="#window_functions"><li>Window functions</li></a>
+											<a href="#transaction"><li>Transaction</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -290,7 +291,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 														</td>
 
 														<td>
-															<table>
+															<table style="width:15%;">
 																<tr>
 																	<td>emp_id</td>
 																	<td>name</td>
@@ -333,9 +334,10 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												</table>
 
 												- We can move on and make the table in <b>2 NF</b> and <b>3 NF</b>.<br>
-												- In 2 NF we care about having single column primary key. In our examples both departments and employees tables has single-column primary key i.e. <b>dep_id</b> and <b>emp_id</b> respecitvely.<br>
-												- In 3 NF we get rid of any dependencies on non-key columns. Dependecy can exist only on primary key column.
-
+												- In 2 NF we care about having single column primary key. In our example assignment table has a single-column primary key i.e. <b>emp_id</b>.<br>
+												- In 3 NF we get rid of any dependencies where non-key columns may depend on non-key columns.
+												 	Dependecy can exist only on primary key column.
+													In order to achieve it, we need to take non-key column <b>age</b> which depends on non-key column <b>emp_name</b> into separate table named employees.
 												<br><br>
 												<span>Employees table and assignment table</span>
 												<table>
@@ -573,6 +575,19 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 														</tr>
 													</tbody>
 												</table>
+											</li>
+										</ul>
+
+										<h5 id="transaction">Transaction</h5>
+										<ul>
+											<li>Single set of task performed on a database in logical manner.</li>
+											<li>It inlcudes operations like creating, updating, deleting.</li>
+											<li>There are 4 transaction controls:
+												<br>
+												- <b>commit</b>: saving all changes made by a transaction,<br>
+												- <b>rollback</b>: reverts all changes made by a transaction and the database remains as before,<br>
+												- <b>set transaction</b>: setting a transaction's name,<br>
+												- <b>savepoint</b>: sets the point where a transaction can roll back to.
 											</li>
 										</ul>
 
@@ -1203,11 +1218,18 @@ ORDER BY b.emp_id;
 												- let's replace 1s with 11s and 0s with 10s:
 <!-- start -->
 <pre>
-UPDATE tblTest SET Nmbr = case
- WHEN Nmbr = 0 THEN 10
- ELSE 11 END;
+UPDATE dbo.TestStudents
+SET lastname =  CASE
+	 WHEN lastname = 'aaa' THEN 'bbb'
+	 WHEN lastname = 'ccc' THEN 'ddd'
+	 WHEN lastname = 'eee' THEN 'fff'
+	 ELSE lastname
+	END
+WHERE lastname IN ('aaa', 'ccc', 'eee')
 </pre>
 <!-- end -->
+												- it's a good practice to enclose WHERE clause in queries,<br>
+												- ff we omit the WHERE clause, all records will get updated.
 											</li>
 										</ul>
 
