@@ -685,6 +685,14 @@ WHERE last_name LIKE 'S%';
 												- Querying the view <code>emloyess_details</code> for <code>salary</code> field raises an error.
 											</li>
 											<li>It aslo simplifies queries hiding their complexity made with UNION, JOIN etc.</li>
+											<li>Let's have a look at differences between a view and the actual table:
+												<br>
+												- The difference between a view and a table is that views are definitions built on top of other tables (or views), and do not hold data themselves.<br>
+												- A view hides the complexity of the database tables from end users. Essentially we can think of views as a layer of abstraction on top of the database tables.<br>
+												- If data is changing in the underlying table, the same change is reflected in the view.<br>
+												- Views takes very little space to store, since they do not store actual data.<br>
+												- Views can include only certain columns in the table so that only the non-sensitive columns are included and exposed to the end user.
+											</li>
 										</ul>
 
 
@@ -972,7 +980,7 @@ LIMIT 10;
 												<br>
 												- let's assume we have customers table and the fields customer_id,<br>
 												- let's fetch first 100 odd cutomer_id values,<br>
-												- <span id="where">there, we use WHERE clause to filter fetch rows, this clause allows AND as well as OR operators,</span>
+												- <span id="where">there, we use WHERE clause to filter fetched rows, this clause allows AND as well as OR operators,</span>
 <!-- start -->
 <pre>
 SELECT TOP 100 customer_id
