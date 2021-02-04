@@ -692,7 +692,7 @@ WHERE last_name LIKE 'S%';
 										<ul>
 											<li>An index is used to speed up searching in the database by reducing records amount to be scanned.</li>
 											<li>An index helps to speed up <code>SELECT</code> queries and <code>WHERE</code> clauses, but it slows down data input, with the <code>UPDATE</code> and the <code>INSERT</code> statements.</li>
-											<li>Creating an index involves the <code>CREATE INDEX</code> statement, which allows you to name the index, to specify the table and which column or columns to index:
+											<li>In order to set an index we use <code>CREATE INDEX</code> statement, which allows us to name the index as well as to specify a table and a column that we want to get indexed:
 <!-- start -->
 <pre>
 CREATE INDEX index_name
