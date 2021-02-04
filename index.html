@@ -67,6 +67,7 @@
 											<a href="#functions"><li>Functions</li></a>
 											<a href="#window_functions"><li>Window functions</li></a>
 											<a href="#transaction"><li>Transaction</li></a>
+											<a href="#privileges"><li>Privileges</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -93,6 +94,7 @@
 											<a href="#offset"><li>OFFSET</li></a>
 											<a href="#fetch"><li>FETCH</li></a>
 											<a href="#exist"><li>EXISTS</li></a>
+											<a href="#is_not_null"><li>IS NOT NULL</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -394,7 +396,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 													</tr>
 												</table>
 												- With that solution what we get is <b>many-to-many</b> relationship where many employees can be assigned to one or more departments.<br>
-												- Assignment table plays then a role of the connector table that manages many-to-many relationship.<br>
+												- Assignment table plays then a role of the <b>connector table</b> that manages many-to-many relationship.<br>
 												- Assignment table becomes denormalized table with references to normalized tables.<br>
 												- Denormaliaztion is basically combining multiple tables into one for achieving fast data access.
 											</li>
@@ -590,6 +592,33 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 												- <b>savepoint</b>: sets the point where a transaction can roll back to.
 											</li>
 										</ul>
+
+										<h5 id="privileges">Privileges</h5>
+										<ul>
+											<li>A db admin can GRANT or REVOKE privileges to or from users of database.</li>
+											<li>GRANT command provides database access to a user:
+<!-- start -->
+<pre>
+GRANT SELECT
+ON employee
+TO user1
+</pre>
+<!-- end -->
+												- This command grants a SELECT permission on employee table to user1.<br>
+											</li>
+											<li>REVOKE removes database access from a user:
+<!-- start -->
+<pre>
+REVOKE SELECT
+ON employee
+FROM user1
+</pre>
+<!-- end -->
+												- This command will REVOKE a SELECT privilege on employee table from user1.<br>
+												- user1 will lost privilege on employee table only when everyone who granted the permission revokes it.
+											</li>
+										</ul>
+
 
 										<h5 id="like">LIKE</h5>
 										<ul>
@@ -1421,6 +1450,31 @@ WHERE EXISTS (
 </pre>
 <!-- end -->
 											- Above query returns TRUE and lists the suppliers with a product price less than 20:
+										</ul>
+
+										<h5 id="is_not_null">IS NOT NULL</h5>
+										<ul>
+											<li>In order to ensure not getting Nulls in a queried column we use IS NOT NULL in WHERE clause:
+<!-- start -->
+<pre>
+SELECT emp_id, salary
+FROM employees
+WHERE salary IS NOT NULL
+</pre>
+<!-- end -->
+											</li>
+											<li>We can also filter Nulls from multiple colimns:
+<!-- start -->
+<pre>
+SELECT emp_id, salary, emp_position
+FROM employees
+WHERE
+  (salary IS NOT NULL
+  AND
+  emp_position IS NOT NULL)
+</pre>
+<!-- end -->
+											</li>
 										</ul>
 
 									</header>
