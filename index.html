@@ -1273,7 +1273,7 @@ WHERE lastname IN ('aaa', 'ccc', 'eee')
 										<h5 id="in">IN</h5>
 										<ul>
 											<li>The IN operator allows to specify multiple values in a WHERE clause.</li>
-											<li>If taken value 'Apple' is in one of given caolumns then we take rows into results.</li><br>
+											<li>If taken value 'Apple' is in one of given columns then we take rows into results.</li><br>
 												<table style="font-size:16px;">
 													<tr>
 														<td>Id</td>
@@ -1302,10 +1302,22 @@ WHERE lastname IN ('aaa', 'ccc', 'eee')
 												</table>
 <!-- start -->
 <pre>
-SELECT * FROM table
-WHERE 'Apple' IN (Col1, Col2 Col3)
+SELECT *
+FROM table
+WHERE Col1 IN ("Apple", "Strawberry")
 </pre>
 <!-- end -->
+												- as the result, we receive 2 records: first and third one.
+											</li>
+											<li>We can also exclude records by using <b>NOT IN</b>:
+<!-- start -->
+<pre>
+SELECT *
+FROM table
+WHERE Col1 NOT IN ("Apple", "Strawberry")
+</pre>
+<!-- end -->
+												- then we get the second record only.
 											</li>
 										</ul>
 
