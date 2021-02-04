@@ -868,10 +868,10 @@ JOIN TableC ON TableA.Column4 = TableC.Column4
 											<li>We can also join a table with itself what we call <span id="self_join">self join</span>
 <!-- start -->
 <pre>
-	SELECT DISTINCT E.FullName
-	FROM EmployeeDetails E
-	INNER JOIN EmployeeDetails M
-	ON E.EmpID = M.ManagerID;
+SELECT DISTINCT E.FullName
+FROM EmployeeDetails E
+INNER JOIN EmployeeDetails M
+ON E.EmpID = M.ManagerID;
 </pre>
 <!-- stop -->
 												- We are using different aliases to differentiate tables on join.<br>
