@@ -96,6 +96,7 @@
 											<a href="#fetch"><li>FETCH</li></a>
 											<a href="#exist"><li>EXISTS</li></a>
 											<a href="#is_not_null"><li>IS NOT NULL</li></a>
+											<a href="#ifnull"><li>IFNULL</li></a>
 											<a href="#cast"><li>CAST</li></a>
 										</ul>
 
@@ -244,7 +245,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												- string storage with variable size,<br>
 												- the max number of character can reach up to 65535 characters,<br>
 												- because of variable size, it uses dynamic memory allocation,<br>
-												- much slower than char,<br>
+												- much slower than char.
 											</li>
 										</ul>
 
@@ -1518,7 +1519,7 @@ WHERE
 											</li>
 										</ul>
 										
-										<h5>CAST</h5>
+										<h5 id="cast">CAST</h5>
 										<ul>
 											<li>We can use CAST in order to convert data types into other ones.
 <!-- start -->
@@ -1531,7 +1532,19 @@ SELECT CAST(11.25 AS int)
 												- in the example above we convert float type into int type.
 											</li>
 										</ul>
-
+										
+										<h5 id="ifnull">IFNULL</h5>
+										<ul>
+											<li>It's a control flow function that accpets two arguments: 
+<!-- start -->
+<pre>
+SELECT IFNULL(expression_1,expression_2);
+</pre>
+<!-- end -->
+												- function returns expression_1 if expression_1 is not NULL, otherwise, it returns expression_2.
+											</li>
+										</ul>
+							
 									</header>
 								</div>
 							</section>
