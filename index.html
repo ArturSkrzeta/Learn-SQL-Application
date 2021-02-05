@@ -1519,6 +1519,19 @@ WHERE
 											</li>
 										</ul>
 										
+										<h5 id="ifnull">IFNULL</h5>
+										<ul>
+											<li>It's a control flow function that accpets two arguments: 
+<!-- start -->
+<pre>
+SELECT IFNULL(expression_1,expression_2);
+</pre>
+<!-- end -->
+												- function returns expression_1 if expression_1 is not NULL, otherwise, it returns expression_2.
+											</li>
+										</ul>
+										
+										
 										<h5 id="cast">CAST</h5>
 										<ul>
 											<li>We can use CAST in order to convert data types into other ones.
@@ -1532,18 +1545,7 @@ SELECT CAST(11.25 AS int)
 												- in the example above we convert float type into int type.
 											</li>
 										</ul>
-										
-										<h5 id="ifnull">IFNULL</h5>
-										<ul>
-											<li>It's a control flow function that accpets two arguments: 
-<!-- start -->
-<pre>
-SELECT IFNULL(expression_1,expression_2);
-</pre>
-<!-- end -->
-												- function returns expression_1 if expression_1 is not NULL, otherwise, it returns expression_2.
-											</li>
-										</ul>
+									
 							
 									</header>
 								</div>
