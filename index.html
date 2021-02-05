@@ -68,6 +68,7 @@
 											<a href="#window_functions"><li>Window functions</li></a>
 											<a href="#transaction"><li>Transaction</li></a>
 											<a href="#privileges"><li>Privileges</li></a>
+											<a href="#char_and_varchar"><li>Char and varchar</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -95,6 +96,7 @@
 											<a href="#fetch"><li>FETCH</li></a>
 											<a href="#exist"><li>EXISTS</li></a>
 											<a href="#is_not_null"><li>IS NOT NULL</li></a>
+											<a href="#cast"><li>CAST</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -225,6 +227,24 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												- They can be used as a modular programming which means creating once, storing and calling many times whenever it's required.<br>
 												- This supports faster overall query performance.<br>
 												- There is also such thing as <b>recursive stored procedure</b> which calls itself until it reaches some boundary condition. It allows to reuse the same code any number of times.
+											</li>
+										</ul>
+										
+										<h5 id="char_and_varchar">Char and varchar</h5>
+										<ul>
+											<li>Char:
+												<br>
+												- string storage with fixed size,<br>
+												- the max number of characters is 255,<br>
+												- because of fixed size, it uses static memoru allocation,<br>
+												- much faster than varchar.
+											</li>
+											<li>Varchar:
+												<br>
+												- string storage with variable size,<br>
+												- the max number of character can reach up to 65535 characters,<br>
+												- because of variable size, it uses dynamic memory allocation,<br>
+												- much slower than char,<br>
 											</li>
 										</ul>
 
@@ -912,6 +932,7 @@ FROM visitors
 <!-- stop -->
 												- note that colums selected from both tables have to be in sync with each other.
 											</li>
+											<li>We can use multiple UNION statements in a one query.</li>
 										</ul>
 
 										<h5 id="except">EXCEPT</h5>
@@ -1494,6 +1515,20 @@ WHERE
   emp_position IS NOT NULL)
 </pre>
 <!-- end -->
+											</li>
+										</ul>
+										
+										<h5>CAST</h5>
+										<ul>
+											<li>We can use CAST in order to convert data types into other ones.
+<!-- start -->
+<pre>
+SELECT CAST(11.25 AS int)
+------
+11
+</pre>
+<!-- end -->											
+												- in the example above we convert float type into int type.
 											</li>
 										</ul>
 
