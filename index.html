@@ -1584,14 +1584,15 @@ GROUP BY surname
 <pre>
 SELECT emp_name, emp_address, emp_sex, emp_salary
 FROM employees e1
-WHERE NOT EXISTS (select 1 
+WHERE NOT EXISTS (SELECT 1 
          FROM employees e2
          WHERE e2.emp_name = e1.emp_name AND
                e2.emp_address = e1.emp_address AND
                e2.emp_sex = e1.emp_sex AND
                e2.create_date >= e1.create_date)
 </pre>
-<!-- end -->												
+<!-- end -->									- <code>SELECT 1</code> in the subquery returns constant 1 for every row in the table only when condition in WHERE clause is met,<br>
+												- selecting constant 1 is useful when we want to cheaply determine if record matches condition in WHERE clause.
 											</li>
 										</ul>
 									
