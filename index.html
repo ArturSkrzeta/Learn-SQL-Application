@@ -570,25 +570,23 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 												<table>
 													<thead>
 														<tr>
-															<td>Aggregate functions</td>
-															<td>Scalar functions</td>
+															<td>Scalar function</td>
+															<td>Aggregate function</td>
+															<td>Analitic function</td>
 														</tr>
 													</thead>
 													<tbody>
 														<tr>
-															<td>Perform calculations on a group of values and then return a single value.</td>
-															<td>Return a single value from the given input value.</td>
+															<td>Returns a single value from the given input value.</td>
+															<td>Performs calculations on a group of values and then return a single value.</td>
+															<td>Computes values over a group of rows and returns a single result for each row.</td>
 														</tr>
 														<tr>
-															<td>
-																SUM()<br>
-																COUNT()<br>
-																AVG()<br>
-																MIN()<br>
-																MAX()<br>
-																FIRST()<br>
-																LAST()
-															</td>
+															<td>input: 1 record<br>output: 1 record</td>
+															<td>input: n records<br>output: 1 record</td>
+															<td>input: n records<br>output: n records</td>
+														</tr>
+														<tr>
 															<td>
 																LCASE()<br>
 																UCASE()<br>
@@ -602,6 +600,18 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 																CONCAT()<br>
 																REPLACE()<br>
 																YEAR()
+															</td>
+															<td>
+																SUM()<br>
+																COUNT()<br>
+																AVG()<br>
+																MIN()<br>
+																MAX()<br>
+																FIRST()<br>
+																LAST()
+															</td>
+															<td>
+																...
 															</td>
 														</tr>
 													</tbody>
