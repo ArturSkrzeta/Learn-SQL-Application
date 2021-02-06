@@ -1498,7 +1498,7 @@ FETCH NEXT 10 ROWS ONLY;
 											</li>
 										</ul>
 
-										<h5 id="exist">Exist</h5>
+										<h5 id="exist">EXISTS</h5>
 										<ul>
 											<li>The EXISTS operator is used to test for the existence of any record in a subquery.</li>
 											<li>The EXISTS operator returns true if the subquery returns one or more records:
@@ -1569,8 +1569,30 @@ SELECT CAST(11.25 AS int)
 										
 										<h5 id="unique_no_distinct">Unique records without DISTINCT</h5>
 										<ul>
-											<li></li>
-											<li></li>
+											<li>We can use GROUP BY in order to eliminate duplicates from a query result:
+<!-- start -->
+<pre>
+SELECT surname 
+FROM employees
+GROUP BY surname
+</pre>
+<!-- end -->												
+												- it works because GROUP BY group all the similar values of a specific column into one value (group).
+											</li>
+											<li>Another option is self joining the table and using NOT EXISTS in the WHERE clause:
+<!-- start -->
+<pre>
+SELECT emp_name, emp_address, emp_sex, emp_salary
+from employees e1
+WHERE NOT EXISTS (select 1 
+         from employees e2
+         where e2.emp_name = e1.emp_name and
+               e2.emp_address = e1.emp_address and
+               e2.emp_sex = e1.emp_sex and
+               e2.create_date >= e1.create_date)
+</pre>
+<!-- end -->												
+											</li>
 										</ul>
 									
 							
