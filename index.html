@@ -1583,12 +1583,12 @@ GROUP BY surname
 <!-- start -->
 <pre>
 SELECT emp_name, emp_address, emp_sex, emp_salary
-from employees e1
+FROM employees e1
 WHERE NOT EXISTS (select 1 
-         from employees e2
-         where e2.emp_name = e1.emp_name and
-               e2.emp_address = e1.emp_address and
-               e2.emp_sex = e1.emp_sex and
+         FROM employees e2
+         WHERE e2.emp_name = e1.emp_name AND
+               e2.emp_address = e1.emp_address AND
+               e2.emp_sex = e1.emp_sex AND
                e2.create_date >= e1.create_date)
 </pre>
 <!-- end -->												
