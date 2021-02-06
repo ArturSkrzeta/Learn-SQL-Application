@@ -572,7 +572,7 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 														<tr>
 															<td>Scalar function</td>
 															<td>Aggregate function</td>
-															<td>Analitic function</td>
+															<td>Analytic function</td>
 														</tr>
 													</thead>
 													<tbody>
@@ -616,6 +616,15 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 														</tr>
 													</tbody>
 												</table>
+											</li>
+											<li>Analytic functions:
+												<br>
+												- Includes an OVER clause, which defines a moving window of rows around the row being evaluated.<br>
+												- For computing moving averages, rank items, cumulative sums.<br>
+												- Can be put in SELECT or ORDER BY lines.<br>
+												- There are 3 main terms when working with analytic functions: partition, indow and current record:<br>
+												<br>
+												<img src="images/analytic_function_terms.JPG" width="">
 											</li>
 										</ul>
 
