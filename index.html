@@ -349,13 +349,13 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 																	<td>1</td>
 																</tr>
 																<tr>
-																	<td>2</td>
+																	<td>4</td>
 																	<td>John</td>
 																	<td>40</td>
 																	<td>2</td>
 																</tr>
 																<tr>
-																	<td>2</td>
+																	<td>5</td>
 																	<td>John</td>
 																	<td>40</td>
 																	<td>3</td>
@@ -366,8 +366,8 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												</table>
 
 												- We can move on and make the table in <b>2 NF</b> and <b>3 NF</b>.<br>
-												- In 2 NF we care about having single column primary key. In our example assignment table has a single-column primary key i.e. <b>emp_id</b>.<br>
-												- In 3 NF we get rid of any dependencies where non-key columns may depend on non-key columns.
+												- In 2 NF, we care about having single column primary key. In our example assignment table has a single-column primary key i.e. <b>assign_id</b>.<br>
+												- In 3 NF, we get rid of any dependencies where non-key columns may depend on non-key columns.
 												 	Dependecy can exist only on primary key column.
 													In order to achieve it, we need to take non-key column <b>age</b> which depends on non-key column <b>emp_name</b> into separate table named employees.
 												<br><br>
@@ -433,8 +433,6 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												</table>
 												- With that solution what we get is <b>many-to-many</b> relationship where many employees can be assigned to one or more departments.<br>
 												- Assignment table plays then a role of the <b>connector table</b> that manages many-to-many relationship.<br>
-												- Assignment table becomes denormalized table with references to normalized tables.<br>
-												- Denormaliaztion is basically combining multiple tables into one for achieving fast data access.
 											</li>
 											<li>When we care about keeping table normalized we get a set of benefits:
 												<br>
