@@ -293,8 +293,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 													</tr>
 												</table>
 												- Definitely we should be avoiding breaking down department column into a set of new columns like department1, department2, department3. This is what we call <b>repeating groups</b> and it's one of the biggest design error.<br>
-												- We can say that the table is in 1NF when its reocrds are unique and records stores the atomic, undividable information.<br>
-												- In order to reach 1 NF, we need to split the table into two tables so that each record can be unique and each cell contains an atomic value:
+												- In order to reach 1 NF, we need to split the table into two tables so that each record can be unique and each cell contains an atomic, undividable value:
 												<br><br>
 												<span>Departments table and assignment table</span>
 												<table>
