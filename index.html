@@ -365,10 +365,10 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												</table>
 
 												- We can move on and make the table in <b>2 NF</b> and <b>3 NF</b>.<br>
-												- In 2 NF, we care about having single column primary key. In our example assignment table has a single-column primary key i.e. <b>assign_id</b>.<br>
+												- In 2 NF, we care about having single column primary key. In our example, the assignment table has a single-column primary key i.e. <b>assign_id</b>.<br>
 												- In 3 NF, we get rid of any dependencies where non-key columns may depend on non-key columns.
 												 	Dependecy can exist only on primary key column.
-													In order to achieve it, we need to take the non-key column <b>emp_age</b> which depends on the key column <b>emp_name</b> into separate table named employees.
+													In order to achieve it, we need to take the non-key column <b>emp_age</b> which depends on the non-key column <b>emp_name</b> into separate table named employees.
 												<br><br>
 												<span>Employees table and assignment table</span>
 												<table>
