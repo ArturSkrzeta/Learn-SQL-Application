@@ -1352,12 +1352,10 @@ ORDER BY b.emp_id;
 										<ul>
 											<li>We can use Case to give some conditons:
 												<br>
-												- assuming we have tblTest table and Nmbr filed,<br>
-												- tblTest has 50 rows and Nmbr field contains 1s and 0s,<br>
-												- let's replace 1s with 11s and 0s with 10s:
+												- assuming we have students table and lastname filed and we want to update some records:<br>
 <!-- start -->
 <pre>
-UPDATE dbo.TestStudents
+UPDATE dbo.students
 SET lastname =  CASE
 	 WHEN lastname = 'aaa' THEN 'bbb'
 	 WHEN lastname = 'ccc' THEN 'ddd'
