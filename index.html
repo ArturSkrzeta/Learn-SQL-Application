@@ -105,7 +105,7 @@
 										<h5>Terminology and general aspects</h5>
 										<ul>
 											<li id="primary_and_foreign_key"><b>Primary key</b> - a column or columns combination that idetifies a specific row uniquely. It implies NOT NULL constraint and hast to be UNIQUE.
-												In case of multiple columns as piramry key we deal with so-called <b>composite key</b> and can encasulate even up to 32 columns.
+												In case of multiple columns as piramry key, we deal with so-called <b>composite key</b> that can encasulate even up to 32 columns.
 											</li>
 											<li><b>Foreign key</b> - a column that contains a primary key of a record from another table. This way we build relationship between tables.
 												<br><br>
@@ -687,6 +687,37 @@ FROM oldtable
 WHERE condition;
 </pre>
 <!-- end -->											
+											</li>
+											<table>
+												<thead>
+													<tr>
+														<td>SELECT INTO</td>
+														<td>INSERT INTO SELECT</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Used when the table doesn't exist.</td>
+														<td>Used when the table exists.</td>
+													</tr>
+													<tr>
+														<td>For single task like creating temporary table, ad hoc reporting or backup table.</td>
+														<td>Used regularly to appending rows to tables.</td>
+													</tr>
+													<tr>
+														<td>Copies all data with data types to the newly-created table.</td>
+														<td>Data types in source and target tables must match.</td>
+													</tr>
+												</tbody>
+											</table>
+											<li>Here is how to use INSERT INTO SELECT:
+<!-- start -->
+<pre>
+INSERT INTO Customers (CustomerName, City, Country)
+SELECT SupplierName, City, Country FROM Suppliers;
+WHERE Country='Poland';
+</pre>
+<!-- end -->													
 											</li>
 										</ul>
 
@@ -1503,8 +1534,8 @@ FROM objects
 													</tr>
 												</table>
 												<span style="font-size:12px; margin-top: -20px;">source: sqlservercentral.com</span><br>
-												- Above query specifies a PARTITION BY clause of the object_id column, so the count function is returning the number of indexes on that particular object_id.
-													For example obj_id has been counted to 2 in no_col_name.
+												- Above query specifies a PARTITION BY clause of the <b>object_id</b> column, so the count function is returning the number of indexes on that particular <b>object_id</b>.<br>
+												- For example <b>obj_id</b> has been counted to 2 in <b>no_col_name</b>.
 											</li>
 										</ul>
 
@@ -1605,7 +1636,7 @@ FROM employees
 GROUP BY surname
 </pre>
 <!-- end -->												
-												- it works because GROUP BY group all the similar values of a specific column into one value (group).
+												- it works because GROUP BY groups all the similar values of a specific column into one value (group).
 											</li>
 											<li>Another option is self joining the table and using NOT EXISTS in the WHERE clause:
 <!-- start -->
