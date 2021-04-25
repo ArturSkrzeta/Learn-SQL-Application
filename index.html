@@ -50,7 +50,7 @@
 
 										<h3>Intro</h3>
 
-										<p style="text-align: justify;">SQL is the declarative lanuguage which we use to say what we want to get and computer needs to figure out the computation tasks to provide quieried result.
+										<p style="text-align: justify;">SQL as declarative lanuguage is used to tell the machine what we want to get and machine needs to figure out the computation tasks to provide quieried result.
 											In this post I put my notes and examples that helps me to understand different aspects of SQL. There is also the application for learning SQL demonstrated in the <a href="#three"><u>Demo</u></a> section and its source code linked below.</p>
 
 										<h5>In this section I describe following concepts:</h5>
@@ -183,21 +183,21 @@
 												5. <b>TCL</b> - Transaction Control Language:<br>
 												&nbsp&nbsp&nbsp&nbsp&nbsp- <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>.<br>
 											</li>
-											<li id="constraints"><b>Constraints</b> - we put the as the limits on the data types of the table. It can be specified while creating or altering the table statement.
+											<li id="constraints"><b>Constraints</b> - we put them as the limits on the data types of the table. It can be specified while creating or altering the table statement.
 													Here they are:
 													<br>
-													- NOT NULL prevents from keeping nulls in the column.<br>
-													- CHECK limits the value range that can placed in the column for instance:<br>
-													 	&nbsp&nbsp&nbspAge INTEGER, CHECK (AGE>=18).<br>
-													- DEFAULT provides default value to all records unless other value specified.<br>
-													- UNIQUE prevents from storing duplicates within a column.<br>
-													- PRIMARY KEY sets pk on a column.<br>
-													- FOREIGN KEY sets fk indicating pk of a table in the relationship.<br>
+													- NOT NULL - prevents from keeping nulls in the column.<br>
+													- CHECK - limits the value range that can placed in the column for instance:<br>
+													 	&nbsp&nbsp&nbsp<code>Age INTEGER, CHECK (AGE>=18)</code>.<br>
+													- DEFAULT - provides default value to all records unless other value specified.<br>
+													- UNIQUE - prevents from storing duplicates within a column.<br>
+													- PRIMARY KEY - sets pk on a column.<br>
+													- FOREIGN KEY - sets fk indicating pk of a table in the relationship.<br>
 											</li>
 											<li><b>Data integrity</b> - defines the accuracy as well as the consistency of the data stored in a database.
 													Once data integrity ensured then any addition or deletion of data from the table will not create any mismatch in the relationship of the tables.
 											</li>
-											<li id="stored_procedures"><b>Stored procedure</b> - saved SQL code so that it can be reused anytime with or without passed parameters:
+											<li id="stored_procedures"><b>Stored procedure</b> - saved SQL code so that it can be reused anytime with or without parameters:
 												<br>
 												- stored procedure syntax:
 <!-- start -->
@@ -229,7 +229,7 @@ GO;
 EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'</span>, <span style="background-color:#3976b3;">@PostalCode = '30-708'</span>;
 </pre>
 <!-- end -->
-												- They can be used as a modular programming which means creating once, storing and calling many times whenever it's required.<br>
+												- They can be used as a modular programming which means creating once, storing and calling many times whenever required.<br>
 												- This supports faster overall query performance.<br>
 												- There is also such thing as <b>recursive stored procedure</b> which calls itself until it reaches some boundary condition. It allows to reuse the same code any number of times.
 											</li>
@@ -264,9 +264,9 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 											</li>
 											<li>There are 3 forms of the normalizaton where each consecutive normal form depends on the previous one:
 												<br>
-												✓ First normal form (1 NF),<br>
-												✓ Second normal form (2 NF),<br>
-												✓ Third normal form (3 NF),<br>
+												✓ <b>First normal form (1 NF),</b><br>
+												✓ <b>Second normal form (2 NF),</b><br>
+												✓ <b>Third normal form (3 NF),</b><br>
 												where db is considered the third normal form if it meets the requirements of the first 3 normal forms.
 											</li>
 											<li>In <b>1 NF</b> wa aim to keep only atomic information. Here is the example which violates the 1NF as it contains more than one value for the department column:
@@ -460,7 +460,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 
 										<h5 id="many_to_many">Many-to-many relationship</h5>
 										<ul>
-											<li>This kind of relationship can be handled by connector table that breaks relationship into two relationships of one-to-many.
+											<li>This kind of relationship can be handled by <b>connector table</b> that breaks relationship into two relationships of one-to-many.
 													As the example, let's take order system, where each product can be ordered many times in different orders.</li>
 											<li>Here are Orders and Products tables connecter with one-to-many relationships with Order Details table.
 												<br>
@@ -474,7 +474,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 <!-- start -->
 <pre>
 DECLARE <span style="color:#00ffea;">@TestVariable</span> AS VARCHAR(100)
-SET <span style="color:#00ffea;">@TestVariable</span> = 'Thi is an example string.'
+SET <span style="color:#00ffea;">@TestVariable</span> = 'This is an example string.'
 PRINT <span style="color:#00ffea;">@TestVariable</span>
 </pre>
 <!-- end -->
@@ -521,8 +521,8 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 															<td>The global variable starts with @@.</td>
 														</tr>
 														<tr>
-															<td>Can be used or exist inside the function.</td>
-															<td>Can be used or exist throughout the program.</td>
+															<td>Can be used or exists inside the function.</td>
+															<td>Can be used or exists throughout the program.</td>
 														</tr>
 													</tbody>
 												</table>
@@ -903,6 +903,7 @@ FROM students
 												- <b>Right join</b>: returns all the rows from the right table regardless if there is a match or a null from the left table.<br>
 												- <b>Inner join</b>: returns rows when there is a match in rows between the tables.<br>
 												- <b>Full outer join</b>: returns all the rows from the left-hand side table and all the rows from the right-hand side table.<br>
+												- <b>Cross join</b>: joins every row of one table with every row of another table.
 											</li>
 											<li>Let's take two table schemas for an example:
 												<br><br>
