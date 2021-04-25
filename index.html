@@ -498,8 +498,8 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 </pre>
 <!-- end -->
 											</li>
-											<li>When we assign multiple-rows SELECT result to a variable, the assigned value to the variable will be the last row of the resultset.</li>
-											<li>It's important to remember that local variable scope expires at the end of the batch which can be determined by <b>GO</b> statement</li>
+											<li>When we assign multiple-rows SELECT result to a variable, the assigned value to the variable will be the last row of the result set.</li>
+											<li>It's important to remember that local variable scope expires at the end of the batch which can be determined by <b>GO</b> statement.</li>
 											<li>Thus the lifecycle of variable <code>@TestVariable</code> determines with GO statement line.
 													In other words, the variable which is declared above the GO statement line can not be accessed under the GO statement.
 											</li>
@@ -1092,7 +1092,7 @@ WHERE customer_id % 2 = 1
 ORDER BY user_id
 </pre>
 <!-- end -->
-												- Clause Were can also have BETWEEM operator:
+												- Clause WHERE can also have BETWEEM operator:
 <!-- start -->
 <pre>
 SELECT *
@@ -1424,7 +1424,7 @@ WHERE Col1 NOT IN ("Apple", "Strawberry")
 
 										<h5 id="over">OVER</h5>
 										<ul>
-											<li>A <span id="window_functions"><b>window function</b></span> is an SQL function where the input values are taken from a "window" of one or more rows in the results set of a SELECT statement.
+											<li>A <span id="window_functions"><b>window function</b></span> is an SQL function where the input values are taken from a "window" of one or more rows into the results set of a SELECT statement.
 													Window functions are distinguished from other SQL functions by the presence of an <b>OVER clause</b>.
 											</li>
 											<li>OVER clause has been added to SQL Server and can be used to determine which rows from the query are applied to the function.</li>
@@ -1584,7 +1584,7 @@ WHERE salary IS NOT NULL
 </pre>
 <!-- end -->
 											</li>
-											<li>We can also filter Nulls from multiple colimns:
+											<li>We can also filter Nulls from multiple columns:
 <!-- start -->
 <pre>
 SELECT emp_id, salary, emp_position
@@ -1621,7 +1621,7 @@ SELECT CAST(11.25 AS int)
 11
 </pre>
 <!-- end -->											
-												- in the example above we convert float type into int type.
+												- in the example above we convert <b>float type</b> into <b>int type</b>.
 											</li>
 										</ul>
 										
@@ -1635,7 +1635,7 @@ FROM employees
 GROUP BY surname
 </pre>
 <!-- end -->												
-												- it works because GROUP BY groups all the similar values of a specific column into one value (group).
+												- it works because GROUP BY groups all the duplicated values of a specific column into one value (group).
 											</li>
 											<li>Another option is self joining the table and using NOT EXISTS in the WHERE clause:
 <!-- start -->
@@ -1649,8 +1649,8 @@ WHERE NOT EXISTS (SELECT 1
                e2.emp_sex = e1.emp_sex AND
                e2.create_date >= e1.create_date)
 </pre>
-<!-- end -->									- <code>SELECT 1</code> in the subquery returns constant 1 for every row in the table only when condition in WHERE clause is met,<br>
-												- selecting constant 1 is useful when we want to cheaply determine if record matches condition in WHERE clause.
+<!-- end -->									- <code>SELECT 1</code> in the subquery returns constant 1 for every row in the table only when condition in the second WHERE clause is met,<br>
+												- selecting constant 1 is useful when we want to cheaply determine if record matches condition in the WHERE clause.
 											</li>
 										</ul>
 									
