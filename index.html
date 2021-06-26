@@ -70,6 +70,7 @@
 											<a href="#privileges"><li>Privileges</li></a>
 											<a href="#char_varchar_nvarchar"><li>Char vs varchar vs nvarchar</li></a>
 											<a href="#unique_no_distinct"><li>Unique records without DISTINCT</li></a>
+											<a href="#cte"><li>Common Table Expression</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -234,7 +235,7 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												- There is also such thing as <b>recursive stored procedure</b> which calls itself until it reaches some boundary condition. It allows to reuse the same code any number of times.
 											</li>
 										</ul>
-										
+
 										<h5 id="char_varchar_nvarchar">Char vs varchar vs nvarchar</h5>
 										<ul>
 											<li>char:
@@ -675,7 +676,7 @@ FROM user1
 												- user1 will lost privilege on employee table only when everyone who granted the permission revokes it.
 											</li>
 										</ul>
-										
+
 										<h5 id="selectinto">SELECT INTO</h5>
 										<ul>
 											<li>Statement that copies data from a table to the new one.
@@ -686,7 +687,7 @@ INTO newtable [IN externaldb]
 FROM oldtable
 WHERE condition;
 </pre>
-<!-- end -->											
+<!-- end -->
 											</li>
 											<table>
 												<thead>
@@ -717,7 +718,7 @@ INSERT INTO Customers (CustomerName, City, Country)
 SELECT SupplierName, City, Country FROM Suppliers;
 WHERE Country='Poland';
 </pre>
-<!-- end -->													
+<!-- end -->
 											</li>
 										</ul>
 
@@ -1597,10 +1598,10 @@ WHERE
 <!-- end -->
 											</li>
 										</ul>
-										
+
 										<h5 id="ifnull">IFNULL</h5>
 										<ul>
-											<li>It's a control flow function that accpets two arguments: 
+											<li>It's a control flow function that accpets two arguments:
 <!-- start -->
 <pre>
 SELECT IFNULL(expression_1,expression_2);
@@ -1609,8 +1610,8 @@ SELECT IFNULL(expression_1,expression_2);
 												- function returns expression_1 if expression_1 is not NULL, otherwise, it returns expression_2.
 											</li>
 										</ul>
-										
-										
+
+
 										<h5 id="cast">CAST</h5>
 										<ul>
 											<li>We can use CAST in order to convert data types into other ones.
@@ -1620,21 +1621,21 @@ SELECT CAST(11.25 AS int)
 ------
 11
 </pre>
-<!-- end -->											
+<!-- end -->
 												- in the example above we convert <b>float type</b> into <b>int type</b>.
 											</li>
 										</ul>
-										
+
 										<h5 id="unique_no_distinct">Unique records without DISTINCT</h5>
 										<ul>
 											<li>We can use GROUP BY in order to eliminate duplicates from a query result:
 <!-- start -->
 <pre>
-SELECT surname 
+SELECT surname
 FROM employees
 GROUP BY surname
 </pre>
-<!-- end -->												
+<!-- end -->
 												- it works because GROUP BY groups all the duplicated values of a specific column into one value (group).
 											</li>
 											<li>Another option is self joining the table and using NOT EXISTS in the WHERE clause:
@@ -1642,19 +1643,53 @@ GROUP BY surname
 <pre>
 SELECT emp_name, emp_address, emp_sex, emp_salary
 FROM employees e1
-WHERE NOT EXISTS (SELECT 1 
+WHERE NOT EXISTS (SELECT 1
          FROM employees e2
          WHERE e2.emp_name = e1.emp_name AND
                e2.emp_address = e1.emp_address AND
                e2.emp_sex = e1.emp_sex AND
                e2.create_date >= e1.create_date)
 </pre>
-<!-- end -->									- <code>SELECT 1</code> in the subquery returns constant 1 for every row in the table only when condition in the second WHERE clause is met,<br>
+<!-- end -->
+												- <code>SELECT 1</code> in the subquery returns constant 1 for every row in the table only when condition in the second WHERE clause is met,<br>
 												- selecting constant 1 is useful when we want to cheaply determine if record matches condition in the WHERE clause.
 											</li>
 										</ul>
-									
-							
+
+										<h5 id="cte">Common Table Expression (CTE):</h5>
+										<ul>
+											<li>It's a named temporary result set that exists within the scope of a single statement and that can be referred to later within that statement, possibly multiple times.</li>
+											<li>Improves the readability of sql statements.</li>
+											<li>When CTE is helpful:
+												<br>
+												- needing to reference a derived table multiple times in a single query,<br>
+												- an alternative to creating a view in the database,<br>
+												- performing the same calculation multiple times over across multiple query components.<br>
+											</li>
+											<li>Starts with <b>WITH</b> keyword:
+<!-- start -->
+<pre>
+-- define CTE:
+WITH Cost_by_Month AS
+(SELECT campaign_id AS campaign,
+    TO_CHAR(created_date, 'YYYY-MM') AS month,
+    SUM(cost) AS monthly_cost
+FROM marketing
+WHERE created_date BETWEEN NOW() - INTERVAL '3 MONTH' AND NOW()
+GROUP BY 1, 2
+ORDER BY 1, 2)
+
+-- use CTE in subsequent query:
+SELECT campaign, avg(monthly_cost) as "Avg Monthly Cost"
+FROM Cost_by_Month
+GROUP BY campaign
+ORDER BY campaign
+</pre>
+<!-- end -->
+												<span style="font-size:14px;">source: chartio.com</span>
+											</li>
+										</ul>
+
 									</header>
 								</div>
 							</section>
