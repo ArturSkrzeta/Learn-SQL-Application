@@ -980,6 +980,51 @@ ON E.EmpID = M.ManagerID;
 												- We are using different aliases to differentiate tables on join.<br>
 												- This way we fetch those emps whose id are present in the ManagerID column.
 											</li>
+											<li>Selecting the columns on which joins is applied:
+												<br>
+<!-- start -->
+<pre>
+SELECT t1.main_col AS col_A, t2.main_col AS col_B
+FROM tab1 t1
+FULL OUTER JOIN tab2 t2
+ON t1.main_col = t2.main_col
+</pre>
+<!-- stop -->
+													- we just need to alias the columns properly to fetch them boht separately.<br>
+													- result:<br>
+													<table>
+														<thead>
+															<tr>
+																<td>col_A</td>
+																<td>col_B</td>
+															</tr>
+														</thead>
+														<tr>
+															<td>Null</td>
+															<td>1231235</td>
+														</tr>
+														<tr>
+															<td>Null</td>
+															<td>5234214</td>
+														</tr>
+														<tr>
+															<td>4434431</td>
+															<td>4434431</td>
+														</tr>
+														<tr>
+															<td>2221222</td>
+															<td>2221222</td>
+														</tr>
+														<tr>
+															<td>9765675</td>
+															<td>Null</td>
+														</tr>
+														<tr>
+															<td>7654565</td>
+															<td>Null</td>
+														</tr>
+													</table>
+											</li>
 										</ul>
 
 										<h5 id="using">USING</h5>
@@ -990,11 +1035,21 @@ ON E.EmpID = M.ManagerID;
 <!-- start -->
 <pre>
 SELECT e.emp_id, e.last_name, d.loc_id
-FROM emploees e JOIN departments d
+FROM emploees e
+JOIN departments d
 USING(dep_id);
 </pre>
 <!-- end -->
 												- in tables employees and departments, dep_id column is the mutual one.
+											</li>
+											<li>Another example with delete query:
+<!-- start -->
+<pre>
+DELETE FROM tab1
+USING tab2
+WHERE tab1.k = tab2.k
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
