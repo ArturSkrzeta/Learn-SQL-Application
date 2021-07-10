@@ -71,6 +71,7 @@
 											<a href="#char_varchar_nvarchar"><li>Char vs varchar vs nvarchar</li></a>
 											<a href="#unique_no_distinct"><li>Unique records without DISTINCT</li></a>
 											<a href="#cte"><li>Common Table Expression</li></a>
+											<a href="#sqldelta"><li>SQL Delta</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -980,7 +981,7 @@ ON E.EmpID = M.ManagerID;
 												- We are using different aliases to differentiate tables on join.<br>
 												- This way we fetch those emps whose id are present in the ManagerID column.
 											</li>
-											<li>Selecting the columns on which joins is applied:
+											<li>Selecting the columns on which join is applied:
 												<br>
 <!-- start -->
 <pre>
@@ -1743,6 +1744,18 @@ ORDER BY campaign
 <!-- end -->
 												<span style="font-size:14px;">source: chartio.com</span>
 											</li>
+										</ul>
+
+										<h5>SQL Delta:</h5>
+										<ul>
+											<li>It performs three main functions:
+												<br>
+												- comparing and optionally synchronizing the structure (schema) of two SQL databases,<br>
+												- comparing the data in tables (and optionally views) of both the databases,<br>
+												- displaying the schema of a database.
+											</li>
+											<li>SQL Delta can generate update scripts to synchronize one database with other database, for both structure and data.</li>
+											<li>SQL Delta provides various structure and comparison reports which are saved as HTML. Itpresents an overview of the objects highlighting different, added or deleted.</li>
 										</ul>
 
 									</header>
