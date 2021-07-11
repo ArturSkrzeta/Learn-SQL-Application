@@ -1836,8 +1836,37 @@ ORDER BY T1.InvoiceID
 														<td>2021-01-01</td>
 													</tr>
 												</table>
+												<br>
+												- If you look at the result above, you’ll see that for each invoice listed in the first column (T1.InvoiceID), It is greater than or equal to InvoiceID’s in the second column (T2.InvoiceID).
 											</li>
 
+											<li>As we want to calculate the running total we need to get an amount for each invoice and all invoices before:
+												<br>
+<!-- start -->
+<pre>
+	SELECT   T1.InvoiceID
+	         ,T1.TransactionDate
+	         ,T1.TransactionAmount
+	         ,Sum(T2.TransactionAmount) RunningTotal
+	FROM     Sales.CustomerTransactions T1
+	         INNER JOIN Sales.CustomerTransactions T2
+	         ON T1.InvoiceID >= T2.InvoiceID
+	         AND  T1.TransactionDate = T2.TransactionDate
+	GROUP BY T1.InvoiceID
+	         ,T1.TransactionDate
+	         ,T1.TransactionAmount
+	ORDER BY T1.InvoiceID
+	         ,T1.TransactionAmount
+</pre>
+<!-- end -->
+												<span style="font-size:14px;">source: essentialsql.com</span><br>
+											</li>
+											<li>...
+												<br>
+												<img src="images/running_total.JPG"><span style="font-size:14px;">source: essentialsql.com</span><br>
+
+
+											</li>
 										</ul>
 
 									</header>
