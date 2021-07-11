@@ -1870,8 +1870,40 @@ ORDER BY T1.InvoiceID
 											<li>We calculate running total on <b>T2.TransactionAmount</b>:
 												<br>
 												<img src="images/running_total.JPG"><span style="font-size:14px;">source: essentialsql.com</span><br>
-
-
+											</li>
+											<li>Here is how can we achieve it with OVER caluse:
+<!-- start -->
+<pre>
+SELECT   InvoiceID
+         ,TransactionDate
+         ,TransactionAmount
+         ,SUM(TransactionAmount) OVER(PARTITION BY TransactionDate) RunningTotal
+FROM     Sales.CustomerTransactions T1
+WHERE    TransactionTypeID = 1
+ORDER BY InvoiceID
+         ,TransactionAmount
+</pre>
+<!-- end -->
+												and here is the result:
+												<br><br>
+												<img src="images/over_1.JPG">
+												<span style="font-size:14px;">source: essentialsql.com</span><br>
+<!-- start -->
+<pre>
+SELECT   InvoiceID
+         ,TransactionDate
+         ,TransactionAmount
+         ,SUM(TransactionAmount) OVER(PARTITION BY TransactionDate ORDER BY InvoiceID) RunningTotal
+FROM     Sales.CustomerTransactions T1
+WHERE    TransactionTypeID = 1
+ORDER BY InvoiceID
+         ,TransactionAmount
+</pre>
+<!-- end -->
+												when ORDER BY added, we get the expected:
+												<br><br>
+												<img src="images/over_2.JPG">
+												<span style="font-size:14px;">source: essentialsql.com</span><br>
 											</li>
 										</ul>
 
