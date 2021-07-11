@@ -72,6 +72,7 @@
 											<a href="#unique_no_distinct"><li>Unique records without DISTINCT</li></a>
 											<a href="#cte"><li>Common Table Expression</li></a>
 											<a href="#sqldelta"><li>SQL Delta</li></a>
+											<a href="#running_total"><li>Running Total</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -1775,6 +1776,68 @@ ORDER BY campaign
 											</li>
 											<li>SQL Delta can generate update scripts to synchronize one database with other database, for both structure and data.</li>
 											<li>SQL Delta provides various structure and comparison reports which are saved as HTML. Itpresents an overview of the objects highlighting different, added or deleted.</li>
+										</ul>
+
+										<h5 id="running_total">Running Total</h5>
+										<ul>
+											<li>Here I want to apply running total without any window functions:
+												<br>
+												- we apply the self inner join,<br>
+<!-- start -->
+<pre>
+SELECT   T1.InvoiceID
+         ,T2.InvoiceID
+         ,T1.TransactionDate
+FROM     Sales.CustomerTransactions T1
+         INNER JOIN Sales.CustomerTransactions T2
+         ON T1.InvoiceID >= T2.InvoiceID
+         AND  T1.TransactionDate = T2.TransactionDate
+ORDER BY T1.InvoiceID
+</pre>
+<!-- end -->
+												<span style="font-size:14px;">source: essentialsql.com</span><br>
+												- there are two join conditions in order to get poper set of data:<br>
+												&nbsp&nbsp&nbsp1) <b>T1.InvoiceID >= T2.InvoiceID</b> to get each invoices with the rest of prior ones.<br>
+												&nbsp&nbsp&nbsp1) <b>T1.TransactionDate = T2.TransactionDate</b> to include records on the same transaction date.<br><br>
+												<table>
+													<tr>
+														<td>InvoiceID</td>
+														<td>InvoiceID</td>
+														<td>TransactionDate</td>
+													</tr>
+													<tr>
+														<td>1</td>
+														<td>1</td>
+														<td>2021-01-01</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>1</td>
+														<td>2021-01-01</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>2</td>
+														<td>2021-01-01</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>1</td>
+														<td>2021-01-01</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>2</td>
+														<td>2021-01-01</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>3</td>
+														<td>2021-01-01</td>
+													</tr>
+												</table>
+											</li>
+
 										</ul>
 
 									</header>
