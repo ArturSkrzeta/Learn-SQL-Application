@@ -1426,6 +1426,25 @@ WHERE lastname IN ('aaa', 'ccc', 'eee')
 												- it's very important to enclose WHERE clause in the queries,<br>
 												- if we omit the WHERE clause, all records will get updated.
 											</li>
+											<li>Embeded CASE WHEN in SUM():
+												<br>
+												- using orders table we have fields like ship_country and status,<br>
+												- we want to show the number of shipped orders by country,<br>
+												- the order is shipped if the status is “shipped” or “delivered:<br>
+<!-- start -->
+<pre>
+SELECT ship_country,
+    SUM(CASE
+      WHEN status = 'shipped' OR status = 'delivered' THEN 1
+      ELSE 0
+      END) AS order_shipped
+FROM orders
+GROUP BY ship_country;
+</pre>
+<!-- end -->
+												- the code assigns 1 to all records where the status is either "shipped" or "delivered",<br>
+												- rest of the records with different status get 0 assigned.<br>
+											</li>
 										</ul>
 
 										<h5 id="in">IN</h5>
