@@ -1027,6 +1027,11 @@ ON t1.main_col = t2.main_col
 														</tr>
 													</table>
 											</li>
+											<li>Cross join using 1 = 1 as join condition:
+												<br>
+												- It's simply doing a <b>cross join</b>, which selects all rows from the first table and all rows from the second table and shows as cartesian product, i.e. with all possibilities.<br>
+												- Putting in 1=1 is like saying "1=1 is always true, do don't eliminate anything".
+											</li>
 										</ul>
 
 										<h5 id="using">USING</h5>
@@ -1445,6 +1450,18 @@ GROUP BY ship_country;
 <!-- end -->
 												- the code assigns 1 to all records where the status is either "shipped" or "delivered",<br>
 												- rest of the records with different status get 0 assigned.<br>
+												- another example to count percentage:
+												<br>
+<!-- start -->
+<pre>
+SELECT SUM(CASE
+      WHEN CAST(order_cost AS INT) > 500
+        THEN 1
+      ELSE 0
+      END) * 100.0 / COUNT(*) AS percentage_orders_over_500
+FROM orders
+</pre>
+												<!-- end -->
 											</li>
 										</ul>
 
