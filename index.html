@@ -904,7 +904,7 @@ FROM tblSales
 <!-- end -->
 												- all aggreagating functions ignore NULL values by default,<br>
 												- however, with syntax: COUNT(*) we calculate both duplicates and nulls,<br>
-												- all aggreagating functions take all values including deuplicated ones - we can prevent this using DISTINCT keyword.<br>
+												- all aggreagating functions take all values including deuplicated ones - we can prevent this using DISTINCT keyword,<br>
 												- even though all aggregating functions can accept unique values, keyword DISTINCT is most often used with COUNT().
 											</li>
 										</ul>
@@ -1190,7 +1190,7 @@ WHERE YEAR(date_of_joining) = '2020'
 
 										<h5 id="group_by">GROUP BY</h5>
 										<ul>
-											<li>Groups rows when they have the same value in the field we indicate:
+											<li>Groups rows into categories within a column we indicate:
 <!-- start -->
 <pre>
 SELECT COUNT(CustomerID), Country
@@ -1199,8 +1199,11 @@ GROUP BY Country
 HAVING COUNT(CustomerID) > 3;
 </pre>
 <!-- end -->
+												and then we can run any aggregating function for a particular category.<br>
 												- We count all customers for a specific country but we display countires where count is bigger than 3.<br>
 												- We use GROUP BY when some aggregating function in select line like COUNT, SUM, AVERAGE.<br>
+												- When using GROUP BY, in he select line we can use only aggregating functions and columns that are enclosed by GROUP BY.<br>
+												- We can create some sub-groups: <code>GROUP BY Country, Region</code>
 												- <span id="having">HAVING simply puts filter on COUNT(CustomerID) outcome column.</span>
 <!-- start -->
 <pre>
