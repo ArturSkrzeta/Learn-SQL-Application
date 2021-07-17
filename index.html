@@ -630,8 +630,9 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 													</tbody>
 												</table>
 											</li>
-											<li>Analytic functions:
+											<li>Windows:
 												<br>
+												- Executes a specific function based on the moving window that encapsulates one or N records at a time,<br>
 												- Includes an OVER clause, which defines a moving window of rows around the row being evaluated.<br>
 <!-- start -->
 <pre>
@@ -655,6 +656,29 @@ ORDER BY [SalesTerritoryKey],[Month];
 												<br>
 												<img src="images/analytic_function_terms.JPG">
 												<span style="font-size:14px;">mssqltips.com</span>
+											</li>
+										</ul>
+
+										<h5>Window functions:</h5>
+										<ul>
+											<li>They allow to refer to a value of an indicated record different than the current one.</li>
+											<li>LAG:
+												<br>
+												- returns a value of a specific field from the preceiding record of a current parititon,<br>
+												- when LAG function called for the first record, it returns NULL.
+											</li>
+											<li>LEAD:
+												<br>
+												- returns a value of a specific field from the following record of a current partition,<br>
+												- when LEAD function called for the last record, it returns NULL.
+											</li>
+											<li>FIRST_VALUE:
+												<br>
+												- returns the first value of a speciic field of a current partition,<br>
+											</li>
+											<li>LAST_VALUE:
+												<br>
+												- returns the last value of a specific field of a current partition.
 											</li>
 										</ul>
 
