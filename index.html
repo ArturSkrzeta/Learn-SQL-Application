@@ -665,20 +665,59 @@ ORDER BY [SalesTerritoryKey],[Month];
 											<li>LAG:
 												<br>
 												- returns a value of a specific field from the preceiding record of a current parititon,<br>
-												- when LAG function called for the first record, it returns NULL,<br>
+												- when LAG function called for the first record of a current partition, it returns NULL,<br>
 												- example:
 <!-- start -->
 <pre>
-SELECT CAST(DueDate AS DATE) AS Date, OrderID, Total, LAG([DueDate]) OVER (PARTITION BY DueDate ORDER BY DueDate) AS PrevousDueDateTotal
+SELECT CAST(DueDate AS DATE) AS DueDate, OrderID, Total,
+		LAG([DueDate]) OVER (PARTITION BY DueDate ORDER BY DueDate) AS PreviousDueDateTotal
 FROM tblSales
-ORDER BY DueDate 
+ORDER BY DueDate
 </pre>
 <!-- end -->
+												<table>
+													<thead>
+														<td>DueDate</td>
+														<td>OrderId</td>
+														<td>Total</td>
+														<td>PreviousDueDateTotal</td>
+													</thead>
+													<tr>
+														<td>2008-06-14</td>
+														<td>71776</td>
+														<td>87.08</td>
+														<td>NULL</td>
+													</tr>
+													<tr>
+														<td>2008-06-14</td>
+														<td>71832</td>
+														<td>3953160.1</td>
+														<td>87.08</td>
+													</tr>
+													<tr>
+														<td>2008-06-14</td>
+														<td>71833</td>
+														<td>22</td>
+														<td>3953160.1</td>
+													</tr>
+													<tr>
+														<td>2008-06-17</td>
+														<td>71835</td>
+														<td>9102.11</td>
+														<td>NULL</td>
+													</tr>
+													<tr>
+														<td>2008-06-17</td>
+														<td>71835</td>
+														<td>5512.94</td>
+														<td>9102.11</td>
+													</tr>
+												</table>
 											</li>
 											<li>LEAD:
 												<br>
 												- returns a value of a specific field from the following record of a current partition,<br>
-												- when LEAD function called for the last record, it returns NULL.
+												- when LEAD function called for the last record of a current partition, it returns NULL.
 											</li>
 											<li>FIRST_VALUE:
 												<br>
