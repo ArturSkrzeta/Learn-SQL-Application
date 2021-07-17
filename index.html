@@ -82,6 +82,7 @@
 											<a href="#index"><li>INDEX</li></a>
 											<a href="#view"><li>VIEW</li></a>
 											<a href="#distinct"><li>DISTINCT</li></a>
+											<a href="#count"><li>COUNT</li></a>
 											<a href="#join"><li>JOIN</li></a>
 											<a href="#self_join"><li>SELF JOIN</li></a>
 											<a href="#using"><li>USING</li></a>
@@ -894,7 +895,7 @@ FROM students
 </pre>
 <!-- end -->
 											</li>
-											<li>Aggregating function COUNT() counts both duplicates and NULL values. To count only unique values we need to put DISTINCT prior to COUNT() argument:
+											<li id="count">Aggregating function COUNT() counts both duplicates and NULL values. To count only unique values we need to put DISTINCT prior to COUNT() argument:
 <!-- start -->
 <pre>
 SELECT COUNT(DISTINCT client_region)
