@@ -633,6 +633,21 @@ SET <span style="color:#00ffea;">@NumCars</span> = (SELECT COUNT(*) FROM db.cars
 											<li>Analytic functions:
 												<br>
 												- Includes an OVER clause, which defines a moving window of rows around the row being evaluated.<br>
+<!-- start -->
+<pre>
+SELECT
+  [Month]
+  ,[SalesTerritoryKey]
+  ,[SalesAmount]
+  ,[WindowFunction] = SUM([SalesAmount])
+			    OVER (PARTITION BY [SalesTerritoryKey]
+			      	ORDER BY [Month]
+			      	ROWS BETWEEN 1 PRECEDING AND CURRENT ROW
+			  	)
+FROM    [CTE_source]
+ORDER BY [SalesTerritoryKey],[Month];
+</pre>
+<!-- end -->
 												- For computing moving averages, rank items, cumulative sums.<br>
 												- Can be put in SELECT or ORDER BY lines.<br>
 												- There are 3 main terms when working with analytic functions: partition, window and current record:<br>
