@@ -665,7 +665,15 @@ ORDER BY [SalesTerritoryKey],[Month];
 											<li>LAG:
 												<br>
 												- returns a value of a specific field from the preceiding record of a current parititon,<br>
-												- when LAG function called for the first record, it returns NULL.
+												- when LAG function called for the first record, it returns NULL,<br>
+												- example:
+<!-- start -->
+<pre>
+SELECT CAST(DueDate AS DATE) AS Date, OrderID, Total, LAG([DueDate]) OVER (PARTITION BY DueDate ORDER BY DueDate) AS PrevousDueDateTotal
+FROM tblSales
+ORDER BY DueDate 
+</pre>
+<!-- end -->
 											</li>
 											<li>LEAD:
 												<br>
