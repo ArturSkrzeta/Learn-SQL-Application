@@ -1631,107 +1631,149 @@ WHERE Col1 NOT IN ("Apple", "Strawberry")
 													Lets have a look at example without OVER and with OVER applied:
 <!-- start -->
 <pre>
-SELECT  object_id, index_id, COUNT(*) OVER ()
-FROM objects
+SELECT
+    emp_id,
+    emp_name,
+    dept_name,
+    emp_salary,
+    MAX(emp_salary) OVER () as max_salary
+FROM employee
 </pre>
 <!-- end -->						<br>
 												<table>
 													<tr>
-														<td>obj_id</td>
-														<td>index_id</td>
-														<td>no_col_name</td>
+														<td>emp_id</td>
+														<td>emp_name</td>
+														<td>dept_name</td>
+														<td>emp_salary</td>
+														<td>max_salary</td>
+													</tr>
+													<tr>
+														<td>1</td>
+														<td>Artur</td>
+														<td>7,500.00</td>
+														<td>IT</td>
+														<td>15,500.00</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>Robert</td>
+														<td>10,000.00</td>
+														<td>Admin</td>
+														<td>15,500.00</td>
 													</tr>
 													<tr>
 														<td>3</td>
-														<td>1</td>
-														<td>500</td>
+														<td>Johnny</td>
+														<td>9,600.00</td>
+														<td>Admin</td>
+														<td>15,500.00</td>
+													</tr>
+													<tr>
+														<td>4</td>
+														<td>Rick</td>
+														<td>5,500.00</td>
+														<td>HR</td>
+														<td>15,500.00</td>
 													</tr>
 													<tr>
 														<td>5</td>
-														<td>1</td>
-														<td>500</td>
+														<td>Krzysztof</td>
+														<td>7,100.00</td>
+														<td>Admin</td>
+														<td>15,500.00</td>
 													</tr>
 													<tr>
 														<td>6</td>
-														<td>1</td>
-														<td>500</td>
+														<td>Carloine</td>
+														<td>15,500.00</td>
+														<td>IT</td>
+														<td>15,500.00</td>
 													</tr>
 													<tr>
-														<td>7</td>
-														<td>1</td>
-														<td>500</td>
-													</tr>
-													<tr>
-														<td>7</td>
-														<td>2</td>
-														<td>500</td>
-													</tr>
-													<tr>
-														<td>8</td>
-														<td>0</td>
-														<td>500</td>
-													</tr>
-													<tr>
+														<td>...</td>
+														<td>...</td>
 														<td>...</td>
 														<td>...</td>
 														<td>...</td>
 													</tr>
 												</table>
 												<span style="font-size:12px;">source: sqlservercentral.com</span><br>
-												- This query returns the <b>object_id</b> and <b>index_id</b> for each record, and the total number of indexes in the result set.<br>
+												- This query returns the maximum salary of all records for each record,<br>
 												- Since a PARTITION BY clause was not used, the entire result set was treated as a single partition.<br>
 												- Let's apply PARTITION BY clause:
 <!-- start -->
 <pre>
-SELECT object_id, index_id, COUNT(*) OVER (PARTITION BY object_id)
-FROM objects
+SELECT
+    emp_id,
+    emp_name,
+    dept_name,
+    emp_salary,
+    MAX(emp_salary) OVER (PARTITION BY dept_name ORDER BY emp_salary) as max_salary
+FROM employee
 </pre>
 <!-- end -->
 												<table>
 													<tr>
-														<td>obj_id</td>
-														<td>index_id</td>
-														<td>no_col_name</td>
-													</tr>
-													<tr>
-														<td>3</td>
-														<td>1</td>
-														<td>1</td>
+														<td>emp_id</td>
+														<td>emp_name</td>
+														<td>dept_name</td>
+														<td>emp_salary</td>
+														<td>max_salary</td>
 													</tr>
 													<tr>
 														<td>5</td>
+														<td>Krzysztof</td>
+														<td>7,100.00</td>
+														<td>Admin</td>
+														<td>10,000.00</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>Johnny</td>
+														<td>9,600.00</td>
+														<td>Admin</td>
+														<td>10,000.00</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>Robert</td>
+														<td>10,000.00</td>
+														<td>Admin</td>
+														<td>10,000.00</td>
+													</tr>
+													<tr>
+														<td>4</td>
+														<td>Rick</td>
+														<td>5,500.00</td>
+														<td>HR</td>
+														<td>5,500.00</td>
+													</tr>
+													<tr>
 														<td>1</td>
-														<td>1</td>
+														<td>Artur</td>
+														<td>7,500.00</td>
+														<td>IT</td>
+														<td>15,500.00</td>
 													</tr>
 													<tr>
 														<td>6</td>
-														<td>1</td>
-														<td>1</td>
+														<td>Carloine</td>
+														<td>15,500.00</td>
+														<td>IT</td>
+														<td>15,500.00</td>
 													</tr>
 													<tr>
-														<td>7</td>
-														<td>1</td>
-														<td>2</td>
-													</tr>
-													<tr>
-														<td>7</td>
-														<td>2</td>
-														<td>2</td>
-													</tr>
-													<tr>
-														<td>8</td>
-														<td>0</td>
-														<td>1</td>
-													</tr>
-													<tr>
+														<td>...</td>
+														<td>...</td>
 														<td>...</td>
 														<td>...</td>
 														<td>...</td>
 													</tr>
 												</table>
 												<span style="font-size:12px; margin-top: -20px;">source: sqlservercentral.com</span><br>
-												- Above query specifies a PARTITION BY clause of the <b>object_id</b> column, so the count function is returning the number of indexes on that particular <b>object_id</b>.<br>
-												- For example <b>obj_id</b> has been counted to 2 in <b>no_col_name</b>.
+												- Above query has a PARTITION BY clause of the <b>dept_name</b> column, so the max function takes all records assigned to particular department.<br>
+												- Additionaly, ORDER BY orders records by emp_salary ascendingly within each partition. 
 											</li>
 										</ul>
 
