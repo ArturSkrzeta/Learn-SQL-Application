@@ -735,7 +735,7 @@ ORDER BY DueDate
 <pre>
 SELECT
   *,
-  ROW_NUMBER() OVER (PARTITION BY dept_name) r_numb
+  ROW_NUMBER() OVER (PARTITION BY emp_salary) r_numb
 FROM employees
 </pre>
 <!-- end -->
@@ -743,8 +743,8 @@ FROM employees
 													<tr>
 														<td>emp_id</td>
 														<td>emp_name</td>
-														<td>dept_name</td>
 														<td>emp_salary</td>
+														<td>dept_name</td>
 														<td>r_numb</td>
 													</tr>
 													<tr>
@@ -1716,8 +1716,8 @@ FROM employee
 													<tr>
 														<td>emp_id</td>
 														<td>emp_name</td>
-														<td>dept_name</td>
 														<td>emp_salary</td>
+														<td>dept_name</td>
 														<td>max_salary</td>
 													</tr>
 													<tr>
@@ -1789,8 +1789,8 @@ FROM employee
 													<tr>
 														<td>emp_id</td>
 														<td>emp_name</td>
-														<td>dept_name</td>
 														<td>emp_salary</td>
+														<td>dept_name</td>
 														<td>max_salary</td>
 													</tr>
 													<tr>
