@@ -669,7 +669,7 @@ ORDER BY [SalesTerritoryKey],[Month];
 <!-- start -->
 <pre>
 SELECT CAST(DueDate AS DATE) AS DueDate, OrderID, Total,
-		LAG(DueDate) OVER (PARTITION BY DueDate ORDER BY DueDate) AS PreviousDueDateTotal
+		LAG(Total) OVER (PARTITION BY DueDate ORDER BY DueDate) AS PreviousDueDateTotal
 FROM tblSales
 ORDER BY DueDate
 </pre>
