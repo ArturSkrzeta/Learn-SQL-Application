@@ -65,7 +65,6 @@
 											<a href="#variables"><li>Variables</li></a>
 											<a href="#oltp_and_olap"><li>OLTP and OLAP</li></a>
 											<a href="#functions"><li>Functions</li></a>
-											<a href="#window_functions"><li>Window functions</li></a>
 											<a href="#transaction"><li>Transaction</li></a>
 											<a href="#privileges"><li>Privileges</li></a>
 											<a href="#char_varchar_nvarchar"><li>Char vs varchar vs nvarchar</li></a>
@@ -664,7 +663,7 @@ ORDER BY [SalesTerritoryKey],[Month];
 											<li>They allow to refer to a value of an indicated record different than the current one.</li>
 											<li>LAG:
 												<br>
-												- returns a value of a specific field from the preceiding record of a current parititon,<br>
+												- returns a value of a specific field from the preceiding record of a current partition,<br>
 												- when LAG function called for the first record of a current partition, it returns NULL,<br>
 												- example:
 <!-- start -->
@@ -1622,7 +1621,7 @@ WHERE Col1 NOT IN ("Apple", "Strawberry")
 
 										<h5 id="over">OVER</h5>
 										<ul>
-											<li>A <span id="window_functions"><b>window function</b></span> is an SQL function where the input values are taken from a "window" of one or more rows into the results set of a SELECT statement.
+											<li>A <b>window function</b> is an SQL function where the input values are taken from a "window" of one or more rows into the results set of a SELECT statement.
 													Window functions are distinguished from other SQL functions by the presence of an <b>OVER clause</b>.
 											</li>
 											<li>OVER clause has been added to SQL Server and can be used to determine which rows from the query are applied to the function.</li>
