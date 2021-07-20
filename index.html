@@ -1206,6 +1206,19 @@ ON t1.main_col = t2.main_col
 												- It's simply doing a <b>cross join</b>, which selects all rows from the first table and all rows from the second table and shows as cartesian product, i.e. with all possibilities.<br>
 												- Putting in 1=1 is like saying "1=1 is always true, do don't eliminate anything".
 											</li>
+											<li>Multiple conditions in ON caluse:
+<!-- start -->
+<pre>
+SELECT u1.*
+FROM users u1
+JOIN users u2
+ON u1.user_id_sender = u2.user_id_sender
+AND u1.user_id_receiver = u2.user_id_receiver
+</pre>
+<!-- end -->
+												- we self join the same table of users,<br>
+												- we use combination of two columns as a combined key.
+											</li>
 										</ul>
 
 										<h5 id="using">USING</h5>
