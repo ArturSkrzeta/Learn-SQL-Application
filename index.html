@@ -72,6 +72,7 @@
 											<a href="#cte"><li>Common Table Expression</li></a>
 											<a href="#sqldelta"><li>SQL Delta</li></a>
 											<a href="#running_total"><li>Running Total</li></a>
+											<a href="#window_alias"><li>Window alias</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -2181,6 +2182,28 @@ ORDER BY InvoiceID
 											</li>
 										</ul>
 
+										<h5 id="window_alias">Window alias</h5>
+										<ul>
+											<li>We use it when we want to keep our code DRY.</li>
+<!-- start -->
+<pre>
+SELECT   TO_CHAR(CAST(created_at, date), 'YYYY-MM') AS year_month,
+         ROUND(<span style="color:#00ff51;">(SUM(value) - LAG(SUM(value),1) OVER(w)) / LAG(SUM(value),1) OVER(w) * 100</span>,2) as r_diff
+FROM     transactions
+GROUP BY year_month
+WINDOW w AS (ORDER BY TO_CHAR(CAST(created_at, date), 'YYYY-MM'))
+ORDER BY year_month ASC
+</pre>
+<!-- end -->
+											- TO_CHAR() function converts the date into 'YYYY-MM' format.<br>
+											- CAST() function convert value into date format.<br>
+											- LAG() function takes the <b>value</b> from a previous record.<br>
+											- In WINDOW line we assign a repetitive code sinppet into <b>w</b> variable.<br>
+											- With calculation:<br>
+											 (<code>current record value</code> - <code>previous record value</code>) * 100 / <code>previous record value</code><br>
+											 we get percentage difference between current and previous month.
+										</ul>
+										
 									</header>
 								</div>
 							</section>
