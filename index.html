@@ -1648,7 +1648,7 @@ WHERE lastname IN ('aaa', 'ccc', 'eee')
 												- it's very important to enclose WHERE clause in the queries,<br>
 												- if we omit the WHERE clause, all records will get updated.
 											</li>
-											<li>Embeded CASE WHEN in SUM():
+											<li>Embeding CASE WHEN in SUM():
 												<br>
 												- using orders table we have fields like ship_country and status,<br>
 												- we want to show the number of shipped orders by country,<br>
@@ -1677,7 +1677,22 @@ SELECT SUM(CASE
       END) * 100.0 / COUNT(*) AS percentage_orders_over_500
 FROM orders
 </pre>
-												<!-- end -->
+<!-- end -->
+											</li>
+											<li>Embeding CASE WHEN in COUNT():
+												<br>
+<!-- start -->
+<pre>
+SELECT
+    	COUNT(CASE WHEN status = "open" THEN user_id ELSE NULL END) / CASR(COUNT(*), FLOAT) AS ratio
+FROM users
+WHERE country = "USA"
+</pre>
+<!-- end -->
+												- if the status is equal to 'open' then there is user_id value in COUNT() input.<br>
+												- If the status is different than 'open' then there is NULL in CCOUNT() input. Function COUNT() ignores NULLs - ratio numerator..<br>
+												- However function: COUNT(*) count both values and nulls getting all records number - ratio denominator.<br>
+												- Integer being devided by integer gives 0 - we need to cast at least denominator or numerator into float format in order to get a ratio between 0 and 1.
 											</li>
 										</ul>
 
@@ -2203,7 +2218,7 @@ ORDER BY year_month ASC
 											 (<code>current record value</code> - <code>previous record value</code>) * 100 / <code>previous record value</code><br>
 											 we get percentage difference between current and previous month.
 										</ul>
-										
+
 									</header>
 								</div>
 							</section>
