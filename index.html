@@ -802,6 +802,31 @@ WHERE e.r_numb < 2
 											</li>
 										</ul>
 
+										<h5>Analytic function:</h5>
+										<ul>
+											<li>NTILE(x), where x is number of equal ranges in which we want to classify the records:
+												<br>
+<!-- start -->
+<pre>
+SELECT
+	category_name,
+	month,
+	FORMAT(net_sales,'C','en-US') net_sales,
+	NTILE(<span style="color:#0aff09;">4</span>) OVER(
+		PARTITION BY category_name
+		ORDER BY net_sales DESC
+	) net_sales_group
+FROM
+	sales.vw_netsales_2017;
+</pre>
+<!-- end -->
+												- outcome:
+												<br>
+												<img src="images/ntile.png"><br>
+												<span style="font-size:12px;">source: techTFQ</span>
+											</li>
+										</ul>
+
 										<h5 id="transaction">Transaction</h5>
 										<ul>
 											<li>Single set of task performed on a database in logical manner.</li>
@@ -1217,7 +1242,7 @@ AND u1.user_id_receiver = u2.user_id_receiver
 </pre>
 <!-- end -->
 												- we self join the same table of users,<br>
-												- we use combination of two columns as a combined key.
+												- we use combination of two columns as a combined key.<br>
 											</li>
 										</ul>
 
