@@ -2089,7 +2089,27 @@ JOIN <span style="color:#f099ff">cte_energy_by_date</span> cebd
 												- cte_combined_energy: unions all 3 tables (verious length),<br>
 												- cte_energy_by_date: aggregates values from consumption column and groups the outome by date,<br>
 												- cte_max_energy: takes max value from aggregation made in the previous cte,<br>
-												- last select joins cte_energy_by_date and cte_max_energy matching value of max in both.
+												- last select joins <b>cte_energy_by_date</b> and <b>cte_max_energy</b> matching value of max in both.<br>
+												<br>
+												<table>
+													<thead>
+														<tr>
+															<td>data</td>
+															<td>total_energy</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>2021-01-08</td>
+															<td>6500</td>
+														</tr>
+														<tr>
+															<td>2021-01-07</td>
+															<td>6500</td>
+														</tr>
+													</tbody>
+												</table>
+												- This approach is way better than ordering descending and limit the outcome to 1 as we can have more than one record with max_energy value.
 											</li>
 										</ul>
 
