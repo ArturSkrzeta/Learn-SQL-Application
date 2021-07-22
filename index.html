@@ -2086,6 +2086,10 @@ JOIN <span style="color:#f099ff">cte_energy_by_date</span> cebd
       ON cebd.<u>total_energy</u> = cme.<b>max_energy</b>
 </pre>
 <!-- end -->
+												- cte_combined_energy: unions all 3 tables (verious length),<br>
+												- cte_energy_by_date: aggregates values from consumption column and groups the outome by date,<br>
+												- cte_max_energy: takes max value from aggregation made in the previous cte,<br>
+												- last select joins cte_energy_by_date and cte_max_energy matching value of max in both.
 											</li>
 										</ul>
 
