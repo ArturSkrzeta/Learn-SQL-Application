@@ -2054,6 +2054,39 @@ ORDER BY campaign
 <!-- end -->
 												<span style="font-size:14px;">source: chartio.com</span>
 											</li>
+											<li>Using CTEs to handle multiple logic
+												<br>
+<!-- start -->
+<pre>
+WITH <span style="color:#77ff42">cte_combined_energy</span> AS (
+    SELECT *
+    FROM eu_energy
+    UNION All
+    SELECT *
+    FROM usa_energy
+    UNION All
+    SELECT *
+    FROM na_energy),
+<span style="color:#f099ff">cte_energy_by_date</span> AS (
+    SELECT
+        date,
+        SUM(consumption) AS <u>total_energy</u>
+    FROM <span style="color:#77ff42">cte_combined_energy</span>
+    GROUP BY date
+    ORDER BY date ASC),
+<span style="color:#f8ec42">cte_max_energy</span> AS (
+    SELECT
+        MAX(<u>total_energy</u>) AS <b>max_energy</b>
+    FROM <span style="color:#f099ff">cte_energy_by_date</span>)
+SELECT
+      date,
+      <u>total_energy</u>
+FROM <span style="color:#f8ec42">cte_max_energy</span> cme
+JOIN <span style="color:#f099ff">cte_energy_by_date</span> cebd
+      ON cebd.<u>total_energy</u> = cme.<b>max_energy</b>
+</pre>
+<!-- end -->
+											</li>
 										</ul>
 
 										<h5 id="sqldelta">SQL Delta:</h5>
