@@ -101,6 +101,7 @@
 											<a href="#offset"><li>OFFSET</li></a>
 											<a href="#fetch"><li>FETCH</li></a>
 											<a href="#exist"><li>EXISTS</li></a>
+											<a href="#is_null"><li>IS NULL</li></a>
 											<a href="#is_not_null"><li>IS NOT NULL</li></a>
 											<a href="#ifnull"><li>IFNULL</li></a>
 											<a href="#cast"><li>CAST</li></a>
@@ -1939,6 +1940,25 @@ WHERE EXISTS (
 <!-- end -->
 											- Above query returns TRUE and lists the suppliers with a product price less than 20:
 										</ul>
+
+										<h5 id="is_null">IS NULL</h5>
+										<ul>
+											<li>Sometimes we want to fetch the nulls, then we us IS NULL in the WHERE clasue:
+<!-- start -->
+<pre>
+SELECT c.id AS c_id, pc.id AS pc_id
+FROM clients c
+FULL OUTER JOIN premium_clients pc
+ON c.id = pc.id
+WHERE pc.id IS NULL
+</pre>
+<!-- end -->
+												- checking which elements of id clomun are sitting in client table but they are not in the premium_clients table.<br>
+												- those missing records will be displayed as NULLs in pc_id column. 
+											</li>
+										</ul>
+
+
 
 										<h5 id="is_not_null">IS NOT NULL</h5>
 										<ul>
