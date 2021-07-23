@@ -2004,7 +2004,7 @@ WHERE salary IS NOT NULL
 <pre>
 SELECT emp_id, salary, emp_position
 FROM employees
-WHERE salary IS NOT NULL AND mp_position IS NOT NULL
+WHERE salary IS NOT NULL AND mp_position IS NOT NULL)
 </pre>
 <!-- end -->
 											</li>
@@ -2081,17 +2081,16 @@ WHERE NOT EXISTS (SELECT 1
 <!-- start -->
 <pre>
 -- define CTE:
-WITH Cost_by_Month AS
-(SELECT campaign_id AS campaign,
+WITH Cost_by_Month AS(
+SELECT campaign_id AS campaign,
     TO_CHAR(created_date, 'YYYY-MM') AS month,
     SUM(cost) AS monthly_cost
 FROM marketing
 WHERE created_date BETWEEN NOW() - INTERVAL '3 MONTH' AND NOW()
 GROUP BY 1, 2
 ORDER BY 1, 2)
-
--- use CTE in subsequent query:
-SELECT campaign, avg(monthly_cost) as "Avg Monthly Cost"
+SELECT
+    campaign, avg(monthly_cost) as "Avg Monthly Cost"
 FROM Cost_by_Month
 GROUP BY campaign
 ORDER BY campaign
@@ -2124,8 +2123,8 @@ WITH <span style="color:#77ff42">cte_combined_energy</span> AS (
         MAX(<u>total_energy</u>) AS <b>max_energy</b>
     FROM <span style="color:#f099ff">cte_energy_by_date</span>)
 SELECT
-      date,
-      <u>total_energy</u>
+      cebd.date,
+      cebd.<u>total_energy</u>
 FROM <span style="color:#f8ec42">cte_max_energy</span> cme
 JOIN <span style="color:#f099ff">cte_energy_by_date</span> cebd
       ON cebd.<u>total_energy</u> = cme.<b>max_energy</b>
