@@ -1025,8 +1025,7 @@ ON employees (<span style="background-color:#3976b3;">last_name</span>);
 <pre>
 SELECT *
 FROM employees
-WHERE salary > 10000 AND
-    <span style="background-color:#3976b3;">last_name</span> = "Smith"
+WHERE salary > 10000 AND <span style="background-color:#3976b3;">last_name</span> = "Smith"
 </pre>
 <!-- end -->
 												- we use <code>last_name</code> indexed column within the WHERE caluse along with <code>salary</code> which speeds up performing the query.<br>
