@@ -1424,6 +1424,34 @@ COUNT(CustomerID)	Country
 												- When GROUP BY is not used, then WHERE and HAVING clauses works the same.<br>
 												- When  GROUP BY is used, then WHERE clause is used to filter records from a result and filtering works before any grouping. HAVING clause is used to filter values from a group.
 											</li>
+											<li>We can even have some calculations within HAVE:
+												<br>
+<!-- start -->
+<pre>
+WITH cte_pays AS(
+	SELECT
+	    date,
+	    SUM(CASE WHEN <span style="color:#77ff42">a</span>.paying_customer = 'yes' THEN <span style="color:#d095f4">d</span>.downloads END) AS paying_sum,
+	    SUM(CASE WHEN <span style="color:#77ff42">a</span>.paying_customer = 'no' THEN <span style="color:#d095f4">d</span>.downloads END) AS non_paying_sum
+	FROM user_dimension <span style="color:#f8ec42">u</span>
+	LEFT JOIN acc_dimension <span style="color:#77ff42">a</span> ON <span style="color:#f8ec42">u</span>.acc_id = <span style="color:#77ff42">a</span>.acc_id
+	LEFT JOIN download_facts <span style="color:#d095f4">d</span> ON <span style="color:#f8ec42">u</span>.user_id = <span style="color:#d095f4">d</span>.user_id
+	GROUP BY <span style="color:#d095f4">d</span>.date
+	ORDER BY <span style="color:#d095f4">d</span>.date ASC)
+SELECT *
+FROM cte_pays <span style="color:#42eef8">p</span>
+GROUP BY
+	<span style="color:#42eef8">p</span>.date,
+	<span style="color:#42eef8">p</span>.paying_sum
+	<span style="color:#42eef8">p</span>.non_paying_sum
+HAVING (<span style="color:#42eef8">p</span>.non_paying_sum - <span style="color:#42eef8">p</span>.paying_sum) > 0
+ORDER BY <span style="color:#42eef8">p</span>.date ASC
+</pre>
+<!-- end -->
+												- with CASE WHEN and SUM() we calculate another columns based on the old column: downloads,<br>
+												- the first new one sums all values when condition paying_customer = 'yes',<br>
+												- the another one sums all values when condition paying_customer = 'no'.
+											</li>
 										</ul>
 
 
