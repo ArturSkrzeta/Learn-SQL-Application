@@ -1713,7 +1713,7 @@ FROM orders
 <!-- start -->
 <pre>
 SELECT
-    	COUNT(CASE WHEN status = "open" THEN user_id ELSE NULL END) / CASR(COUNT(*), FLOAT) AS ratio
+    	COUNT(CASE WHEN status = "open" THEN user_id ELSE NULL END) / CAST(COUNT(*), FLOAT) AS ratio
 FROM users
 WHERE country = "USA"
 </pre>
