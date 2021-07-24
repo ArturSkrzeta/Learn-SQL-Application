@@ -1104,11 +1104,11 @@ FROM tblSales
 											<li>Usually, we use primary key of one table matching it with its corresponding foreign key in another table.</li>
 											<li>There are a few kind of joins:
 												<br>
-												- <b>Left join</b>: returns all the rows from the left table regardless if there is a match or a null from the right table.<br>
-												- <b>Right join</b>: returns all the rows from the right table regardless if there is a match or a null from the left table.<br>
-												- <b>Inner join</b>: returns rows when there is a match in rows between the tables.<br>
-												- <b>Full outer join</b>: returns all the rows from the left-hand side table and all the rows from the right-hand side table.<br>
-												- <b>Cross join</b>: joins every row of one table with every row of another table.
+												- <b>(INNER) JOIN</b>: returns rows when there is a match in rows between the tables.<br>
+												- <b>LEFT (OUTER) JOIN</b>: returns all the rows from the left table regardless if there is a match or a null from the right table.<br>
+												- <b>RIGHT (OUTER) JOIN</b>: returns all the rows from the right table regardless if there is a match or a null from the left table.<br>
+												- <b>FULL (OUTER) JOIN</b>: returns all the rows from the left-hand side table and all the rows from the right-hand side table.<br>
+												- <b>CROSS JOIN</b>: joins every row of one table with every row of another table.
 											</li>
 											<li>Let's take two table schemas for an example:
 												<br><br>
