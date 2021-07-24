@@ -1110,6 +1110,7 @@ FROM tblSales
 												- <b>RIGHT (OUTER) JOIN</b>: returns all the rows from the right table regardless if there is a match or a null from the left table.<br>
 												- <b>FULL (OUTER) JOIN</b>: returns all the rows from the left-hand side table and all the rows from the right-hand side table.<br>
 												- <b>CROSS JOIN</b>: joins every row of one table with every row of another table.
+													A very complex operation when cross joining more than 2 tables. Requiring from the performance perspecive.
 											</li>
 											<li>Let's take two table schemas for an example:
 												<br><br>
@@ -2339,6 +2340,11 @@ WHERE account = "premium"
 
 										<h5 id="dates">Working with Dates:</h5>
 										<ul>
+											<li>CAST:
+												<br>
+												- converting object/string into date format:<br>
+												<code>CAST('2020-02-10', DATE)</code>
+											</li>
 											<li>EXTRACT:
 												<br>
 												<code>SELECT EXTRACT(YEAR FROM CAST(i_date AS DATE)) AS year</code><br>
@@ -2347,7 +2353,7 @@ WHERE account = "premium"
 											<li>INTERVAL:
 												<br>
 												- moving back 30 days from a given date:<br>
-												<code>SELECT CASAT('2020-02-10', DATE) - 30 * INTERVAL '1 day'</code><br>
+												<code>SELECT CAST('2020-02-10', DATE) - 30 * INTERVAL '1 day'</code><br>
 												- we can put it in the WHERE clause with BETWEEN operator:<br>
 												<code>WHERE created_at BETWEEN (CAST('2020-02-10', DATE) - 30 * INTERVAL '1 day')</code><br>
 												<code>AND CAST('2020-02-10', DATE)</code><br>
@@ -2355,7 +2361,6 @@ WHERE account = "premium"
 												<code>WHERE transaction_start_date < NOW() - 10 * INTERVAl '1 month'</code>
 											</li>
 										</ul>
-
 
 									</header>
 								</div>
