@@ -73,6 +73,7 @@
 											<a href="#sqldelta"><li>SQL Delta</li></a>
 											<a href="#running_total"><li>Running Total</li></a>
 											<a href="#window_alias"><li>Window alias</li></a>
+											<a href="#dates"><li>Dates</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -2335,6 +2336,26 @@ WHERE account = "premium"
 <!-- end -->
 											</li>
 										</ul>
+
+										<h5 id="dates">Working with Dates:</h5>
+										<ul>
+											<li>EXTRACT:
+												<br>
+												<code>SELECT EXTRACT(YEAR FROM CAST(i_date AS DATE)) AS year</code><br>
+												- we can extract a year from dates.
+											</li>
+											<li>INTERVAL:
+												<br>
+												- moving back 30 days from a given date:<br>
+												<code>SELECT CASAT('2020-02-10', DATE) - 30 * INTERVAL '1 day'</code><br>
+												- we can put it in the WHERE clause with BETWEEN operator:<br>
+												<code>WHERE created_at BETWEEN (CAST('2020-02-10', DATE) - 30 * INTERVAL '1 day')</code><br>
+												<code>AND CAST('2020-02-10', DATE)</code><br>
+												- the date earlier than 10 months ago from now:<br>
+												<code>WHERE transaction_start_date < NOW() - 10 * INTERVAl '1 month'</code>
+											</li>
+										</ul>
+
 
 									</header>
 								</div>
