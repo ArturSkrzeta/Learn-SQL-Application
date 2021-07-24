@@ -105,6 +105,7 @@
 											<a href="#is_not_null"><li>IS NOT NULL</li></a>
 											<a href="#ifnull"><li>IFNULL</li></a>
 											<a href="#cast"><li>CAST</li></a>
+											<a href="#concat"><li>CONCAT</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -2317,6 +2318,20 @@ ORDER BY year_month ASC
 											- With calculation:<br>
 											 (<code>current record value</code> - <code>previous record value</code>) * 100 / <code>previous record value</code><br>
 											 we get percentage difference between current and previous month.
+										</ul>
+
+										<h5 id="concat">CONCAT</h5>
+										<ul>
+											<li>Function used for strings concatination:
+<!-- start -->
+<pre>
+SELECT *
+    concat((first_name), '_', (second_name)) AS full_name
+FROM clients
+WHERE account = "premium"
+</pre>
+<!-- end -->
+											</li>
 										</ul>
 
 									</header>
