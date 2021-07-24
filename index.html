@@ -826,7 +826,8 @@ FROM
 												- outcome:
 												<br>
 												<img src="images/ntile.png"><br>
-												<span style="font-size:12px;">source: techTFQ</span>
+												<span style="font-size:12px;">source: techTFQ</span><br>
+												- that way we got 4 evenly distributed buckets.
 											</li>
 										</ul>
 
@@ -1377,6 +1378,7 @@ FROM employees
 WHERE date_of_joining BETWEEN '2020/01/01' AND '2020/12/31';
 </pre>
 <!-- end -->
+												- BETWEEN in WHERE clause is inclusive.<br>
 												- When it comes to dates, we can extract what we want:
 <!-- start -->
 <pre>
