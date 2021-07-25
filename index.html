@@ -838,10 +838,10 @@ SELECT shop_id, total_order
 FROM (
   SELECT
     shop_id,
-		SUM(total) AS total_order,
+    SUM(total) AS total_order,
     NTILE(50) OVER (ORDER BY SUM(total)) AS ntile
   FROM shops
-	WHERE customer_placed_order BETWEEN '2020-05-01' AND '2020-05-31'
+  WHERE customer_placed_order BETWEEN '2020-05-01' AND '2020-05-31'
   GROUP BY shop_id
 )
 WHERE ntile=1
