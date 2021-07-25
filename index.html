@@ -802,12 +802,16 @@ WHERE e.r_numb < 2
 											<li>DENSE_RANK()
 <!-- start -->
 <pre>
-SELECT customer_id,
-  COUNT(*) AS events,
-  DENSE_RANK() OVER (ORDER BY COUNT(*)) AS rank
-FROM fact_events
-WHERE client_id = 'mobile'
-GROUP BY customer_id
+SELECT customer_id, events
+FROM (
+	SELECT customer_id,
+	  COUNT(*) AS events,
+	  DENSE_RANK() OVER (ORDER BY COUNT(*)) AS rank
+	FROM fact_events
+	WHERE client_id = 'mobile'
+	GROUP BY customer_id) subquery
+WHERE rank <= 2
+ORDER BY 2 ASC
 </pre>
 <!-- end -->
 												- Above query finds bottom 2 companies with dense rank.<br>
