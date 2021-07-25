@@ -810,7 +810,7 @@ WHERE client_id = 'mobile'
 GROUP BY customer_id
 </pre>
 <!-- end -->
-												- Above query findins bottom 2 companies with rank_dense.
+												- Above query finds bottom 2 companies with rank_dense.<br>
 												- DENSE_RANK() keeps counting in the consecutive sequence even though there might be some ties along the way.<br>
 												- the order of the ranking is ascending by defualt.
 											</li>
@@ -845,7 +845,7 @@ FROM
 												<span style="font-size:12px;">source: techTFQ</span><br>
 												- that way we got 4 evenly distributed buckets.
 											</li>
-											<li>Getting the cateogry with lowest value using ntile:
+											<li>Getting the category with lowest value using ntile:
 												<br>
 <!-- start -->
 <pre>
@@ -863,7 +863,7 @@ WHERE ntile=1
 ORDERBY 2 DESC
 </pre>
 <!-- end -->
-												- With ORDER BY in OVER() we make sure SUM(TOTAL) is ordered ascendingly,<br>
+												- With ORDER BY in OVER() we make sure SUM(TOTAL) is ordered ascendingly.<br>
 												- Entire ordered SUM(TOTAL) column will be divided into 50 evenly distributed buckets.<br>
 												- Taking first bucket ensures us we take into an account only lowest generating shops.<br>
 												- NTILE takes 50 as we want to get all shops <= 2% of shop's revenue.<br>
