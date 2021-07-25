@@ -830,6 +830,29 @@ FROM
 												<span style="font-size:12px;">source: techTFQ</span><br>
 												- that way we got 4 evenly distributed buckets.
 											</li>
+											<li>Getting the cateogry with lowest value using ntile:
+												<br>
+<!-- start -->
+<pre>
+SELECT shop_id, total_order
+FROM (
+  SELECT
+    shop_id,
+		SUM(total) AS total_order,
+    NTILE(50) OVER (ORDER BY SUM(total)) AS ntile
+  FROM shops
+	WHERE customer_placed_order BETWEEN '2020-05-01' AND '2020-05-31'
+  GROUP BY shop_id
+)
+WHERE ntile=1
+ORDERBY 2 DESC
+</pre>
+<!-- end -->
+												- With ORDER BY in OVER() we make sure SUM(TOTAL) is ordered ascendingly,<br>
+												- Entire ordered SUM(TOTAL) column will be divided into 50 evenly distributed buckets.<br>
+												- Taking first bucket ensures us we take into an account only lowest generating shops.<br>
+												- NTILE takes 50 as we want to get all shops <= 2% of shop's revenue.
+											</li>
 										</ul>
 
 										<h5 id="transaction">Transaction</h5>
