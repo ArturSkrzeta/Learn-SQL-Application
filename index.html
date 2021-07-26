@@ -55,6 +55,7 @@
 
 										<h5>In this section I describe following concepts:</h5>
 										<ul>
+											<a href="#db_schema"><li>Database Schema</li></a>
 											<a href="#primary_and_foreign_key"><li>Primary and foreign key</li></a>
 											<a href="#query_types"><li>Query types</li></a>
 											<a href="#constraints"><li>Constraints</li></a>
@@ -111,6 +112,45 @@
 
 										<h5>Terminology and general aspects</h5>
 										<ul>
+											<li id="db_schema"><b>Database Schema</b>:
+												<br>
+												- the strucutre around the data and corresponding data relationships,<br>
+												- we can have two different approaches on data schema:
+												<table>
+													<thead>
+														<tr>
+															<td>SCHEMA ON READ</td>
+															<td>SCHEMA ON WRITE</td>
+														</tr>
+													</thead>
+													<tr>
+														<td>In an unstructured data store we apply a schema only when the data gets read.</td>
+														<td>Forces a structure as a condition before data gets written</td>
+													</tr>
+													<tr>
+														<td>Data lives in unordered state - and we apply the structure to the query code.</td>
+														<td></td>
+													</tr>
+												</table>
+												- a method of how schema gets defined impacts the further behaviour:
+												<table>
+													<thead>
+														<tr>
+															<td>OLTP</td>
+															<td>OLAP</td>
+														</tr>
+													</thead>
+													<tr>
+														<td>When a series of table connected with PKs then db is designed for reading and mostly for writing single record at a time.</td>
+														<td>if there is a central table connected to keys of surrounding tbales then it's designed to keep read output highly efficient.</td>
+													</tr>
+													<tr>
+														<td>For transactional databse.</td>
+														<td>For high scale information delivery.</td>
+													</tr>
+												</table>
+												- db schema has a big impact on quering time.
+											</li>
 											<li id="primary_and_foreign_key"><b>Primary key</b> - a column or columns combination that idetifies a specific row uniquely. It implies NOT NULL constraint and hast to be UNIQUE.
 												In case of multiple columns as piramry key, we deal with so-called <b>composite key</b> that can encasulate even up to 32 columns.
 											</li>
@@ -858,6 +898,8 @@ ORDER BY 2 ASC
 												<br><br>
 												<img src="images/rank_functions.JPG"><br>
 												<span style="font-size:12px;">source: techTFQ</span>
+												<br>
+												- RANK() alone skpis every duplicated records.
 											</li>
 										</ul>
 
