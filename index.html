@@ -719,6 +719,25 @@ FROM tblSales
 ORDER BY DueDate
 </pre>
 <!-- end -->
+												- year to year comparison:
+<!-- start -->
+<pre>
+WITH cte_company_orders AS(
+  SELECT
+	  year,
+	  curr_year,
+	  LAG(current_year, 1) OVER (ORDER BY year) AS prev_year
+  FROM company_details)
+SELECT
+  year,
+  curr_year,
+  prev_year,
+  ROUND( (curr_year - prev_year) / (CAST(prev_year AS NUMERIC)) * 100 ) AS perct_diff
+FROM cte_company_orders
+</pre>
+<!-- end -->
+												- With LAG we take a value from previous records for each following record.<br>
+												- It surves for calculating year to year growth calculation where we can get value for a current record an the preceding one.
 												<table>
 													<thead>
 														<td>DueDate</td>
