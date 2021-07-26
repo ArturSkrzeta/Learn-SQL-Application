@@ -816,7 +816,43 @@ ORDER BY 2 ASC
 <!-- end -->
 												- Above query finds bottom 2 companies with dense rank.<br>
 												- DENSE_RANK() keeps counting in the consecutive sequence even though there might be some ties along the way.<br>
-												- the order of the ranking is ascending by defualt.
+												- The order of the ranking is ascending by defualt.<br>
+												- Sub-query outcome:
+												<table>
+													<thead>
+														<tr>
+															<td>customer_id</td>
+															<td>events</td>
+															<td>rank</td>
+														</tr>
+													</thead>
+													<tr>
+														<td>a</td>
+														<td>4</td>
+														<td>1</td>
+													</tr>
+													<tr>
+														<td>b</td>
+														<td>4</td>
+														<td>1</td>
+													</tr>
+													<tr>
+														<td>c</td>
+														<td>7</td>
+														<td>2</td>
+													</tr>
+													<tr>
+														<td>d</td>
+														<td>14</td>
+														<td>3</td>
+													</tr>
+													<tr>
+														<td>e</td>
+														<td>21</td>
+														<td>4</td>
+													</tr>
+												</table>
+												- and we take the first 3 records from the sub-query to fulfile WEHERE rank <=2
 											</li>
 											<li>RANK and DENS_RANK:
 												<br><br>
