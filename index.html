@@ -2129,6 +2129,26 @@ WHERE pc.id IS NULL
 												- checking which elements of the id clomun are sitting in the client table but they are not in the premium_clients table.<br>
 												- those missing records will be displayed as NULLs in pc_id column.
 											</li>
+											<li>IS NULL in CASE WHEN:
+<!-- start -->
+<pre>
+WITH cte_nulls_to_ints AS(
+  SELECT
+    *,
+    CASE WHEN end_dt IS NULL THEN 1 ELSE 0 END AS int_end_dt
+  FROM projects)
+SELECT
+  SUM(e.salary)
+FROM Employees e
+JPIN cte_nulls_to_ints c
+ON e.id = c.emp_id
+GROUP BY e.id
+HAVING COUNT(c.project) = SUM(c.int_end_dt)
+</pre>
+<!-- end -->
+												- we give 1 when there is NULL in the end_dt column.<br>
+												- HAVIG clasue is a key here as we get only those employees (their ids) only when number of all projects equals the sum of all theis nulls which means they have not finished any project so far.
+											</li>
 										</ul>
 
 
