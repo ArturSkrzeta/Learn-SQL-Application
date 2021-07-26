@@ -724,9 +724,9 @@ ORDER BY DueDate
 <pre>
 WITH cte_company_orders AS(
   SELECT
-	  year,
-	  curr_year,
-	  LAG(current_year, 1) OVER (ORDER BY year) AS prev_year
+    year,
+    curr_year,
+    LAG(current_year, 1) OVER (ORDER BY year) AS prev_year
   FROM company_details)
 SELECT
   year,
