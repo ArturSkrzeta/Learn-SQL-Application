@@ -2148,6 +2148,19 @@ HAVING COUNT(c.project) = SUM(c.int_end_dt)
 <!-- end -->
 												- we give 1 when there is NULL in the end_dt column.<br>
 												- HAVIG clasue is a key here as we get only those employees (their ids) only when number of all projects equals the sum of all theis nulls which means they have not finished any project so far.
+												- We can do same exact thing with IS NOT IN and IS NOT NULL:
+<!-- start -->
+<pre>
+SELECT
+  SUM(salary)
+FROM Employees e
+WHERE e.id IS NOT IN(
+  SELECT employee_id
+  FROM projects
+  WHERE end_dt IS NOT NULL
+)
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
