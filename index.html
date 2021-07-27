@@ -281,6 +281,53 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 												- This supports faster overall query performance.<br>
 												- There is also such thing as <b>recursive stored procedure</b> which calls itself until it reaches some boundary condition. It allows to reuse the same code any number of times.
 											</li>
+											<li>Stored procedure vs function:
+												<br>
+												<table>
+													<thead>
+														<tr>
+															<td>Stored procedure</td>
+															<td>Function</td>
+														</tr>
+													</thead>
+													<tr>
+														<td>Returning a value is optional.</td>
+														<td>The function must return a value.</td>
+													</tr>
+													<tr>
+														<td>Can have input or output parameters.</td>
+														<td>Can have only input parameters.</td>
+													</tr>
+													<tr>
+														<td> Procedures cannot be called from a Function/</td>
+														<td>Functions can be called from Procedure.</td>
+													</tr>
+													<tr>
+														<td>Allows SELECT as well as DML(INSERT/UPDATE/DELETE) statements.</td>
+														<td>Function allows only SELECT statement in it.</td>
+													</tr>
+													<tr>
+														<td>Procedures cannot be utilized in a SELECT statement.</td>
+														<td>Function can be embedded in a SELECT statement.</td>
+													</tr>
+													<tr>
+														<td>Stored Procedures cannot be used in the WHERE/HAVING/SELECT line.</td>
+														<td>Functions can be used in the WHERE/HAVING/SELECT line.</td>
+													</tr>
+													<tr>
+														<td>An exception can be handled by try-catch block.</td>
+														<td>Try-catch block cannot be used in a Function.</td>
+													</tr>
+													<tr>
+														<td>We can use Transactions in Procedure.</td>
+														<td>We can't use Transactions in Function.</td>
+													</tr>
+													<tr>
+														<td></td>
+														<td>Functions return tables that can be treated as another rowset. This can be used in JOINs with other tables.</td>
+													</tr>
+												</table>
+											</li>
 										</ul>
 
 										<h5 id="char_varchar_nvarchar">Char vs varchar vs nvarchar</h5>
@@ -1052,6 +1099,29 @@ WHERE condition;
 INSERT INTO Customers (CustomerName, City, Country)
 SELECT SupplierName, City, Country FROM Suppliers;
 WHERE Country='Poland';
+</pre>
+<!-- end -->
+											</li>
+										</ul>
+
+										<h5>Temporary table:</h5>
+										<ul>
+											<li>Exists temporarily storing a subset of data from a normal table.</li>
+											<li>You filter data once and store the result in a temporary table instead of filtering the data again and again to fetch the subset.</li>
+											<li>We can make use of SELECT INTO to create a temporaty table:
+<!-- start -->
+<pre>
+SELECT name, age, gender
+INTO ##FemaleStudents
+FROM student
+WHERE gender = 'Female'
+</pre>
+<!-- end -->
+											</li>
+											<li>We can keep it inside a stored procedure:
+<!-- start -->
+<pre>
+...
 </pre>
 <!-- end -->
 											</li>
