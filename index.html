@@ -291,15 +291,19 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 														</tr>
 													</thead>
 													<tr>
+														<td>Pre-compiled objects which are compiled for the first time and its compiled format is saved.</td>
+														<td>Gets compiled and executed every time whenever it is called.</td>
+													</tr>
+													<tr>
 														<td>Returning a value is optional.</td>
 														<td>The function must return a value.</td>
 													</tr>
 													<tr>
-														<td>Can have input or output parameters.</td>
+														<td>Can have input or output parameters.</td>s
 														<td>Can have only input parameters.</td>
 													</tr>
 													<tr>
-														<td> Procedures cannot be called from a Function/</td>
+														<td> Procedures cannot be called from a Function.</td>
 														<td>Functions can be called from Procedure.</td>
 													</tr>
 													<tr>
@@ -325,6 +329,10 @@ EXEC SelectAllCustomers <span style="background-color:#3976b3;">@City = 'Cracow'
 													<tr>
 														<td></td>
 														<td>Functions return tables that can be treated as another rowset. This can be used in JOINs with other tables.</td>
+													</tr>
+													<tr>
+														<td></td>
+														<td>Functions cannot modify the data received as parameters.</td>
 													</tr>
 												</table>
 											</li>
