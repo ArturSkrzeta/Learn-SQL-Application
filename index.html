@@ -76,6 +76,7 @@
 											<a href="#running_total"><li>Running Total</li></a>
 											<a href="#window_alias"><li>Window alias</li></a>
 											<a href="#dates"><li>Dates</li></a>
+											<a href="#cursors"><li>Cursors</li></a>
 										</ul>
 
 										<h5>Also some SQL syntax elements:</h5>
@@ -2643,6 +2644,37 @@ WHERE account = "premium"
 											</li>
 										</ul>
 
+										<h5 id="cursors">Cursors:</h5>
+										<ul>
+											<li>
+<!-- start -->#e600ff
+<pre>
+DECLARE <span style="color:#e600ff">@AccountNumber</span> int
+DECLARE <span style="color:#e600ff">@Payment</span> decimal(18,2)
+
+DECLARE <span style="color:#00ff51">pmt_cursor</span> CURSOR FOR
+SELECT Account_Number, Payment
+FROM [dbo].[Account_Payments]
+
+OPEN <span style="color:#00ff51">pmt_cursor</span>
+<span style="color:#ffee00">FETCH NEXT FROM pmt_cursor INTO</span> <span style="color:#e600ff">@AccountNumber</span>, <span style="color:#e600ff">@Payment</span>
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    UPDATE ##AccountBalance
+    SET Balance = Balance - <span style="color:#e600ff">@Payment</span>
+    WHERE Account_Number = <span style="color:#e600ff">@AccountNumber</span>
+
+    <span style="color:#ffee00">FETCH NEXT FROM pmt_cursor INTO</span> <span style="color:#e600ff">@AccountNumber</span>, <span style="color:#e600ff">@Payment</span>
+END
+
+CLOSE <span style="color:#00ff51">pmt_cursor</span>
+DEALLOCATE <span style="color:#00ff51">pmt_cursor</span>
+</pre>
+<!-- end -->
+												- <span style="font-size:12px;">source: James Oliver</span>
+											</li>
+										</ul>
 									</header>
 								</div>
 							</section>
