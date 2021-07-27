@@ -60,6 +60,7 @@
 											<a href="#query_types"><li>Query types</li></a>
 											<a href="#constraints"><li>Constraints</li></a>
 											<a href="#stored_procedures"><li>Stored procedures</li></a>
+											<a href="#temporary_table"><li>Temporary table</li></a>
 											<a href="#normalization"><li>Normalization</li></a>
 											<a href="#one_to_many-many"><li>One-to-many</li></a>
 											<a href="#many_to_many"><li>Many-to-many</li></a>
@@ -1112,15 +1113,16 @@ WHERE Country='Poland';
 											</li>
 										</ul>
 
-										<h5>Temporary table:</h5>
+										<h5 id="temporary_table">Temporary table:</h5>
 										<ul>
 											<li>Exists temporarily storing a subset of data from a normal table.</li>
 											<li>You filter data once and store the result in a temporary table instead of filtering the data again and again to fetch the subset.</li>
+											<li>Temporary table needs to be named with '#' prefix.</li>
 											<li>We can make use of SELECT INTO to create a temporaty table:
 <!-- start -->
 <pre>
 SELECT name, age, gender
-INTO ##FemaleStudents
+INTO #FemaleStudents
 FROM student
 WHERE gender = 'Female'
 </pre>
@@ -1129,10 +1131,37 @@ WHERE gender = 'Female'
 											<li>We can keep it inside a stored procedure:
 <!-- start -->
 <pre>
-...
+<span style="color:#51e9fa;">CREATE TABLE</span> #MaleStudents(
+  name VARCHAR(50),
+  age INT,
+  gender VARCHAR (50)
+)
+
+<span style="color:#51fa51;">CREATE PROCEDURE</span> spInsertStudent (@Name VARCHAR(50), @Age INT,  @Gender VARCHAR(50))
+AS
+BEGIN
+  INSERT INTO #MaleStudents VALUES (@Name, @Age, @Gender)
+END
+
+<span style="color:#51fa51;">CREATE PROCEDURE</span> spListStudent
+AS
+BEGIN
+  SELECT * FROM #MaleStudents
+  ORDER BY name ASC
+END
+
+<span style="color:#51fa51;">EXECUTE</span> spInsertStudent Bradley, 45, Male
+<span style="color:#51fa51;">EXECUTE</span> spListStudent
 </pre>
 <!-- end -->
+												<span style="font-size:12px;">source: codingsight.com</span><br>
+												- The 1st procedure inserts a new student record with the name: Bradley, age:45, gender: Male.<br>
+												- The 2nd procedure selects all the records from the table in the ascending order of name.
 											</li>
+											<li>When a temporary table created, it gets an unique identifier in order to differentiate between the temporary tables created by different connections.
+													You can perform operations on the temporary table via the same connection that created it.
+											</li>
+											<li>A temporary table is automatically deleted when the connection that created the table is closed.</li>
 										</ul>
 
 										<h5 id="like">LIKE</h5>
