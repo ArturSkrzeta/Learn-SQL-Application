@@ -2815,20 +2815,20 @@ DEALLOCATE <span style="color:#00ff51">pmt_cursor</span>
 													</tr>
 												</table>
 												using UNPIVOT operator:
-	<!-- start -->
-	<pre>
-	SELECT <span style="color:#00ff51">week_ending_date</span>, <span style="color:#ffee00">day_of_week</span>, <span style="color:#e600ff">sales_amount</span>
-	FROM (
-	  SELECT <span style="color:#00ff51">week_enidng_date</span>, sunday, monday, tuesday, wednesday, thursday, friday, saturday
-	  FROM weekly_sales
-	) AS wkly_sls
-	UNPIVOT (
-	  <span style="color:#e600ff">sales_amount</span> FOR <span style="color:#ffee00">day_of_week</span> IN
-	    (sunday, monday, tuesday, wednesday, thursday, friday, saturday)
-	) AS unpivot_sales;
-	</pre>
-	<!-- end -->
-												<span style="font-size:12px;">source: James Oliver</span>
+<!-- start -->
+<pre>
+SELECT <span style="color:#00ff51">week_ending_date</span>, <span style="color:#ffee00">day_of_week</span>, <span style="color:#e600ff">sales_amount</span>
+FROM (
+  SELECT <span style="color:#00ff51">week_enidng_date</span>, <b>sunday, monday, tuesday, wednesday, thursday, friday, saturday</b>
+  FROM weekly_sales
+) AS wkly_sls
+UNPIVOT (
+  <span style="color:#e600ff">sales_amount</span> FOR <span style="color:#ffee00">day_of_week</span> IN
+    (<b>sunday, monday, tuesday, wednesday, thursday, friday, saturday</b>)
+) AS unpivot_sales;
+</pre>
+<!-- end -->
+												<span style="font-size:12px;">source: James Oliver</span><br>
 											</li>
 										</ul>
 
