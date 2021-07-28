@@ -2822,8 +2822,7 @@ DEALLOCATE <span style="color:#00ff51">pmt_cursor</span>
 	  SELECT <span style="color:#00ff51">week_enidng_date</span>, sunday, monday, tuesday, wednesday, thursday, friday, saturday
 	  FROM weekly_sales
 	) AS wkly_sls
-	UNPIVOT
-	  (
+	UNPIVOT (
 	  <span style="color:#e600ff">sales_amount</span> FOR <span style="color:#ffee00">day_of_week</span> IN
 	    (sunday, monday, tuesday, wednesday, thursday, friday, saturday)
 	) AS unpivot_sales;
@@ -2832,7 +2831,7 @@ DEALLOCATE <span style="color:#00ff51">pmt_cursor</span>
 												<span style="font-size:12px;">source: James Oliver</span>
 											</li>
 										</ul>
-										
+
 									</header>
 								</div>
 							</section>
