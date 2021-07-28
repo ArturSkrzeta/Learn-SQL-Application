@@ -110,6 +110,7 @@
 											<a href="#ifnull"><li>IFNULL</li></a>
 											<a href="#cast"><li>CAST</li></a>
 											<a href="#concat"><li>CONCAT</li></a>
+											<a href="#unpivot"><li>UNPIVOT</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -2647,7 +2648,7 @@ WHERE account = "premium"
 										<h5 id="cursors">Cursors:</h5>
 										<ul>
 											<li>
-<!-- start -->#e600ff
+<!-- start -->
 <pre>
 DECLARE <span style="color:#e600ff">@AccountNumber</span> int
 DECLARE <span style="color:#e600ff">@Payment</span> decimal(18,2)
@@ -2709,6 +2710,162 @@ DEALLOCATE <span style="color:#00ff51">pmt_cursor</span>
 										<li>MongoDB Atlas - server connects cloud data storage where I keep question-answer documents that are pulled to application.</li>
 										<li>RactJS - front-end.</li>
 										<li>ExpressJS - web framework that supports building API interfaces.</li>
+									</ul>
+
+									<h5 id="unpivot">UNPIVOT</h5>
+									<ul>
+										<li>Having a pivot like below:
+											<table>
+												<thead>
+													<tr>
+														<td>week_ending_date</td>
+														<td>sunday</td>
+														<td>monday</td>
+														<td>tuesday</td>
+														<td>wednesday</td>
+														<td>thursday</td>
+														<td>friday</td>
+														<td>saturday</td>
+													</tr>
+												</thead>
+												<tr>
+													<td>2020-09-05</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-12</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-19</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-26</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+												</tr>
+											</table>
+											we want to unpivot it like following:
+											<table>
+												<thead>
+													<tr>
+														<td>week_ending_date</td>
+														<td>day_of_week</td>
+														<td>sales_amount</td>
+													</tr>
+												</thead>
+												<tr>
+													<td>2020-09-05</td>
+													<td>sunday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-05</td>
+													<td>monday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-05</td>
+													<td>tuesday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-05</td>
+													<td>wednesday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-05</td>
+													<td>thursday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-05</td>
+													<td>friday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-05</td>
+													<td>saturday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-12</td>
+													<td>sunday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-12</td>
+													<td>monday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-12</td>
+													<td>tuesday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>2020-09-12</td>
+													<td>wednesday</td>
+													<td>...</td>
+												</tr>
+												<tr>
+													<td>...</td>
+													<td>...</td>
+													<td>...</td>
+												</tr>
+											</table>
+											using UNPIVOT operator:
+<!-- start -->
+<pre>
+SELECT <span style="color:#00ff51">week_ending_date</span>, <span style="color:#ffee00">day_of_week</span>, <span style="color:#e600ff">sales_amount</span>
+FROM (
+  SELECT <span style="color:#00ff51">week_enidng_date</span>, sunday, monday, tuesday, wednesday, thursday, friday, saturday
+  FROM weekly_sales
+) AS wkly_sls
+UNPIVOT
+  (
+  <span style="color:#e600ff">sales_amount</span> FOR <span style="color:#ffee00">day_of_week</span> IN
+    (sunday, monday, tuesday, wednesday, thursday, friday, saturday)
+) AS unpivot_sales;
+</pre>
+<!-- end -->
+											<span style="font-size:12px;">source: James Oliver</span>
+										</li>
 									</ul>
 
 								</div>
