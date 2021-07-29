@@ -1346,6 +1346,22 @@ FROM tblSales
 												- all aggreagating functions take all values including deuplicated ones - we can prevent this using DISTINCT keyword,<br>
 												- even though all aggregating functions can accept unique values, keyword DISTINCT is most often used with COUNT().
 											</li>
+											<li>Using COUNT(DISTINCT col_name) to get first/second... max value:
+<!-- start -->
+<pre>
+SELECT name, price
+FROM sales AS A
+WHERE 0 = (
+    SELECT COUNT(DISTINCT price)
+    FROM sales AS B
+    WHERE B.price > A.price
+)
+</pre>
+<!-- end -->
+												- The sub-query in the WHERE clause is being performed for each and every record from the outer query.<br>
+												- For every record from the outer query, there is a check in WHERE clause: if <b>0 equals sub-query outcome</b> then put outer query recod into the result set one at a time.<br>
+												- When we want to get products with second biggest price we would need to replace 0 with 1 in the WHERE clause etc.
+											</li>
 										</ul>
 
 										<h5 id="join">JOIN</h5>
