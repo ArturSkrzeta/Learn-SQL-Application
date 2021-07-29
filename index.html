@@ -1529,7 +1529,7 @@ ON t1.main_col = t2.main_col
 														<td>20</td>
 													</tr>
 												</table>
-												- and joining table to itself
+												and joining table to itself
 <!-- start -->
 <pre>
 SELECT *
@@ -1538,7 +1538,48 @@ JOIN products AS B
 ON A.price > B.price
 </pre>
 <!-- end -->
-												-
+												we get
+												<table>
+													<thead>
+														<tr>
+															<td>name</td>
+															<td>price</td>
+															<td>name</td>
+															<td>price</td>
+														</tr>
+													</thead>
+													<tr>
+														<td>b</td>
+														<td>15</td>
+														<td>a</td>
+														<td>10</td>
+													</tr>
+													<tr>
+														<td>c</td>
+														<td><span style="color: #48c247;">20</span></td>
+														<td>a</td>
+														<td><span style="color: #48c247;">10</td>
+													</tr>
+													<tr>
+														<td>c</td>
+														<td><span style="color: #48c247;">20</span></td>
+														<td>b</td>
+														<td><span style="color: #48c247;">15</span></td>
+													</tr>
+													<tr>
+														<td>d</td>
+														<td><span style="color: #c24747;">20</span></td>
+														<td>a</td>
+														<td><span style="color: #c24747;">10</span></td>
+													</tr>
+													<tr>
+														<td>d</td>
+														<td><span style="color: #c24747;;">20</span></td>
+														<td>b</td>
+														<td><span style="color: #c24747;">15</span></td>
+													</tr>
+												</table>
+												- query with a such condition in JOIN ON, for every record of <b>A table</b> assigns all of the records of <b>B table</b> where price is lower.
 											</li>
 											<li>Multiple conditions in ON caluse:
 <!-- start -->
