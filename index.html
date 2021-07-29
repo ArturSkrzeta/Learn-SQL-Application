@@ -1502,6 +1502,44 @@ ON t1.main_col = t2.main_col
 												- It's simply doing a <b>cross join</b>, which selects all rows from the first table and all rows from the second table and shows as cartesian product, i.e. with all possibilities.<br>
 												- Putting in 1=1 is like saying "1=1 is always true, do don't eliminate anything".
 											</li>
+											<li>Greater/Lower than in the ON condition:
+												<br>
+												- having below table:
+												<table>
+													<thead>
+														<tr>
+															<td>name</td>
+															<td>price</td>
+														</tr>
+													</thead>
+													<tr>
+														<td>a</td>
+														<td>10</td>
+													</tr>
+													<tr>
+														<td>b</td>
+														<td>15</td>
+													</tr>
+													<tr>
+														<td>c</td>
+														<td>20</td>
+													</tr>
+													<tr>
+														<td>d</td>
+														<td>20</td>
+													</tr>
+												</table>
+												- and joining table to itself
+<!-- start -->
+<pre>
+SELECT *
+FROM products AS A
+JOIN products AS B
+ON A.price > B.price
+</pre>
+<!-- end -->
+												-
+											</li>
 											<li>Multiple conditions in ON caluse:
 <!-- start -->
 <pre>
