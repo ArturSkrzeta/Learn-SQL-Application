@@ -133,3 +133,34 @@ LEFT JOIN cities c
 ON p.city = c.id
 WHERE c.city IS NOT NULL
 GROUP BY c.city
+
+-- LAG
+
+SELECT
+	name,
+    price,
+    LAG(price) OVER (ORDER BY price) AS 'prev_val'
+FROM products
+
+-- running total
+
+SELECT
+	name,
+    price,
+    SUM(price) OVER (ORDER BY name) AS 'prev_val'
+FROM products
+
+
+SELECT p1.name, p1.price, SUM(p2.price)
+FROM products p1
+JOIN products p2
+ON p1.name >= p2.name
+GROUP BY p1.name
+
+-- percentage
+SELECT
+	name,
+    price,
+    LAG(price) OVER (ORDER BY price) AS 'prev_val',
+    (price - LAG(price) OVER (ORDER BY price)) * 100  / LAG(price) OVER (ORDER BY price) AS perct_diff
+from products
