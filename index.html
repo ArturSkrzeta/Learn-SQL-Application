@@ -114,6 +114,7 @@
 											<a href="#unpivot"><li>UNPIVOT</li></a>
 											<a href="#truncate"><li>TRUNCATE TABLE</li></a>
 											<a href="#update"><li>UPDATE</li></a>
+											<a href="#any"><li>ANY</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -1288,6 +1289,7 @@ WHERE salary > 10000 AND <span style="background-color:#3976b3;">last_name</span
 												- It simply works like an index in the book where the index key (indexed column name) points to every respective record keeping value from the rest of non-key columns.
 													What is very important, index keys are sorted.<br>
 												- If the table is not indexed then database server needs to go through all records to execute any query.<br>
+												- It's recommended to use at leat one indexed column when groupping wiht GROUP BY.
 												- The most optimal number of indexes put on the same table is not greater than 10.
 											</li>
 											<li>We can also index multiple columns, however it takes very long to set it up for the db engine.</li>
@@ -2313,15 +2315,17 @@ FETCH NEXT 10 ROWS ONLY;
 											<li>The EXISTS operator returns true if the subquery returns one or more records:
 <!-- start -->
 <pre>
-SELECT SupplierName
-FROM Suppliers
+SELECT name
+FROM products p1
 WHERE EXISTS (
-  SELECT ProductName
-  FROM Products
-  WHERE Products.SupplierID = Suppliers.SupplierID AND Price < 20)
+  SELECT 1
+  FROM products p2
+  WHERE p1.name = p2.name AND p2.price > 15
+)
 </pre>
 <!-- end -->
-											- Above query returns TRUE and lists the suppliers with a product price less than 20:
+											- Above query returns TRUE and lists the suppliers with a product price less than 20.<br>
+											- In the sub-query we need to have a reference to the table from the outer query.
 										</ul>
 
 										<h5 id="is_null">IS NULL</h5>
@@ -2960,6 +2964,20 @@ SET price = second_price, second_price = price
 											</li>
 										</ul>
 
+										<h5 id="any">ANY</h5>
+										<ul>
+											<li>ANY can replace IN in the WHERE clause.</li>
+											<li>Operator ANY is true when any of the returned value from an internal sub-query fulfils a WHERE condition.
+<!-- start -->
+<pre>
+
+
+
+</pre>
+<!-- end -->
+											</li>
+										</ul>
+
 										<h5 id="performance">SQL performance</h5>
 										<ul>
 											<li>SELECT specific fields instead of using SELECT *.</li>
@@ -2970,7 +2988,7 @@ SET price = second_price, second_price = price
 											<li>Use LIMIT to sample results.</li>
 											<li>Run your query during off-peak hours.</li><span style="font-size:12px">source: sisense.com</span>
 											<li>COST of joining tables is O(n^2) where <b>n</b> is a number of records. Having joining columns indexed speeds up the process to O(n).
-												 	Having primiar key on a colun it's already indexed but to get better performance we need ot pudt indicies on rest of the foreign key columns.</li>
+												 	Having a primary key on a column it's already indexed but to get better performance we need ot put indicies on rest of the foreign key columns.</li>
 											<li>...</li>
 										</ul>
 
