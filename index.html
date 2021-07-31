@@ -111,6 +111,8 @@
 											<a href="#cast"><li>CAST</li></a>
 											<a href="#concat"><li>CONCAT</li></a>
 											<a href="#unpivot"><li>UNPIVOT</li></a>
+											<a href="#truncate"><li>TRUNCATE TABLE</li></a>
+											<a href="#update"><li>UPDATE</li></a>
 										</ul>
 
 										<h5>Terminology and general aspects</h5>
@@ -2924,6 +2926,33 @@ UNPIVOT (
 </pre>
 <!-- end -->
 												<span style="font-size:12px;">source: James Oliver</span><br>
+											</li>
+										</ul>
+
+										<h5 id="truncate">TRUNCATE TABLE:</h5>
+										<ul>
+											<li>This command <code>TRUNCATE TABLE table_name</code> we clear a table completely, however it doesn't remove it.</li>
+											<li>With TRUNCATE there is no possibility to indicate which records we want to remove.</li>
+										</ul>
+
+										<h5 id="update">UPDATE</h5>
+										<ul>
+											<li>We can put expressions in the SET clause so that we can update a field based on its previous value:
+<!-- start -->
+<pre>
+UPDATE products
+SET price = price * 0.9
+WHERE date_end IS NOT NULL
+</pre>
+<!-- end -->
+											</li>
+											<li>We can also take advatage of the fact the UPDATE statemetn is executed all at once. It means we don't have to keep a temporary variable to update fields by each other:
+<!-- start -->
+<pre>
+UPDATE products
+SET price = second_price, second_price = price
+</pre>
+<!-- end -->
 											</li>
 										</ul>
 
