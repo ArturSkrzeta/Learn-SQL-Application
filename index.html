@@ -152,7 +152,7 @@
 														<td>if there is a central table connected to keys of surrounding tbales then it's designed to keep read output highly efficient.</td>
 													</tr>
 													<tr>
-														<td>For transactional databse.</td>
+														<td>For transactional databs like Salesforce or any ERP.</td>
 														<td>For high scale information delivery.</td>
 													</tr>
 												</table>
@@ -1249,7 +1249,8 @@ WHERE last_name LIKE 'S%';
 												- there is no DISTINCT in view's definition,<br>
 												- there are no expressions in view's definiton,<br>
 												- only one base table is being updatred through a view,<br>
-												- modified values are in line with base table field constraints.
+												- modified values are in line with base table field constraints.<br>
+												In all views that can modify the data we should implement <b>WTH CHECK OPTION</b> clause so that we can prevent users from overriding any changes he has just performed.
 											</li>
 										</ul>
 
