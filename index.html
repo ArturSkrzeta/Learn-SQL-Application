@@ -2970,9 +2970,12 @@ SET price = second_price, second_price = price
 											<li>Operator ANY is true when any of the returned value from an internal sub-query fulfils a WHERE condition.
 <!-- start -->
 <pre>
-
-
-
+SELECT ProductName
+FROM Products
+WHERE ProductID = ANY
+  (SELECT ProductID
+  FROM OrderDetails
+  WHERE Quantity = 10);
 </pre>
 <!-- end -->
 											</li>
