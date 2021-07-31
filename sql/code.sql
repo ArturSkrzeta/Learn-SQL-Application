@@ -161,6 +161,31 @@ GROUP BY p1.name
 SELECT
 	name,
     price,
-    LAG(price) OVER (ORDER BY price) AS 'prev_val',
     (price - LAG(price) OVER (ORDER BY price)) * 100  / LAG(price) OVER (ORDER BY price) AS perct_diff
 from products
+
+
+--  ntile - taking prducts with the middle range or prices
+SELECT name, ntile
+FROM (
+  SELECT
+      name,
+      price,
+      NTILE(3) OVER(ORDER BY price) as 'ntile'
+  FROM products p1)
+WHERE ntile = 2
+
+UPDATE products
+SET price = price * 0.9
+WHERE city IS NULL
+
+
+
+-- EXISTS - in sub-query i need to have a referenc to the table from outer query
+SELECT name
+FROM products p1
+WHERE EXISTS (
+	SELECT 1
+	FROM products p2
+	WHERE p1.name = p2.name AND p2.price > 15
+)
