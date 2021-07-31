@@ -1243,6 +1243,14 @@ WHERE last_name LIKE 'S%';
 												- Views takes very little space to store, since they do not store actual data.<br>
 												- Views can include only certain columns in the table so that only the non-sensitive columns are included and exposed to the end user.
 											</li>
+											<li>We can modify the data with using views but under following conditions:
+												<br>
+												- there is no groupping with GROUP BY in the view,<br>
+												- there is no DISTINCT in view's definition,<br>
+												- there are no expressions in view's definiton,<br>
+												- only one base table is being updatred through a view,<br>
+												- modified values are in line with base table field constraints.
+											</li>
 										</ul>
 
 
