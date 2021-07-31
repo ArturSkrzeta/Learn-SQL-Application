@@ -2968,8 +2968,10 @@ SET price = second_price, second_price = price
 											<li>Use WHERE instead of HAVING to define filters where possible. HAVING should only be used when filtering on an aggregated field.</li>
 											<li>Use wildcards at the end of a phrase only. So, going with 'Art%' is more efficient than '%Art%'.</li>
 											<li>Use LIMIT to sample results.</li>
-											<li>Run your query during off-peak hours.</li>
-											<span style="font-size:12px">source: sisense.com</span>
+											<li>Run your query during off-peak hours.</li><span style="font-size:12px">source: sisense.com</span>
+											<li>COST of joining tables is O(n^2) where <b>n</b> is a number of records. Having joining columns indexed speeds up the process to O(n).
+												 	Having primiar key on a colun it's already indexed but to get better performance we need ot pudt indicies on rest of the foreign key columns.</li>
+											<li>...</li>
 										</ul>
 
 									</header>
