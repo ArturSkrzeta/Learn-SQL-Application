@@ -1815,7 +1815,7 @@ ORDER BY <span style="color:#42eef8">p</span>.date ASC
 </pre>
 <!-- end -->
 												- with CASE WHEN and SUM() we calculate another columns based on the old column: downloads,<br>
-												- the first new one sums all values when condition paying_customer = 'yes',<br>
+												- the first one sums all values when condition paying_customer = 'yes',<br>
 												- the another one sums all values when condition paying_customer = 'no'.
 											</li>
 										</ul>
@@ -2992,16 +2992,39 @@ WHERE ProductID = ANY
 
 										<h5 id="performance">SQL performance</h5>
 										<ul>
-											<li>SELECT specific fields instead of using SELECT *.</li>
+											<li>SELECT specific fields instead of using SELECT * :<br>
+												- returning the columns that we need not slowing donw query performance with unnecessary columns in a result
+											</li>
 											<li>SELECT more fields to create unique records instead of using SELECT DISTINCT.</li>
 											<li>Create joins with INNER JOIN, and not with WHERE clause.</li>
 											<li>Use WHERE instead of HAVING to define filters where possible. HAVING should only be used when filtering on an aggregated field.</li>
 											<li>Use wildcards at the end of a phrase only. So, going with 'Art%' is more efficient than '%Art%'.</li>
 											<li>Use LIMIT to sample results.</li>
-											<li>Run your query during off-peak hours.</li><span style="font-size:12px">source: sisense.com</span>
+											<li>Run your query during off-peak hours.</li>
 											<li>COST of joining tables is O(n^2) where <b>n</b> is a number of records. Having joining columns indexed speeds up the process to O(n).
-												 	Having a primary key on a column it's already indexed but to get better performance we need ot put indicies on rest of the foreign key columns.</li>
-											<li>...</li>
+												 	Having a primary key on a column it's already indexed but to get better performance we need ot put indicies on rest of the foreign key columns.
+											</li>
+											<li>Using indexes espacially on row-base database like sql server:
+												<br>
+												- <b>clustered index</b> - on primary key on record id - table is ordered by primar key like a table of content where a book is ordered by page number
+												- when query is being run and we need to find a specific id then it knows exactly where to look for it right away,<br>
+												- <b>uncluster index</b> - like appendinx in a book - can be set on multiple columns - its more like a reference, it doesn't make a table more structured like in case of clustered index
+												- unclustered index creates those appendix-like reference points
+												- with unclustered index we creae a separate reference guide for the execution plan to go thorugh.
+											</li>
+											<li>Prefiltered data set on column whose values are relevant to the analysis (like specific date, specific regions, maybe specific currency):
+												<br>
+												- narrowing down the size of a data set, <br>
+												- we are wokring with what we really need - we exclyde everythin else that I don't care about speeding up the performance.
+											</li>
+											<li>Using temporary tables and CTEs - organizning query / isolating data set being filtered due to criteria you need for the analysis:
+												<br>
+												- getting focused on a single business logic/requirement per temp table / cte, <br>
+												- temporary tebles are also good for debugging.
+											</li>
+											<li>Surrogate primary key in dimension tables - synthetic, lightweight key being a consecutive integer.</li>
+											<li>Avoiding JOIN and GROUP BY and making window functions instead.</li>
+
 										</ul>
 
 									</header>
